@@ -12,7 +12,7 @@ from api_jd import func,func_QTCK,func_wjg, func_sjzx
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE", 'erp_jd_ods_dim_acctagebalance_cwzx','fdetailid')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD",         'erp_jd_ods_dim_prepayment_cwzx',    'fid')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",        'erp_jd_ods_dim_balance_cwzx',       'fAccountID')
-a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY",   'erp_jd_ods_dim_voucherentry_cwzx',  'fAccountID')
+a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY",   'erp_jd_ods_dim_voucherentry_cwzx',  'fentryid')
 
 
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_othersreceiving_wc_cwzx'  ,'fid')

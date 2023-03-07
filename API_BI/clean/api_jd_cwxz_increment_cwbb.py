@@ -8,8 +8,11 @@ from api_cwzx_append import a_func,a1_func
 from api_jd import func,func_wjg
 from datetime import datetime
 
+
+# 每日增量
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE",  'erp_jd_ods_dim_acctagebalance_cwzx' ,'fdetailid')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY", 'erp_jd_ods_dim_voucherentry_cwzx' ,'fentryid')
+
 
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州游卡文化创意有限公司",'erp_jd_ods_dim_voucher_wc_cwzx'          ,'fVoucherID')
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucher_yc_cwzx'          ,'fVoucherID') 
