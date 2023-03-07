@@ -2,7 +2,7 @@
 # 测试环境: python3.9.6
 
 
-print("\n","START DWD", datetime.now(),"\n")
+
 # *****************************************自定义函数路径*************************************************#
 import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
@@ -12,6 +12,9 @@ import pandas as pd
 import numpy as np
 from datetime import datetime
 from sqlalchemy import create_engine,text
+
+
+print("\n","START DWD", datetime.now(),"\n")
 
 
 # *****************************************连接mysql、sql server*****************************************#

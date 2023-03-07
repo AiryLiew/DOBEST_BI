@@ -9,7 +9,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 from key_tab import savesql,getDictKey,clean,cf
 import pandas as pd
 from datetime import datetime
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 
 
 # *****************************************连接mysql、sql server*****************************************#
@@ -17,26 +17,23 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_purchasecost = pd.read_sql_query('select * from erp_jd_dwd.erp_jd_dwd_dim_purchasecost;', engine)
-customer_name_change = pd.read_sql_query('select * from localdata.customer_name_change;', engine)
-df_cost = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_dim_cost`;',   engine) 
+df_purchasecost = pd.read_sql_query(text('select * from erp_jd_dwd.erp_jd_dwd_dim_purchasecost;'), engine.connect())
+customer_name_change = pd.read_sql_query(text('select * from localdata.customer_name_change;'), engine.connect())
+df_cost = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_dim_cost`;'), engine.connect())
 
-df_consignment = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_dim_consignment_wc_dobest where danjubh <> " "
+df_consignment = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_consignment_wc_dobest where danjubh <> " "
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_consignment_wc_cwzx where danjubh <> " "
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_consignment_ms_cwzx where danjubh <> " ";""",   engine) 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_consignment_ms_cwzx where danjubh <> " ";"""), engine.connect())
 
 
-df_classify = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_classify`;',   engine) 
-df_saleShipping = pd.read_sql_query('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;',   engine) 
-df_wlys = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;',   engine) 
+
+df_saleShipping = pd.read_sql_query(text('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;'), engine.connect())
+df_wlys = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;'), engine.connect())
 
 engine.dispose()   
 
-
-# 物料字典
-dict_cf = dict(zip(df_classify['wuliaobm'],df_classify['wuliaomc']))
 
 
 customer_name_change['客户禁用抬头'] = customer_name_change['客户原抬头'].map(lambda x:x+'（禁用）')
@@ -52,7 +49,7 @@ df_consignment['kehumc'] = df_consignment['kehumc'].map(lambda x :getDictKey(dic
 df_consignment.drop(['refresh_jk','fid'],axis=1,inplace = True)
 
 # 修正物料名称
-df_consignment = cf(df_consignment,df_classify,dict_cf)
+df_consignment = cf(df_consignment)
 
 df_consignment['refresh'] = datetime.now()
 

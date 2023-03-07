@@ -8,7 +8,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
 from key_tab import merge_label,savesql,cf
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 from datetime import datetime
 
 
@@ -17,7 +17,7 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_purchaseReceiving = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+df_purchaseReceiving = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
                                             union all 
                                             select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where danjubh = 'CGRK07101' and dingdandh = ' '
                                             union all
@@ -31,18 +31,13 @@ df_purchaseReceiving = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_
                                             union all 
                                             select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司');""",   engine) 
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司');"""),   engine.connect()) 
 
 
-df_classify = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_classify`;',   engine) 
-df_saleShipping = pd.read_sql_query('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;',   engine) 
-df_wlys = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;',   engine) 
+df_saleShipping = pd.read_sql_query(text('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;'),   engine.connect()) 
+df_wlys = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;'),   engine.connect()) 
 
 engine.dispose()   
-
-
-# 物料字典
-dict_cf = dict(zip(df_classify['wuliaobm'],df_classify['wuliaomc']))
 
 
 # df_purchaseReceiving   采购入库表
@@ -56,7 +51,7 @@ df_purchaseReceiving.reset_index(drop=True,inplace=True)
 df_purchaseReceiving.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
 
 # 修正物料名称
-df_purchaseReceiving = cf(df_purchaseReceiving,df_classify,dict_cf)
+df_purchaseReceiving = cf(df_purchaseReceiving)
 
 df_purchaseReceiving['refresh'] = datetime.now() 
 

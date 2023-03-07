@@ -9,7 +9,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 from key_tab import merge_label,savesql,cf
 import pandas as pd
 from datetime import datetime
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 
 
 # *****************************************连接mysql、sql server*****************************************#
@@ -18,7 +18,7 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_purchaseReturn = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest
+df_purchaseReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_cwzx
                                         union all 
@@ -28,17 +28,12 @@ df_purchaseReturn = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_dim
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_cwzx
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx;""",   engine)  
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx;"""),   engine.connect())  
 
-df_classify = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_classify`;',   engine) 
-df_cost = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_dim_cost`;',   engine) 
-df_wlys = pd.read_sql_query('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;',   engine) 
-df_saleShipping = pd.read_sql_query('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;',   engine) 
+df_cost = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_dim_cost`;'),   engine.connect())  
+df_wlys = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;'),   engine.connect())  
+df_saleShipping = pd.read_sql_query(text('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;'),   engine.connect())  
 engine.dispose()   
-
-
-# 物料字典
-dict_cf = dict(zip(df_classify['wuliaobm'],df_classify['wuliaomc']))
 
 
 # ******************************************清洗表*******************************************************#
@@ -48,7 +43,7 @@ df_purchaseReturn = merge_label(df_purchaseReturn,df_saleShipping, 'shituisl','t
 df_purchaseReturn.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
 
 # 修正物料名称
-df_purchaseReturn = cf(df_purchaseReturn,df_classify,dict_cf)
+df_purchaseReturn = cf(df_purchaseReturn)
 
 df_purchaseReturn['refresh'] = datetime.now()
 

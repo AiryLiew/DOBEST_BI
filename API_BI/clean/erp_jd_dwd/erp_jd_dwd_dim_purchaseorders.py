@@ -43,7 +43,6 @@ df_purchaseOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_od
 engine.dispose()   
 
 
-
 df_voucherpayable['riqi'] = pd.to_datetime(df_voucherpayable['riqi'],format='%Y-%m-%d')
 
 # ******************************************清洗表*******************************************************#

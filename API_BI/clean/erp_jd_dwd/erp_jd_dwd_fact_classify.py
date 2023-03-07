@@ -9,7 +9,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 from key_tab import savesql
 import pandas as pd
 from datetime import datetime
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 import pymysql
 
 # *****************************************连接mysql、sql server*****************************************#
@@ -17,7 +17,7 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_classify = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_dobest
+df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_dobest
                                     union all 
                                     select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_cwzx
                                     union all 
@@ -29,9 +29,9 @@ df_classify = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_fact_clas
                                     union all 
                                     select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx;""",   engine) 
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx;"""),   engine.connect())
 
-df_wuliaofzid   = pd.read_sql_query('select * from erp_jd_dwd.erp_jd_dwd_fact_wuliaofzid;',   engine)
+df_wuliaofzid   = pd.read_sql_query(text('select * from erp_jd_dwd.erp_jd_dwd_fact_wuliaofzid;'),   engine.connect())
 
 engine.dispose()   
 
