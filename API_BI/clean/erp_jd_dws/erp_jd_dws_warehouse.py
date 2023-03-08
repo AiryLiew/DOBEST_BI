@@ -7,7 +7,7 @@ import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
 import pandas as pd
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 from datetime import datetime
 from key_tab import savesql
 
@@ -20,74 +20,87 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 # *****************************************取数据********************************************************#
 
 
-df_warehouse= pd.read_sql_query("""select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(pankuisl,SIGNED) shipping,company,case when wuliaomc is not null then '盘亏单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_inventoryloss where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(pankuisl,SIGNED) shipping,company,case when wuliaomc is not null then '盘亏单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_inventoryloss where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(panyingsl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '盘盈单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_inventoryprofit where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,cangkumc,cangkuid,CONVERT(panyingsl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '盘盈单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_inventoryprofit where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shishousl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '其他入库单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_othersreceiving where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shishousl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '其他入库单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_othersreceiving where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(shifasl,SIGNED) shipping,company,case when wuliaomc is not null then '其他出库单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_othersshipping where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(shifasl,SIGNED) shipping,company,case when wuliaomc is not null then '其他出库单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_othersshipping where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and shenhezt = '已审核'
 
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-shifasl,SIGNED) shipping,company,case when wuliaomc is not null then '销售退货单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_salereturn where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-shifasl,SIGNED) shipping,company,case when wuliaomc is not null then '销售退货单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_salereturn where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and shenhezt = '已审核'
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(shifasl,SIGNED) shipping,company,case when wuliaomc is not null then '销售出库单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_saleshipping where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
-
-                                    union all
-                                    select STR_TO_DATE(rukurq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shuliang,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '组装拆卸单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_assemble where shiwulx in ('组装','拆卸子件') and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
-                                    union all 
-                                    select STR_TO_DATE(rukurq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(shuliang,SIGNED) shipping,company,case when wuliaomc is not null then '组装拆卸单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_assemble where shiwulx in ('拆卸','组装子件') and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(shifasl,SIGNED) shipping,company,case when wuliaomc is not null then '销售出库单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_saleshipping where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and shenhezt = '已审核'
 
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(receiving,SIGNED) receiving,CONVERT(shipping,SIGNED) shipping,company,`table` from erp_jd_dwd.erp_jd_dwd_dim_beginninginventory
+                                    select rukurq riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shuliang,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '组装拆卸单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_assemble where shiwulx in ('组装','拆卸子件') and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') 
+                                    union all 
+                                    select rukurq riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(shuliang,SIGNED) shipping,company,case when wuliaomc is not null then '组装拆卸单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_assemble where shiwulx in ('拆卸','组装子件') and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') 
+
 
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaoruck cangkumc,diaoruckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-diaobosl,SIGNED) shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaoruck cangkumc,diaoruckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-diaobosl,SIGNED) shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(diaobosl,SIGNED) shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(diaobosl,SIGNED) shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
 
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
 
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(diaochusl,SIGNED) receiving,CONVERT(diaochusl,SIGNED) shipping,company,case when wuliaomc is not null then '分布式调出单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedout where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(diaochusl,SIGNED) receiving,CONVERT(diaochusl,SIGNED) shipping,company,case when wuliaomc is not null then '分布式调出单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedout where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
 
                                     union all
-                                    select STR_TO_DATE(tuiliaorq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                
+                                    select 
+                                    a.`riqi`,
+                                    case when b.wuliaomc is null then a.wuliaomc else b.wuliaomc end wuliaomc,
+                                    a.cangkumc,
+                                    a.cangkuid,
+                                    a.receiving,
+                                    a.shipping,
+                                    a.company,
+                                    a.`table` 
+                                    from (
+                                    select tuiliaorq riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(tuiliaorq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select tuiliaorq riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(tuiliaorq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_ms_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select tuiliaorq riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_ms_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(tuiliaorq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_xmgs where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select tuiliaorq riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_xmgs where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(tuiliaorq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select tuiliaorq riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(tuiliaorq,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx  where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select tuiliaorq riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(-shituisl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购退料单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx  where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
 
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_xmgs where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_xmgs where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
-                                    select STR_TO_DATE(riqi,'%%Y-%%m-%%d') riqi,wuliaomc,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签');""",   engine) 
-
-
-
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    
+                                    union all
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(receiving,SIGNED) receiving,CONVERT(shipping,SIGNED) shipping,company,`table` from erp_jd_dwd.erp_jd_dwd_dim_beginninginventory
+                                    ) a
+                                    LEFT JOIN(
+                                    SELECT wuliaobm,wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_fact_classify`
+                                    ) b on a.wuliaobm = b.wuliaobm;"""), engine.connect())
 engine.dispose()
 
 

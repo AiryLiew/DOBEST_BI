@@ -41,8 +41,5 @@ sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\wlgzs_hxz
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\classify_year.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\dszc_key_product_year.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\dlzy_inventory.sql')
-# sqlrun(r'C:\Users\liujin02\Documents\Navicat\MySQL\Servers\localhost_3306\www_bi_ads\dlzy_summary.sql')
-# sqlrun(r'C:\Users\liujin02\Documents\Navicat\MySQL\Servers\localhost_3306\www_bi_ads\dlzy_summary_now.sql')
-
 c.close()
 conn.close()
