@@ -34,7 +34,7 @@ select b.kehumc `客户名称`  ,
 b.riqi `最近一次下单日期`,
 b.订单数量,
 b.订单金额,
-case when b.riqi>=date_sub(current_date(),interval 270 day) then '有效' else '流失' end `是否有效客户1`
+case when b.riqi>=date_sub(current_date(),interval 240 day) then '有效' else '流失' end `是否有效客户1`
 from(
 select a.* ,
 rank() over(partition by a.kehumc order by a.riqi desc) 排名
@@ -58,7 +58,7 @@ select b.kehumc `客户名称`  ,
 b.riqi `上一次下单日期`,
 b.订单数量,
 b.订单金额,
-case when b.riqi>=date_sub(current_date(),interval 540 day) then '有效' else '流失' end `是否有效客户2`
+case when b.riqi>=date_sub(current_date(),interval 480 day) then '有效' else '流失' end `是否有效客户2`
 from(
 select a.* ,
 rank() over(partition by a.kehumc order by a.riqi desc) 排名
