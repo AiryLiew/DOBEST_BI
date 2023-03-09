@@ -8,8 +8,8 @@
 class pan:
 
     # 托盘规格
-    L = 120
-    W = 100
+    L = 125
+    W = 105
     S = L*W
 
 
@@ -38,10 +38,10 @@ class pan:
         import pulp
 
         MyProbLP = pulp.LpProblem("LPProbDemo1", sense=pulp.LpMinimize)  
-        m = pulp.LpVariable('m', lowBound=1, upBound=20, cat='Integer') 
-        n = pulp.LpVariable('n', lowBound=1, upBound=20, cat='Integer') 
-        p = pulp.LpVariable('p', lowBound=1, upBound=20, cat='Integer') 
-        q = pulp.LpVariable('q', lowBound=1, upBound=20, cat='Integer') 
+        m = pulp.LpVariable('m', lowBound=1, upBound=20, cat=pulp.LpInteger) 
+        n = pulp.LpVariable('n', lowBound=1, upBound=20, cat=pulp.LpInteger) 
+        p = pulp.LpVariable('p', lowBound=1, upBound=20, cat=pulp.LpInteger) 
+        q = pulp.LpVariable('q', lowBound=1, upBound=20, cat=pulp.LpInteger) 
         MyProbLP += m*self.l-q*self.w+p*self.l-n*self.w	# 设置目标函数
         MyProbLP += (q*self.w+m*self.l <= self.L)  
         MyProbLP += (n*self.w+p*self.l <= self.W)  
@@ -55,8 +55,10 @@ class pan:
         q = MyProbLP.variables()[3].varValue
 
         text = 'A区行：'+str(n)+'，列：'+str(m)+'；B区行：'+str(p)+'，列：'+str(q)
-
-        return int(n*m*2+p*q*2),text
+        if any(i for i in [n,m,q,p] if i not in [1,2,3,4,5,6,7,8,9,10,11,12,13]) :
+            return 0,'无'
+        else:
+            return n*m*2+p*q*2,text
 
 
     # 定义变量为箱规长宽，D摆放
@@ -159,6 +161,7 @@ from sqlalchemy import create_engine,text
 
 # *****************************************连接mysql、sql server*****************************************#
 engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306'))  
+df_ck = pd.read_excel(r'C:\Users\liujin02\Desktop\邮件报表\托盘.xlsx',sheet_name='仓库托盘')
 
 # 去掉残次品
 df_kc = pd.read_sql_query(text(
@@ -201,12 +204,27 @@ import math
 
 
 # 托盘限高，可改动
-df_part1.loc[:,'限高'] = 160
+df_part1.loc[:,'限高'] = 180
 
 df_part1['层数'] = df_part1['限高']/df_part1['gao']
 df_part1['层数'] = df_part1['层数'].map(lambda x:int(x))
 
-df_part1['托盘数'] = df_part1['箱数']/(df_part1['可放置数量']*df_part1['层数'])
+df_part1 = pd.merge(df_part1,df_ck,on=['wuliaomc'],how='left')
+df_part1.fillna(0,inplace = True)
+
+lista = []
+listb = []
+for i in range(len(df_part1)):
+    if df_part1['系统产品箱数/托盘'][i]<df_part1['可放置数量'][i]*df_part1['层数'][i]:
+        lista.append('摆放方式可调整')
+        listb.append(df_part1['可放置数量'][i]*df_part1['层数'][i])
+    else:
+        lista.append('无需调整')
+        listb.append(df_part1['系统产品箱数/托盘'][i])
+
+
+df_part1['产品箱数/托盘'] = pd.DataFrame(listb)
+df_part1['托盘数'] = df_part1['箱数']/df_part1['产品箱数/托盘']
 
 # 余量产品可拼在一个托盘
 listc = []
@@ -221,6 +239,8 @@ df_part1['是否可拼托盘'] = pd.DataFrame(listc)
 
 df_part1['托盘数'] = df_part1['托盘数'].map(lambda x:math.ceil(x))
 df_part1['平面面积'] = df_part1['chang']*df_part1['kuan']
+
+
 
 
 df_part1.to_sql('inventory_pan', engine, schema='www_bi_ads', if_exists='replace',index=False) 
