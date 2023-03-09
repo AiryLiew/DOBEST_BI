@@ -222,7 +222,7 @@ for i in range(len(df_part1)):
         lista.append('无需调整')
         listb.append(df_part1['系统产品箱数/托盘'][i])
 
-
+df_part1['摆放是否调整'] = pd.DataFrame(lista)
 df_part1['产品箱数/托盘'] = pd.DataFrame(listb)
 df_part1['托盘数'] = df_part1['箱数']/df_part1['产品箱数/托盘']
 
