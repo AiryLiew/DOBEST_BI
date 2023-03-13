@@ -13,7 +13,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5):
     from datetime import datetime
     
     engine = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306', 'erp_jd_ods'))
-    # conn = create_engine("mssql+pymssql://{}:{}@{}:{}/{}".format('sa', '123456', '10.242.21.1', '1433', 'erp_jd_ods'))
+    # conn = create_engine("mssql+pymssql://{}:{}@{}:{}/{}".format('sa', '123456', '10.242.32.59', '1433', 'erp_jd_ods'))
 
     method = "POST"
     headers = None

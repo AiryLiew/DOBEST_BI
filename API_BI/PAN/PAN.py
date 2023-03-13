@@ -173,7 +173,8 @@ SELECT classify,	classify_1,	classify_2,	wuliaomc,chang,	kuan,	gao,	danxiangbzsl
 FROM erp_jd_dwd.erp_jd_dwd_fact_classify
 where chang <> 0 and danxiangbzsl<>0
 ) a on a.wuliaomc = b.wuliaomc
-where cangkumc not like '%%残次%%'
+where cangkumc like '%%下沙%%'
+and cangkumc not like '%%残次%%'
 group by wuliaomc 
 having sum(inventory)>0
 ;"""), engine.connect())

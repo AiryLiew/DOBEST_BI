@@ -13,7 +13,7 @@ def api_request(method, url, params=None, headers=None):
     if method == 'POST':
         return requests.post(url=url, data=params, headers=headers)
     elif method == 'GET':
-        return requests.get(url=url, params=params, headers=headers)
+        return requests.get(url=url, params=params, headers=headers, timeout=5)
     else:
         return None
 
