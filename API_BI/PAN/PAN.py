@@ -8,7 +8,7 @@
 class pan:
 
     # 托盘规格
-    L = 125
+    L = 126
     W = 105
     S = L*W
 
@@ -197,18 +197,23 @@ for i in range(len(df_part1)):
 
 df_part1['可放置数量'] = pd.DataFrame(listx1)
 df_part1['摆放方式'] = pd.DataFrame(listx2)
-df_part1['摆放方式（数字）'] = pd.DataFrame(listx3)
+df_part1['建议摆放方式'] = pd.DataFrame(listx3)
 
 
 
 import math
 
 
-# 托盘限高，可改动
-df_part1.loc[:,'限高'] = 180
+# 仓库限高
+a = 180
+# 托盘高度
+b = 15 
+df_part1.loc[:,'限高'] = a-b
 
 df_part1['层数'] = df_part1['限高']/df_part1['gao']
 df_part1['层数'] = df_part1['层数'].map(lambda x:int(x))
+
+df_part1['理论产品箱数/托盘'] = df_part1['可放置数量']*df_part1['层数']
 
 df_part1 = pd.merge(df_part1,df_ck,on=['wuliaomc'],how='left')
 df_part1.fillna(0,inplace = True)
@@ -216,9 +221,12 @@ df_part1.fillna(0,inplace = True)
 lista = []
 listb = []
 for i in range(len(df_part1)):
-    if df_part1['系统产品箱数/托盘'][i]<df_part1['可放置数量'][i]*df_part1['层数'][i]:
+    if df_part1['系统产品箱数/托盘'][i]<df_part1['理论产品箱数/托盘'][i]:
         lista.append('摆放方式可调整')
-        listb.append(df_part1['可放置数量'][i]*df_part1['层数'][i])
+        listb.append(df_part1['理论产品箱数/托盘'][i])
+    elif df_part1['系统产品箱数/托盘'][i]>df_part1['理论产品箱数/托盘'][i]:
+        lista.append('待确认')
+        listb.append(df_part1['系统产品箱数/托盘'][i])
     else:
         lista.append('无需调整')
         listb.append(df_part1['系统产品箱数/托盘'][i])
