@@ -11,7 +11,6 @@ from api_jd import func,func_QTCK,func_wjg, func_sjzx
 # 每日增量
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE", 'erp_jd_ods_dim_acctagebalance_cwzx','fdetailid')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD",         'erp_jd_ods_dim_prepayment_cwzx',    'fid')
-a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",        'erp_jd_ods_dim_balance_cwzx',       'fAccountID')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY",   'erp_jd_ods_dim_voucherentry_cwzx',  'fentryid')
 
 
@@ -111,19 +110,9 @@ func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_j
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMDETAILV',"财务数据中心",'erp_jd_ods_fact_flexitemdetailv_cwzx')
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTL',"财务数据中心",'erp_jd_ods_fact_accountl_cwzx')
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTBOOKL',"财务数据中心",'erp_jd_ods_fact_accountbookl_cwzx')
+
 # s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY", 'erp_jd_ods_dim_voucherentry_cwzx')
-
-
-
-
-
-
-
-
-
-
-
-# s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",  'erp_jd_ods_dim_balance_cwzx')
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",  'erp_jd_ods_dim_balance_cwzx')
 # s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD",  'erp_jd_ods_dim_prepayment_cwzx')
 
 # func_sjzx('http://10.225.137.124:7772/ZyyxDSS/GetTBASASSISTANTDATAENTRY',"财务数据中心",'erp_jd_ods_fact_assistantdataentry_cwzx')

@@ -90,7 +90,7 @@ df_purchaseOrders['hanshuidj_new'] = pd.DataFrame(list_hsdj)
 df_purchaseOrders['danjubh_1'] = df_purchaseOrders['danjubh'].map(lambda x:x if str(x)[-2:]!='-1' else str(x)[:-2])
 
 for i in range(len(df_purchaseOrders)):
-    if df_purchaseOrders['chuangjianrmc'][i] not in ['聂挺','张则璐']  and df_purchaseOrders[(df_purchaseOrders['danjubh_1'] == df_purchaseOrders['danjubh_1'][i])&(df_purchaseOrders['wuliaomc'] == df_purchaseOrders['wuliaomc'][i])]['danjubh_1'].count()>1:
+    if df_purchaseOrders['chuangjianrmc'][i] not in ['聂挺','张则璐']  and df_purchaseOrders[(df_purchaseOrders['danjubh_1'] == df_purchaseOrders['danjubh_1'][i])&(df_purchaseOrders['wuliaomc'] == df_purchaseOrders['wuliaomc'][i])]['danjubh_1'].count()>1 and df_purchaseOrders['riqi'][i]<datetime(2023,1,1):
         df_purchaseOrders.loc[i,'shengyurksl_new'] = 0
     elif df_purchaseOrders['gongyingsmc'][i] in ['杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海飞之火电竞信息科技有限公司']:
         df_purchaseOrders.loc[i,'shengyurksl_new'] = 0
