@@ -163,6 +163,13 @@ from sqlalchemy import create_engine,text
 engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306'))  
 df_ck = pd.read_excel(r'C:\Users\liujin02\Desktop\邮件报表\托盘.xlsx',sheet_name='仓库托盘')
 
+
+df = pd.read_csv(r'C:\Users\liujin02\Desktop\库存快照_20230320114831.csv',encoding='gbk')
+df['货物属性6'].fillna(df['货物属性4'],inplace=True)
+df.to_sql('inventory_pan_ck', engine, schema='localdata', if_exists='replace',index=False) 
+
+
+
 # 去掉残次品
 df_kc = pd.read_sql_query(text(
 """SELECT b.wuliaomc ,sum(b.inventory) 库存, 

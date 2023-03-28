@@ -42,16 +42,18 @@ engine.dispose()
 
 # df_purchaseReceiving   采购入库表
 # ----------------------------------------------------------------------------------------------------- #
+# 修正物料名称
+df_purchaseReceiving = cf(df_purchaseReceiving)
+
 df_purchaseReceiving['shifasl'] = df_purchaseReceiving['shifasl'].astype(float)
-df_purchaseReceiving = merge_label(df_purchaseReceiving,df_saleShipping, 'shifasl','riqi',df_wlys)
+df_purchaseReceiving = merge_label(df_purchaseReceiving, df_saleShipping['wuliaomc'].to_list(), 'shifasl','riqi',df_wlys)
 # 空物料名称增补
 df_purchaseReceiving['wlmc_all'].fillna(df_purchaseReceiving['wuliaomc'],inplace=True)
 
 df_purchaseReceiving.reset_index(drop=True,inplace=True)
 df_purchaseReceiving.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
 
-# 修正物料名称
-df_purchaseReceiving = cf(df_purchaseReceiving)
+
 
 df_purchaseReceiving['refresh'] = datetime.now() 
 

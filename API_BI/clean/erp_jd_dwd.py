@@ -207,6 +207,9 @@ print('df_saleShipping:',datetime.now())
 
 # df_purchaseOrders      采购订单表（新物料名称wlmc_all匹配为销售物料名称）
 # ----------------------------------------------------------------------------------------------------- #
+# 修正物料名称
+df_purchaseOrders = cf(df_purchaseOrders)
+
 # 由账套更换引起的重复单据去除
 # 核心桌游采购单价变动，以财务聂挺的金额为准
 list_dj = df_purchaseOrders[(df_purchaseOrders['chuangjianrmc']=='聂挺')&(df_purchaseOrders['wuliaofzid']=='030801')]['danjubh'].to_list()
@@ -340,6 +343,9 @@ df_purchasecost.rename(columns={0:'cost'},inplace=True)
 
 # df_purchaseReceiving   采购入库表
 # ----------------------------------------------------------------------------------------------------- #
+# 修正物料名称
+df_purchaseReceiving = cf(df_purchaseReceiving)
+
 df_purchaseReceiving['shifasl'] = df_purchaseReceiving['shifasl'].astype(float)
 df_purchaseReceiving = merge_label(df_purchaseReceiving,df_saleShipping['wuliaomc'].drop_duplicates().to_list(), 'shifasl','riqi',df_wlys)
 # 空物料名称增补
@@ -348,19 +354,18 @@ df_purchaseReceiving['wlmc_all'].fillna(df_purchaseReceiving['wuliaomc'],inplace
 df_purchaseReceiving.reset_index(drop=True,inplace=True)
 df_purchaseReceiving.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
 
-# 修正物料名称
-df_purchaseReceiving = cf(df_purchaseReceiving)
 
 print('df_purchaseReceiving:',datetime.now())
 
 
 # df_purchaseReturn   采购退料表
 # ----------------------------------------------------------------------------------------------------- #
+# 修正物料名称
+df_purchaseReturn = cf(df_purchaseReturn)
+
 df_purchaseReturn = merge_label(df_purchaseReturn,df_saleShipping['wuliaomc'].drop_duplicates().to_list(), 'shituisl','tuiliaorq',df_wlys)
 df_purchaseReturn.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
 
-# 修正物料名称
-df_purchaseReturn = cf(df_purchaseReturn)
 
 print('df_purchaseReturn:',datetime.now())
 
