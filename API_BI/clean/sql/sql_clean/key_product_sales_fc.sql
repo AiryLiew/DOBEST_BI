@@ -18,8 +18,9 @@ SELECT b.`产品大类` ,
   sum(case when cangkumc like '%-电商%' then a.jiashuihj end) `电商仓销售额` ,
   sum(case when cangkumc like '%泳淳%' then a.shifasl end) `泳淳电商仓销量` ,
   sum(case when cangkumc like '%泳淳%' then a.jiashuihj end) `泳淳电商仓销售额` ,
-  sum(a.shifasl) `总销量` ,
+  sum(case when a.jiashuihj<>0 then a.shifasl end) `总销量` ,
   sum(a.jiashuihj) `总销售额` ,
+  sum(case when a.jiashuihj=0 then a.shifasl end) `赠品数量` ,
   sum(a.profit) `毛利` 
 FROM erp_jd_dwd.erp_jd_dwd_dim_saleshipping a
 
