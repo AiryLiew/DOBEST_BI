@@ -155,6 +155,7 @@ class pan:
 # 调数据源
 import pandas as pd
 import math
+import os
 from datetime import datetime
 from sqlalchemy import create_engine,text
 
@@ -164,8 +165,23 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 df_ck = pd.read_excel(r'C:\Users\liujin02\Desktop\邮件报表\托盘.xlsx',sheet_name='仓库托盘')
 
 
-df = pd.read_csv(r'C:\Users\liujin02\Desktop\库存快照_20230320114831.csv',encoding='gbk')
+
+#设置文件夹路径，获取文件夹下的所有文件名
+path = r'C:\Users\liujin02\Desktop\邮件报表\库存快照'
+
+#取表
+def read_sheet(file_path):
+    dfs = []
+    for file in os.listdir(file_path):
+        file_data = pd.read_csv(file_path + "\\" + file,encoding='gbk')
+        dfs.append(file_data)
+    return pd.concat(dfs, sort=False)
+
+df = read_sheet(path)
+
 df['货物属性6'].fillna(df['货物属性4'],inplace=True)
+df.dropna(subset=['库位'],inplace=True)
+df['区域'] = df['库位'].map(lambda x:'托盘' if len(x)==8 else '货架')
 df.to_sql('inventory_pan_ck', engine, schema='localdata', if_exists='replace',index=False) 
 
 
