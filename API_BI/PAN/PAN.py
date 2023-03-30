@@ -244,15 +244,15 @@ df_part1.fillna(0,inplace = True)
 lista = []
 listb = []
 for i in range(len(df_part1)):
-    if df_part1['系统产品箱数/托盘'][i]<df_part1['理论产品箱数/托盘'][i]:
+    if df_part1['系统产品箱数/托盘'][i]<df_part1['理论产品箱数/托盘'][i] and df_part1['系统产品箱数/托盘'][i]!=0:
         lista.append('摆放方式可调整')
-        listb.append(df_part1['理论产品箱数/托盘'][i])
+        listb.append(df_part1['系统产品箱数/托盘'][i])
     elif df_part1['系统产品箱数/托盘'][i]>df_part1['理论产品箱数/托盘'][i]:
         lista.append('待确认')
         listb.append(df_part1['系统产品箱数/托盘'][i])
     else:
         lista.append('无需调整')
-        listb.append(df_part1['系统产品箱数/托盘'][i])
+        listb.append(df_part1['理论产品箱数/托盘'][i])
 
 df_part1['摆放是否调整'] = pd.DataFrame(lista)
 df_part1['产品箱数/托盘'] = pd.DataFrame(listb)
