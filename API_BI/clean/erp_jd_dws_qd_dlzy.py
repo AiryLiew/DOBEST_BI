@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
 # 测试环境: python3.10.1
 
-print("\n","START qd_dlzy", datetime.now(),"\n")
-
 
 import pandas as pd
 import math
 import numpy as np
 from sqlalchemy import create_engine,text
 from datetime import datetime 
+
+print("\n","START qd_dlzy", datetime.now(),"\n")
 
 
 # *****************************************连接mysql、sql server*****************************************#
