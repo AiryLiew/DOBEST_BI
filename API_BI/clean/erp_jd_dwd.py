@@ -183,6 +183,8 @@ df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
 df_classify.sort_values(['wuliaofzid'],ascending=False ,inplace=True)
 df_classify = df_classify[df_classify['wuliaobm'].duplicated()==False]
 df_classify.drop(['refresh_jk','fid'],axis=1,inplace = True)
+df_classify['classify_2'].fillna(df_classify['classify_1'],inplace=True)
+
 # 核心桌游停用
 df_classify = df_classify[df_classify['wuliaofzid']!='0107']
 

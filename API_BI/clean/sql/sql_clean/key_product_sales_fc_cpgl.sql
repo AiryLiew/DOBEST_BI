@@ -102,5 +102,5 @@ SELECT `产品大类`,
        ifnull(`赠品数量`,0) `赠品数量`
 FROM erp_jd_ads.key_product_sales_fc
 where `产品名称`  like '扑克三国杀%'
-and `总销售额`>0
+and `总销售额`<>0
 );
