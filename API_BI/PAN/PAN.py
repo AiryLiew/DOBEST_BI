@@ -202,6 +202,34 @@ group by wuliaomc
 having sum(inventory)>0
 ;"""), engine.connect())
 
+
+# TODO 临时增加本地箱规表，待系统里全部录入后作废此段代码
+# ****************************************************************************************************
+
+df_ls = pd.read_excel(r'C:\Users\liujin02\Desktop\邮件报表\核心桌游箱规.xlsx')
+
+df_cf = pd.read_sql_query(text(
+"""
+SELECT b.wuliaomc ,sum(b.inventory) 库存, 
+a.classify,	a.classify_1,	a.classify_2, a.chang,	a.kuan,	a.gao,	a.danxiangbzsl 
+FROM erp_jd_dws.erp_jd_dws_warehouse b
+left join (
+SELECT classify,	classify_1,	classify_2,	wuliaomc,chang,	kuan,	gao,	danxiangbzsl 
+FROM erp_jd_dwd.erp_jd_dwd_fact_classify
+) a on a.wuliaomc = b.wuliaomc
+where cangkumc like '%%下沙%%'
+and cangkumc not like '%%残次%%'
+group by wuliaomc 
+having sum(inventory)>0
+;"""), engine.connect())
+
+df_ls = pd.merge(df_ls[['物料名称','装箱数','长','宽','高']].rename(columns={'物料名称':'wuliaomc','长':'chang','宽':'kuan','高':'gao','装箱数':'danxiangbzsl'}),df_cf[['wuliaomc','库存','classify','classify_1','classify_2']],on=['wuliaomc'],how='left')
+df_kc = pd.concat([df_kc,df_ls],ignore_index=True)
+
+# ****************************************************************************************************
+
+
+
 df_part1 = df_kc.dropna().reset_index(drop=True)
 
 df_part1['箱数'] = df_part1['库存']/df_part1['danxiangbzsl']
