@@ -7,7 +7,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 from api_jd import *
 
 # func("http://10.225.137.124:7772/ZyyxDSS/GetKeHu",       "DOBEST",'erp_jd_ods_fact_client_wc_dobest',          'erp_jd_ods_fact_client_yc_dobest',          'erp_jd_ods_fact_client_ms_dobest'    ,    'erp_jd_ods_fact_client_kyk_dobest' ,    'erp_jd_ods_fact_client_kyok_dobest'  )
-# func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiao",     "DOBEST",'erp_jd_ods_fact_classify_wc_dobest',        'erp_jd_ods_fact_classify_yc_dobest',        'erp_jd_ods_fact_classify_ms_dobest'    ,        'erp_jd_ods_fact_classify_kyk_dobest'   ,        'erp_jd_ods_fact_classify_kyok_dobest'   )
+func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiao",     "DOBEST",'erp_jd_ods_fact_classify_wc_dobest',        'erp_jd_ods_fact_classify_yc_dobest',        'erp_jd_ods_fact_classify_ms_dobest'    ,        'erp_jd_ods_fact_classify_kyk_dobest'   ,        'erp_jd_ods_fact_classify_kyok_dobest'   )
 # func("http://10.225.137.124:7772/ZyyxDSS/GetPanKuiD",    "DOBEST",'erp_jd_ods_dim_inventoryloss_wc_dobest',    'erp_jd_ods_dim_inventoryloss_yc_dobest',    'erp_jd_ods_dim_inventoryloss_ms_dobest' ,    'erp_jd_ods_dim_inventoryloss_kyk_dobest',    'erp_jd_ods_dim_inventoryloss_kyok_dobest'   )
 # func("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "DOBEST",'erp_jd_ods_dim_othersreceiving_wc_dobest',  'erp_jd_ods_dim_othersreceiving_yc_dobest',  'erp_jd_ods_dim_othersreceiving_ms_dobest' ,  'erp_jd_ods_dim_othersreceiving_kyk_dobest',  'erp_jd_ods_dim_othersreceiving_kyok_dobest' )
 # func("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouDD",   "DOBEST",'erp_jd_ods_dim_purchaseorders_wc_dobest',   'erp_jd_ods_dim_purchaseorders_yc_dobest',   'erp_jd_ods_dim_purchaseorders_ms_dobest'   ,   'erp_jd_ods_dim_purchaseorders_kyk_dobest',   'erp_jd_ods_dim_purchaseorders_kyok_dobest'  )
@@ -30,7 +30,7 @@ from api_jd import *
 
 # func_QTCK("DOBEST",'erp_jd_ods_dim_othersshipping_wc_dobest',   'erp_jd_ods_dim_othersshipping_yc_dobest',   'erp_jd_ods_dim_othersshipping_ms_dobest'  ,       'erp_jd_ods_dim_othersshipping_kyk_dobest'  ,       'erp_jd_ods_dim_othersshipping_kyok_dobest' )
 
-func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD',"DOBEST",'erp_jd_ods_dim_prepayment_dobest')
+# func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD',"DOBEST",'erp_jd_ods_dim_prepayment_dobest')
 # func_wjg("http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE",   "DOBEST",'erp_jd_ods_dim_acctagebalance_dobest' )
 # func_wjg("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",   "DOBEST",'erp_jd_ods_dim_balance_dobest' )
 # func_wjg("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY",   "DOBEST",'erp_jd_ods_dim_voucherentry_dobest' )
@@ -46,7 +46,7 @@ func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD',"DOBEST",'erp_jd_ods_
 
 
 # func("http://10.225.137.124:7772/ZyyxDSS/GetKeHu",       "项目公司数据中心",'erp_jd_ods_fact_client_wc_xmgs',          'erp_jd_ods_fact_client_yc_xmgs',          'erp_jd_ods_fact_client_ms_xmgs'        ,'erp_jd_ods_fact_client_kyk_xmgs'   ,'erp_jd_ods_fact_client_kyok_xmgs'  )
-# func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiao",     "项目公司数据中心",'erp_jd_ods_fact_classify_wc_xmgs',        'erp_jd_ods_fact_classify_yc_xmgs',        'erp_jd_ods_fact_classify_ms_xmgs'  ,        'erp_jd_ods_fact_classify_kyk_xmgs'   ,        'erp_jd_ods_fact_classify_kyok_xmgs'       )
+func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiao",     "项目公司数据中心",'erp_jd_ods_fact_classify_wc_xmgs',        'erp_jd_ods_fact_classify_yc_xmgs',        'erp_jd_ods_fact_classify_ms_xmgs'  ,        'erp_jd_ods_fact_classify_kyk_xmgs'   ,        'erp_jd_ods_fact_classify_kyok_xmgs'       )
 # func("http://10.225.137.124:7772/ZyyxDSS/GetPanKuiD",    "项目公司数据中心",'erp_jd_ods_dim_inventoryloss_wc_xmgs',    'erp_jd_ods_dim_inventoryloss_yc_xmgs',    'erp_jd_ods_dim_inventoryloss_ms_xmgs'  ,    'erp_jd_ods_dim_inventoryloss_kyk_xmgs' ,    'erp_jd_ods_dim_inventoryloss_kyok_xmgs'   )
 # func("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "项目公司数据中心",'erp_jd_ods_dim_othersreceiving_wc_xmgs',  'erp_jd_ods_dim_othersreceiving_yc_xmgs',  'erp_jd_ods_dim_othersreceiving_ms_xmgs' ,  'erp_jd_ods_dim_othersreceiving_kyk_xmgs',  'erp_jd_ods_dim_othersreceiving_kyok_xmgs' )
 # func("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouDD",   "项目公司数据中心",'erp_jd_ods_dim_purchaseorders_wc_xmgs',   'erp_jd_ods_dim_purchaseorders_yc_xmgs',   'erp_jd_ods_dim_purchaseorders_ms_xmgs'   ,   'erp_jd_ods_dim_purchaseorders_kyk_xmgs' ,   'erp_jd_ods_dim_purchaseorders_kyok_xmgs')

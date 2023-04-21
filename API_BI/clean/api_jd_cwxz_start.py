@@ -43,7 +43,7 @@ from api_cwzx_append import s_funcB,s1_funcB
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDCD",  "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_distributedout_yc_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD",  "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_allocation_yc_cwzx'       )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucherpayable_yc_cwzx'   )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucher_yc_cwzx'          ) 
+# s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucher_yc_cwzx'          ) 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_monthendinventory_yc_cwzx') 
 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_othersreceiving_ms_cwzx'  )
@@ -60,7 +60,7 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州泳淳网络�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDCD",  "杭州迷思文化创意有限公司",'erp_jd_ods_dim_distributedout_ms_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD",  "杭州迷思文化创意有限公司",'erp_jd_ods_dim_allocation_ms_cwzx'       )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_voucherpayable_ms_cwzx'   )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州迷思文化创意有限公司",'erp_jd_ods_dim_voucher_ms_cwzx'          )
+# s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州迷思文化创意有限公司",'erp_jd_ods_dim_voucher_ms_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州迷思文化创意有限公司",'erp_jd_ods_dim_monthendinventory_ms_cwzx')
 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_othersreceiving_kyk_cwzx'  )
@@ -77,7 +77,7 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州迷思文化�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDCD",  "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_distributedout_kyk_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD",  "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_allocation_kyk_cwzx'       )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_voucherpayable_kyk_cwzx'   )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_voucher_kyk_cwzx'          )
+# s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_voucher_kyk_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_monthendinventory_kyk_cwzx')
 
 

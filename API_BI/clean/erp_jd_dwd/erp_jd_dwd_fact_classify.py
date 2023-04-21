@@ -72,6 +72,7 @@ savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp
   `kuan` double DEFAULT NULL,
   `gao` double DEFAULT NULL,
   `danxiangbzsl` double DEFAULT NULL,
+  `tiaoma` text,
   `company` text,
   `wuliaofzid_2` text,
   `wuliaofzid_1` text,
@@ -81,4 +82,4 @@ savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp
   `classify_2` text,
   `refresh` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_fact_classify(wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,company,wuliaofzid_2,wuliaofzid_1,classify,classify_1,wuliaofzid_3,classify_2,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+"INSERT INTO erp_jd_dwd_fact_classify(wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,wuliaofzid_2,wuliaofzid_1,classify,classify_1,wuliaofzid_3,classify_2,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
