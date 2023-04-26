@@ -1,3 +1,6 @@
+-- update erp_jd_ods.erp_jd_ods_dim_saleorders_ms_dobest set xiaoshoubmmc='线下渠道部' where xiaoshoubmmc IS null;
+
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_saleshipping_kyk_cwzx
 where fid>=(
     select a.fid from(

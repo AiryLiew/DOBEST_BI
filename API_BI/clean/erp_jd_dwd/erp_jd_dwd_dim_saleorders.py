@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+  # -*- coding: utf-8 -*-
 # 测试环境: python3.9.6
 
 
@@ -99,6 +99,9 @@ savesql(df_saleOrders,'erp_jd_dwd','erp_jd_dwd_dim_saleorders',"""CREATE TABLE `
   `shifouzp` text,
   `danjubh` text,
   `beizhu` text,  
+  `sheng` text,  
+  `shi` text,  
+  `qu` text,  
   `company` text,
   `return_am` double DEFAULT NULL,
   `jiashuihj_ac` double DEFAULT NULL,
@@ -114,5 +117,5 @@ savesql(df_saleOrders,'erp_jd_dwd','erp_jd_dwd_dim_saleorders',"""CREATE TABLE `
   `profit_ac` double DEFAULT NULL,
   `refresh` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_dim_saleorders(riqi,kehuid,kehumc,xiaoshoubmdm,xiaoshoubmmc,danjulxdm,danjulxmc,wuliaobm,wuliaomc,wuliaolbdm,wuliaolbmc,wuliaofzid,wuliaofzmc,jiashuihj,hanshuidj,xiaoshousl,leijicksl,leijithslxs,shouhuofdz,cangkuid,cangkumc,shifouzp,danjubh,beizhu,company,return_am,jiashuihj_ac,xiaoshousl_ac,bumen_new,bumen,year,month,cost,purchases,profit,purchases_ac,profit_ac,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+"INSERT INTO erp_jd_dwd_dim_saleorders(riqi,kehuid,kehumc,xiaoshoubmdm,xiaoshoubmmc,danjulxdm,danjulxmc,wuliaobm,wuliaomc,wuliaolbdm,wuliaolbmc,wuliaofzid,wuliaofzmc,jiashuihj,hanshuidj,xiaoshousl,leijicksl,leijithslxs,shouhuofdz,cangkuid,cangkumc,shifouzp,danjubh,beizhu,sheng,shi,qu,company,return_am,jiashuihj_ac,xiaoshousl_ac,bumen_new,bumen,year,month,cost,purchases,profit,purchases_ac,profit_ac,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
 

@@ -1,5 +1,3 @@
-
-
 drop table if exists erp_jd_dwd.erp_jd_dwd_dim_acctagebalance;
 CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_acctagebalance( 
     select * from erp_jd_ods.erp_jd_ods_dim_acctagebalance_cwzx

@@ -46,13 +46,16 @@ def func(url,shujuzx,name1,name2,name3,name4,name5):
             return df, xclsh0
 
     def funcA(company):
-        df = pd.DataFrame()
+        # df = pd.DataFrame()
+        list_df = []
         xclsh_start = 0
         while True:
             df_start, xclsh_start = xclsh(company,xclsh_start)
-            df = df.append(df_start)
+            # df = df.append(df_start)
+            list_df.append(df_start)
             if xclsh_start==-1:
                 break
+        df = pd.concat(list_df)
         return df
     try:
         df_wc = funcA("杭州游卡文化创意有限公司")
@@ -244,13 +247,16 @@ def func_wjg(url,shujuzx,name):
             return df, xclsh0
 
     def funcA():
-        df = pd.DataFrame()
+        # df = pd.DataFrame()
+        list_df = []
         xclsh_start = 0
         while True:
             df_start, xclsh_start = xclsh(xclsh_start)
-            df = df.append(df_start)
+            # df = df.append(df_start)
+            list_df.append(df_start)
             if xclsh_start==-1:
                 break
+        df = pd.concat(list_df)
         return df
     try:
         df_wc = funcA()
