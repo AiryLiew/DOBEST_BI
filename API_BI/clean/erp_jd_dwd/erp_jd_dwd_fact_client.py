@@ -11,7 +11,7 @@ import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
 from key_tab import savesql,area,getDictKey
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine,text
 import pandas as pd
 
 
@@ -20,7 +20,7 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_client = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_fact_client_wc_dobest where shenhezt = '已审核'
+df_client = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_client_wc_dobest where shenhezt = '已审核'
                                 union all 
                                 select * from erp_jd_ods.erp_jd_ods_fact_client_wc_cwzx where shenhezt = '已审核'
                                 union all 
@@ -32,8 +32,8 @@ df_client = pd.read_sql_query("""select * from erp_jd_ods.erp_jd_ods_fact_client
                                 union all 
                                 select * from erp_jd_ods.erp_jd_ods_fact_client_yc_cwzx where shenhezt = '已审核'
                                 union all 
-                                select * from erp_jd_ods.erp_jd_ods_fact_client_kyk_cwzx where shenhezt = '已审核';""",   engine) 
-df_saleOrders        = pd.read_sql_query('select * from erp_jd_dwd.erp_jd_dwd_dim_saleorders;',       engine)
+                                select * from erp_jd_ods.erp_jd_ods_fact_client_kyk_cwzx where shenhezt = '已审核';"""),   engine.connect()) 
+df_saleOrders        = pd.read_sql_query(text('select * from erp_jd_dwd.erp_jd_dwd_dim_saleorders;'),   engine.connect()) 
 
 
 engine.dispose()   
