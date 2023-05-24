@@ -2,7 +2,7 @@
 # 测试环境: python3.9
 
 
-def func(url,shujuzx,name1,name2,name3,name4,name5):
+def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
@@ -109,14 +109,25 @@ def func(url,shujuzx,name1,name2,name3,name4,name5):
     except:
         print(name5 + ' have no data')
 
-   
-    engine.dispose() # 关闭连接
+    try:
+        df_wc01 = funcA("杭州游卡文化创意有限公司拱墅区分公司")
+        if df_wc01.empty==False:
+            df_wc01['company'] = "杭州游卡文化创意有限公司拱墅区分公司"
+            df_wc01['refresh_jk'] = datetime.now()
+            df_wc01.to_sql(name6, engine, schema='erp_jd_ods', if_exists='replace', index=False)
+
+    except:
+        print(name6 + ' have no data')
+
+
+
+    engine.dispose()
     print(datetime.now())
 
 
 
 # 其他出库
-def func_QTCK(shujuzx,name1,name2,name3,name4,name5):
+def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
@@ -200,7 +211,19 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5):
     except:
         print(name5 + ' have no data')
 
-    engine.dispose() # 关闭连接
+
+    try:
+        df_wc01 = funcA(shujuzx,"杭州游卡文化创意有限公司拱墅区分公司")
+        if df_wc01.empty==False:
+            df_wc01['company'] = "杭州游卡文化创意有限公司拱墅区分公司"
+            df_wc01['refresh_jk'] = datetime.now()
+            df_wc01.to_sql(name6, engine, schema='erp_jd_ods', if_exists='replace', index=False)
+
+    except:
+        print(name6 + ' have no data')
+
+
+    engine.dispose() 
     print(datetime.now())
 
 

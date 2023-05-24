@@ -5,7 +5,7 @@ os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\api_jd_cwxz_i
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\dwd.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_dwd.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_dws.py")
-os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_dws\erp_jd_dws_warehouse_ck_dayend.py")
+# os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_dws\erp_jd_dws_warehouse_ck_dayend.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\dws.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_ads\key_product_doi_fc.py") 
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\ads.py")

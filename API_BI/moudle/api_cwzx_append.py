@@ -62,22 +62,7 @@ def s_func(url,company,name):
         else:
             break
 
-    # if len_ >0 and len_ <= dcsjl :
-    #     params = {
-    #                     "shujuzx":"财务数据中心", 
-    #                     "jigoumc":company,   
-    #                     'xuchuanlsh':list_1[-2],
-    #                     'dancisjl':len_}
-    #     result = api_request(method=method, url=url, params=params, headers=headers)
-    #     body = result.text
-    #     response = json.loads(body)
-    #     xclsh = response["xclsh"]
-    #     list_1=[xclsh if i ==-1 else i for i in list_1]
 
-        # a = company + url[url.find("Get")+3:]
-        # path = r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle' +'\\' + a + '列表.txt'
-        # dlist = pd.DataFrame(list_1,columns=[a])
-        # dlist.to_csv(path,index=False)
         
     return data
 
@@ -110,111 +95,9 @@ def s_funcB(url,company,name):
         file.write(text)
         file.close()
 
-    engine.dispose() # 关闭连接
-    # conn.dispose() # 关闭连接 
+    engine.dispose() 
 
 
-
-
-
-
-# 增量抽取接口数据函数
-# def a_func(url,company,name):
-#     import sys
-#     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
-
-#     import json
-#     import pandas as pd
-#     from api_request import api_request
-#     from datetime import datetime
-
-#     from sqlalchemy import create_engine
-        
-#     engine = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306', 'erp_jd_ods'))
-#     # conn = create_engine("mssql+pymssql://{}:{}@{}:{}/{}".format('sa', '123456', '10.242.21.1', '1433', 'erp_jd_ods'))
-
-
-#     a = company + url[url.find("Get")+3:]
-#     path = r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle' +'\\' + a + '列表.txt'
-#     dfLIST = pd.read_csv(path)
-
-    
-#     list_1 = dfLIST[a].to_list()
-
-
-#     method = "POST"
-#     headers = None
-#     params = {			
-#                 "shujuzx":"财务数据中心", 
-#                 "jigoumc":company,   
-#                 'xuchuanlsh':list_1[-1],
-#                 'dancisjl':500
-#             }
-#     result = api_request(method=method, url=url, params=params, headers=headers)
-#     body = result.text
-#     response = json.loads(body)
-#     xclsh = response["xclsh"] 
-#     status_code = response["backdata"] # 返回数据
-#     df = pd.json_normalize(status_code)
-#     len_ = len(df)
-
-#     try:
-#         list_ = []
-#         for i in range(len_):
-#             for j in df['zijianmxs'][i]:
-#                 j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-#             list_.append(pd.json_normalize(df['zijianmxs'][i]))
-#         df1 = pd.concat(list_,ignore_index=True)  
-#         df.drop(['zijianmxs'],axis=1,inplace=True) 
-#         df = pd.concat([df,df1],ignore_index=True) 
-            
-#     except:
-#         print(datetime.now())
-
-
-#     if len_ >0 and len_<=500 :
-#         params = {
-#                         "shujuzx":"财务数据中心", 
-#                         "jigoumc":company,   
-#                         'xuchuanlsh':list_1[-1],
-#                         'dancisjl':len_}
-#         result = api_request(method=method, url=url, params=params, headers=headers)
-#         body = result.text
-#         response = json.loads(body)
-#         xclsh = response["xclsh"]
-#         list_1.append(xclsh)
-
-#     dlist = pd.DataFrame(list_1,columns=[a])
-#     dlist.to_csv(path,index=False)
-
-
-
-
-#     try:
-#         if df.empty==False:
-#             df['company'] = company
-#             df['refresh_jk'] = datetime.now()
-#             df.to_sql(name, engine, schema='erp_jd_ods', if_exists='append', index=False)
-#             # df.to_sql(name=name, con=conn, if_exists='append', index=False)
-#             print(datetime.now())
-
-#             file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-#             text = str(datetime.now()) + ':' + name + ' 更新至流水号{}'.format(xclsh) + '\n'
-#             file.write(text)
-#             file.close()
-   
-
-#     except:
-#         print(name + ' have no data')  
-#         file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-#         text = str(datetime.now()) + ':' + name + ' have no data' + '\n'
-#         file.write(text)
-#         file.close()
-
-#     engine.dispose() # 关闭连接
-#     # conn.dispose() # 关闭连接    
-
-#     return df
 
 
 
@@ -295,7 +178,7 @@ def a_func(url,company,name,fid):
             file.write(text)
             file.close()
 
-        engine.dispose() # 关闭连接
+        engine.dispose()
         return data
         
     except:
@@ -427,99 +310,6 @@ def s1_funcB(url,name):
 
 
 
-
-# 增量抽取接口数据函数
-# def a1_func(url,name):
-#     import sys
-#     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
-
-#     import json
-#     import pandas as pd
-#     from api_request import api_request
-#     from datetime import datetime
-
-#     a = url[url.find("Get")+3:]
-#     path = r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle' +'\\' + a + '列表.txt'
-#     dfLIST = pd.read_csv(path)
-
-#     method = "POST"
-#     headers = None
-
-#     list_1 = dfLIST[a].to_list()
- 
-#     params = {			
-#                 "shujuzx":"财务数据中心", 
-#                 'xuchuanlsh':list_1[-1],
-#                 'dancisjl':500
-#             }
-#     result = api_request(method=method, url=url, params=params, headers=headers)
-#     body = result.text
-#     response = json.loads(body)
-#     xclsh = response["xclsh"] 
-#     status_code = response["backdata"] # 返回数据
-#     df = pd.json_normalize(status_code)
-#     len_ = len(df)
-
-#     try:
-#         list_ = []
-#         for i in range(len_):
-#             for j in df['zijianmxs'][i]:
-#                 j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-#             list_.append(pd.json_normalize(df['zijianmxs'][i]))
-#         df1 = pd.concat(list_,ignore_index=True)  
-#         df.drop(['zijianmxs'],axis=1,inplace=True) 
-#         df = pd.concat([df,df1],ignore_index=True) 
-            
-#     except:
-#         print(datetime.now())
-
-
-#     if len_ >0 and len_<=500:
-#         params = {
-#                         "shujuzx":"财务数据中心",   
-#                         'xuchuanlsh':list_1[-1],
-#                         'dancisjl':len_}
-#         result = api_request(method=method, url=url, params=params, headers=headers)
-#         body = result.text
-#         response = json.loads(body)
-#         xclsh = response["xclsh"]
-#         list_1.append(xclsh)
-
-#     dlist = pd.DataFrame(list_1,columns=[a])
-#     dlist.to_csv(path,index=False)
-
-
-
-#     from sqlalchemy import create_engine
-#     from datetime import datetime
-        
-#     engine = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306', 'erp_jd_ods'))
-#     try:
-#         if df.empty==False:
-#             df['refresh_jk'] = datetime.now()
-#             df.to_sql(name, engine, schema='erp_jd_ods', if_exists='append', index=False)
-#             # df.to_sql(name=name, con=conn, if_exists='append', index=False)
-#             print(datetime.now())
-
-#             file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-#             text = str(datetime.now()) + ':' + name + ' 更新至流水号{}'.format(xclsh) + '\n'
-#             file.write(text)
-#             file.close()
-   
-
-#     except:
-#         print(name + ' have no data')  
-#         file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-#         text = str(datetime.now()) + ':' + name + ' have no data' + '\n'
-#         file.write(text)
-#         file.close()
-
-#     engine.dispose() # 关闭连接 
-
-#     return df
-
-
-
 def a1_func(url,name,fid):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
@@ -594,7 +384,7 @@ def a1_func(url,name,fid):
             file.write(text)
             file.close()
 
-        engine.dispose() # 关闭连接
+        engine.dispose()
         return data
         
     except:

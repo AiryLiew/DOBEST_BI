@@ -93,19 +93,35 @@ a_func("http://10.225.137.124:7772/ZyyxDSS/GetJiShouJSD",  "上海卡哟卡网�
 
 
 
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_othersreceiving_wc01_cwzx','fid'  )
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouRKD",  "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_purchasereceiving_wc01_cwzx','fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_voucher_wc01_cwzx'          ,'fVoucherID')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouTLD",  "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_purchasereturn_wc01_cwzx'   ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouTHD","杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_salereturn_wc01_cwzx'       ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouCKD","杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_saleshipping_wc01_cwzx'     ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetZuZhuangCX", "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_assemble_wc01_cwzx'         ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_monthendinventory_wc01_cwzx','fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDRD",  "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_distributedin_wc01_cwzx'    ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDCD",  "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_distributedout_wc01_cwzx'   ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD",  "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_allocation_wc01_cwzx'       ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetPanKuiD",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_inventoryloss_wc01_cwzx'    ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetPanYingD",   "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_inventoryprofit_wc01_cwzx'  ,'fid')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetJiShouJSD",  "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_consignment_wc01_cwzx'      ,'fid')
+
+
 
 
 
 # 每日全量
-func("http://10.225.137.124:7772/ZyyxDSS/GetKeHu",      "财务数据中心",'erp_jd_ods_fact_client_wc_cwzx',       'erp_jd_ods_fact_client_yc_cwzx',       'erp_jd_ods_fact_client_ms_cwzx',       'erp_jd_ods_fact_client_kyk_cwzx' ,       'erp_jd_ods_fact_client_kyok_cwzx'    )
-func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiao",    "财务数据中心",'erp_jd_ods_fact_classify_wc_cwzx',     'erp_jd_ods_fact_classify_yc_cwzx',     'erp_jd_ods_fact_classify_ms_cwzx',     'erp_jd_ods_fact_classify_kyk_cwzx',      'erp_jd_ods_fact_classify_kyok_cwzx'   )
-func("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouDD",  "财务数据中心",'erp_jd_ods_dim_purchaseorders_wc_cwzx','erp_jd_ods_dim_purchaseorders_yc_cwzx','erp_jd_ods_dim_purchaseorders_ms_cwzx','erp_jd_ods_dim_purchaseorders_kyk_cwzx', 'erp_jd_ods_dim_purchaseorders_kyok_cwzx')
-func("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",   "财务数据中心",'erp_jd_ods_dim_voucherpayable_wc_cwzx','erp_jd_ods_dim_voucherpayable_yc_cwzx','erp_jd_ods_dim_voucherpayable_ms_cwzx','erp_jd_ods_dim_voucherpayable_kyk_cwzx' ,'erp_jd_ods_dim_voucherpayable_kyok_cwzx')
-func("http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouDD","财务数据中心",'erp_jd_ods_dim_saleorders_wc_cwzx',    'erp_jd_ods_dim_saleorders_yc_cwzx',    'erp_jd_ods_dim_saleorders_ms_cwzx',    'erp_jd_ods_dim_saleorders_kyk_cwzx' ,    'erp_jd_ods_dim_saleorders_kyok_cwzx')
-func("http://10.225.137.124:7772/ZyyxDSS/GetShouKuanD", "财务数据中心",'erp_jd_ods_dim_proceeds_wc_cwzx',      'erp_jd_ods_dim_proceeds_yc_cwzx',      'erp_jd_ods_dim_proceeds_ms_cwzx',      'erp_jd_ods_dim_proceeds_kyk_cwzx',       'erp_jd_ods_dim_proceeds_kyok_cwzx')
-func("http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNT","财务数据中心",'erp_jd_ods_fact_account_wc_cwzx',      'erp_jd_ods_fact_account_yc_cwzx',      'erp_jd_ods_fact_account_ms_cwzx',      'erp_jd_ods_fact_account_kyk_cwzx',       'erp_jd_ods_fact_account_kyok_cwzx' )
+func("http://10.225.137.124:7772/ZyyxDSS/GetKeHu",      "财务数据中心",'erp_jd_ods_fact_client_wc_cwzx',       'erp_jd_ods_fact_client_yc_cwzx',       'erp_jd_ods_fact_client_ms_cwzx',       'erp_jd_ods_fact_client_kyk_cwzx' ,       'erp_jd_ods_fact_client_kyok_cwzx',       'erp_jd_ods_fact_client_wc01_cwzx'    )
+func("http://10.225.137.124:7772/ZyyxDSS/GetWuLiao",    "财务数据中心",'erp_jd_ods_fact_classify_wc_cwzx',     'erp_jd_ods_fact_classify_yc_cwzx',     'erp_jd_ods_fact_classify_ms_cwzx',     'erp_jd_ods_fact_classify_kyk_cwzx',      'erp_jd_ods_fact_classify_kyok_cwzx',      'erp_jd_ods_fact_classify_wc01_cwzx'   )
+func("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouDD",  "财务数据中心",'erp_jd_ods_dim_purchaseorders_wc_cwzx','erp_jd_ods_dim_purchaseorders_yc_cwzx','erp_jd_ods_dim_purchaseorders_ms_cwzx','erp_jd_ods_dim_purchaseorders_kyk_cwzx', 'erp_jd_ods_dim_purchaseorders_kyok_cwzx', 'erp_jd_ods_dim_purchaseorders_wc01_cwzx')
+func("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",   "财务数据中心",'erp_jd_ods_dim_voucherpayable_wc_cwzx','erp_jd_ods_dim_voucherpayable_yc_cwzx','erp_jd_ods_dim_voucherpayable_ms_cwzx','erp_jd_ods_dim_voucherpayable_kyk_cwzx' ,'erp_jd_ods_dim_voucherpayable_kyok_cwzx','erp_jd_ods_dim_voucherpayable_wc01_cwzx')
+func("http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouDD","财务数据中心",'erp_jd_ods_dim_saleorders_wc_cwzx',    'erp_jd_ods_dim_saleorders_yc_cwzx',    'erp_jd_ods_dim_saleorders_ms_cwzx',    'erp_jd_ods_dim_saleorders_kyk_cwzx' ,    'erp_jd_ods_dim_saleorders_kyok_cwzx',    'erp_jd_ods_dim_saleorders_wc01_cwzx')
+func("http://10.225.137.124:7772/ZyyxDSS/GetShouKuanD", "财务数据中心",'erp_jd_ods_dim_proceeds_wc_cwzx',      'erp_jd_ods_dim_proceeds_yc_cwzx',      'erp_jd_ods_dim_proceeds_ms_cwzx',      'erp_jd_ods_dim_proceeds_kyk_cwzx',       'erp_jd_ods_dim_proceeds_kyok_cwzx',       'erp_jd_ods_dim_proceeds_wc01_cwzx')
+func("http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNT","财务数据中心",'erp_jd_ods_fact_account_wc_cwzx',      'erp_jd_ods_fact_account_yc_cwzx',      'erp_jd_ods_fact_account_ms_cwzx',      'erp_jd_ods_fact_account_kyk_cwzx',       'erp_jd_ods_fact_account_kyok_cwzx',       'erp_jd_ods_fact_account_wc01_cwzx' )
 
-func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_jd_ods_dim_othersshipping_yc_cwzx',   'erp_jd_ods_dim_othersshipping_ms_cwzx'  ,'erp_jd_ods_dim_othersshipping_kyk_cwzx','erp_jd_ods_dim_othersshipping_kyok_cwzx' )
+func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_jd_ods_dim_othersshipping_yc_cwzx',   'erp_jd_ods_dim_othersshipping_ms_cwzx'  ,'erp_jd_ods_dim_othersshipping_kyk_cwzx','erp_jd_ods_dim_othersshipping_kyok_cwzx' ,'erp_jd_ods_dim_othersshipping_wc01_cwzx')
 
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMDETAILV',"财务数据中心",'erp_jd_ods_fact_flexitemdetailv_cwzx')
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTL',"财务数据中心",'erp_jd_ods_fact_accountl_cwzx')
