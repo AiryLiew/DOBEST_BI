@@ -49,7 +49,7 @@ CREATE TABLE erp_jd_ads.key_product_launchtime(
         month(riqi) 月,
         sum(shifasl) `销量`
         FROM erp_jd_dwd.erp_jd_dwd_dim_saleshipping 
-        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
         group by wuliaomc,year(riqi) ,month(riqi) 
     ) c on c.wuliaomc = a.wlmc_all and c.年 = a.`year` and c.月=a.`month`
 
@@ -108,7 +108,7 @@ CREATE TABLE erp_jd_ads.key_product_launchtime(
                 month(riqi) 月,
                 sum(shifasl) `销量`
                 FROM erp_jd_dwd.erp_jd_dwd_dim_saleshipping 
-                where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                 group by wuliaomc,year(riqi) ,month(riqi) 
             ) c on c.wuliaomc = a.wlmc_all and c.年 = a.`year` and c.月=a.`month`
         ) a

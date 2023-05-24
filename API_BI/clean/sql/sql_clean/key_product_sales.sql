@@ -22,7 +22,7 @@ CREATE TABLE erp_jd_ads.key_product_sales (
     ) a on x.wuliaomc = a.wuliaomc
 
     where x.bumen in('渠道','电商平台部')
-    and x.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+    and x.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
     group by x.wuliaomc ,
     x.bumen,
     year(x.riqi),

@@ -42,7 +42,7 @@ CREATE TABLE www_bi_ads.dszc_key_product_year(
         sum(profit) `已售产品毛利`,
         round(sum(jiashuihj)/sum(shifasl),2) 平均售价
         FROM erp_jd_dws.erp_jd_dws_saleship_return
-        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
         group by wuliaomc,year(riqi)
     ) c on c.wuliaomc = a.wuliaomc AND c.`year` = a.`year`
 

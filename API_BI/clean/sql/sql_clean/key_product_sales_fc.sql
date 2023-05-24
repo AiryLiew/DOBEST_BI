@@ -32,7 +32,7 @@ CREATE TABLE erp_jd_ads.key_product_sales_fc(
         FROM erp_jd_dwd.erp_jd_dwd_fact_classify
     ) b on b.`物料名称` = a.wuliaomc
 
-    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
     group by a.wuliaomc ,a.riqi
 
 
@@ -71,6 +71,6 @@ CREATE TABLE erp_jd_ads.key_product_sales_fc(
         FROM erp_jd_dwd.erp_jd_dwd_fact_classify
     ) b on b.`物料名称` = a.wuliaomc
 
-    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
     group by a.wuliaomc ,a.riqi
 );

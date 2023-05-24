@@ -78,7 +78,7 @@ CREATE TABLE erp_jd_ads.`key_product` (
         sum(profit) `已售产品毛利`,
         round(sum(jiashuihj)/sum(shifasl),2) 平均售价
         FROM erp_jd_dwd.erp_jd_dwd_dim_saleshipping 
-        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
         group by wuliaomc
     ) c on c.wuliaomc = a.wuliaomc
 
@@ -136,7 +136,7 @@ CREATE TABLE erp_jd_ads.`key_product` (
         SELECT wuliaomc,  
         sum(shifasl) 退货 
         FROM erp_jd_dwd.erp_jd_dwd_dim_salereturn 
-        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+        where kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
         group by wuliaomc
     ) k on k.wuliaomc = a.wuliaomc
 
@@ -168,7 +168,7 @@ CREATE TABLE erp_jd_ads.`key_product` (
         count(distinct(danjubh)) `客户下单次数`
         FROM erp_jd_dwd.erp_jd_dwd_dim_saleorders
         where danjulxmc = '标准销售订单'
-        and kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+        and kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
         group by wuliaomc
     ) o on o.wuliaomc = a.wuliaomc
 
