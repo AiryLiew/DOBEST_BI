@@ -30,15 +30,15 @@ df_saleship_return   = pd.read_sql_query(text('select * from erp_jd_dws.erp_jd_d
 df_beginninginventory= pd.read_sql_query(text("select * from erp_jd_dwd.erp_jd_dwd_dim_beginninginventory;"), engine.connect())
 # 其他入库路径的采购
 df_d = pd.read_sql_query(text("""SELECT  a.wuliaomc,a.riqi,sum(a.shishousl) amount FROM `erp_jd_dwd`.`erp_jd_dwd_dim_othersreceiving` a
-                            LEFT JOIN (
-                            SELECT DISTINCT wlmc_all wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_purchasereceiving`
-                            union
-                            SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_purchasereceiving`
-                            union
-                            SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_beginninginventory`
-                            ) b on a.wuliaomc = b.wuliaomc
-                            where b.wuliaomc is null
-                            GROUP BY a.wuliaomc,a.riqi;"""), engine.connect())
+                                LEFT JOIN (
+                                SELECT DISTINCT wlmc_all wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_purchasereceiving`
+                                union
+                                SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_purchasereceiving`
+                                union
+                                SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_beginninginventory`
+                                ) b on a.wuliaomc = b.wuliaomc
+                                where b.wuliaomc is null
+                                GROUP BY a.wuliaomc,a.riqi;"""), engine.connect())
 
 
 df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,cangkumc,cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(pankuisl,SIGNED) shipping,company,case when wuliaomc is not null then '盘亏单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_inventoryloss where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
@@ -115,6 +115,9 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,cangkumc,cangkuid,c
                                     select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
                                     union all 
                                     select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')
+                                    union all 
+                                    select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(shifasl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '采购入库单' end `table` from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc01_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签')                                    
+                                    
                                     
                                     union all
                                     select riqi,wuliaomc,wuliaobm,cangkumc,cangkuid,CONVERT(receiving,SIGNED) receiving,CONVERT(shipping,SIGNED) shipping,company,`table` from erp_jd_dwd.erp_jd_dwd_dim_beginninginventory

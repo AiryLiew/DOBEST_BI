@@ -204,6 +204,9 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_voucherpayable(
     union all 
     select *,case when caigouddh is not null then replace(caigouddh,'-1','') end caigouddh_1 
     from erp_jd_ods.erp_jd_ods_dim_voucherpayable_yc_xmgs
+    union all 
+    select *,case when caigouddh is not null then replace(caigouddh,'-1','') end caigouddh_1 
+    from erp_jd_ods.erp_jd_ods_dim_voucherpayable_wc01_cwzx
 );
 
 
@@ -222,6 +225,8 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_account(
     select * from erp_jd_ods.erp_jd_ods_fact_account_yc_cwzx
     union all 
     select * from erp_jd_ods.erp_jd_ods_fact_account_yc_xmgs
+    union all 
+    select * from erp_jd_ods.erp_jd_ods_fact_account_wc01_cwzx
 );
 
 

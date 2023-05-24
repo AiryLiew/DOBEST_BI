@@ -46,7 +46,9 @@ df_client = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_c
                                 union all 
                                 select * from erp_jd_ods.erp_jd_ods_fact_client_yc_cwzx where shenhezt = '已审核'
                                 union all 
-                                select * from erp_jd_ods.erp_jd_ods_fact_client_kyk_cwzx where shenhezt = '已审核';"""), engine.connect()) 
+                                select * from erp_jd_ods.erp_jd_ods_fact_client_kyk_cwzx where shenhezt = '已审核'
+                                union all 
+                                select * from erp_jd_ods.erp_jd_ods_fact_client_wc01_cwzx where shenhezt = '已审核';"""), engine.connect()) 
 
 
 df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_dobest where shenhezt = '已审核'
@@ -61,7 +63,9 @@ df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact
                                     union all 
                                     select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx where shenhezt = '已审核'
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx where shenhezt = '已审核';"""), engine.connect()) 
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx where shenhezt = '已审核'
+                                    union all 
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc01_cwzx where shenhezt = '已审核';"""), engine.connect()) 
 
 
 df_saleOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_dobest
@@ -89,7 +93,9 @@ df_saleReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_di
                                     union all 
                                     select * from erp_jd_ods.erp_jd_ods_dim_salereturn_ms_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_salereturn_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中');"""),   engine.connect()) 
+                                    select * from erp_jd_ods.erp_jd_ods_dim_salereturn_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
+                                    union all 
+                                    select * from erp_jd_ods.erp_jd_ods_dim_salereturn_wc01_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中');"""),   engine.connect()) 
 
 
 df_consignment = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_consignment_wc_dobest where danjubh <> " "
@@ -113,7 +119,9 @@ df_saleShipping = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_saleshipping_yc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_saleshipping_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中');"""),   engine.connect()) 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_saleshipping_kyk_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
+                                        union all 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_saleshipping_wc01_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中');"""),   engine.connect()) 
 
 
 df_purchaseReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest
@@ -129,36 +137,40 @@ df_purchaseReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_od
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx;"""), engine.connect()) 
 
 
-df_purchaseOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+df_purchaseOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_ms_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_ms_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_yc_xmgs where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_yc_xmgs where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核';"""),   engine.connect()) 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核'
+                                        union all 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc01_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953','CGDD0005762') and shenhezt = '已审核';"""),   engine.connect()) 
 
 
-df_purchaseReceiving = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+df_purchaseReceiving = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
                                             select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where danjubh = 'CGRK07101' and dingdandh = ' '
                                             union all
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_xmgs where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_xmgs where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司');"""),   engine.connect()) 
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+                                            union all 
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc01_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司');"""),   engine.connect()) 
 
 
 
@@ -771,6 +783,7 @@ savesql(df_purchaseReturn,'erp_jd_dwd','erp_jd_dwd_dim_purchasereturn',"""CREATE
   `gongyingsid` text,
   `gongyingsmc` text,
   `wuliaobm` text,
+  `wuliaomc` text,
   `wuliaofzid` text,
   `wuliaofzmc` text,
   `cangkuid` text,
@@ -782,7 +795,6 @@ savesql(df_purchaseReturn,'erp_jd_dwd','erp_jd_dwd_dim_purchasereturn',"""CREATE
   `company` text,
   `year` text,
   `month` text,
-  `wuliaomc` text,
   `wlmc_all` text,
   `label` text,
   `shituisl_new` double DEFAULT NULL,
@@ -790,7 +802,7 @@ savesql(df_purchaseReturn,'erp_jd_dwd','erp_jd_dwd_dim_purchasereturn',"""CREATE
   `mark_cp` text,
   `refresh` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_dim_purchasereturn(tuiliaorq,gongyingsid,gongyingsmc,wuliaobm,wuliaofzid,wuliaofzmc,cangkuid,cangkumc,shituisl,hanshuidj,jiashuihj,danjubh,company,year,month,wuliaomc,wlmc_all,label,shituisl_new,shifoucp,mark_cp,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+"INSERT INTO erp_jd_dwd_dim_purchasereturn(tuiliaorq,gongyingsid,gongyingsmc,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,cangkuid,cangkumc,shituisl,hanshuidj,jiashuihj,danjubh,company,year,month,wlmc_all,label,shituisl_new,shifoucp,mark_cp,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
 
 
 
