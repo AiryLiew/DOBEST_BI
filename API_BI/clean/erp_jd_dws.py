@@ -563,31 +563,10 @@ df_doi_7['refresh'] = datetime.now()
 df_doi_30['refresh'] = datetime.now()
 df_doi_60['refresh'] = datetime.now()
 df_warehouse['refresh'] = datetime.now()
-df_warehouse_dayend['refresh'] = datetime.now()
 df_ageofreceivables['refresh'] = datetime.now()
 
 
 # *****************************************写入mysql*****************************************************#
-# engine1 = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306','erp_jd_dws'))
-# engine3 = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306','www_bi_ads'))
-# engine5 = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306','erp_jd_ads'))
-
-# df_warehouse         .to_sql('erp_jd_dws_warehouse',               engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# df_warehouse_dayend  .to_sql('erp_jd_dws_warehouse_dayend',        engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# df_doi               .to_sql('erp_jd_dws_doi',                     engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# df_doi_fc            .to_sql('erp_jd_dws_doi_fc',                  engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# # df_doi20211229       .to_sql('erp_jd_dws_doi20211229',             engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# df_doi_30            .to_sql('erp_jd_dws_doi_lastmonth',           engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# df_doi_60            .to_sql('erp_jd_dws_doi_last2month',          engine1, schema='erp_jd_dws', if_exists='replace',index=False)
-# dlzy_inventory_dayend.to_sql('dlzy_inventory_dayend',              engine3, schema='www_bi_ads', if_exists='replace',index=False)
-# df_ageofreceivables  .to_sql('erp_jd_ads_ageofreceivables_1122_06',engine5, schema='erp_jd_ads', if_exists='replace',index=False)
-
-
-
-# engine1.dispose()
-# engine3.dispose()
-# engine5.dispose()
-
 
 
 savesql(df_warehouse,'erp_jd_dws','erp_jd_dws_warehouse',"""CREATE TABLE `erp_jd_dws_warehouse` (

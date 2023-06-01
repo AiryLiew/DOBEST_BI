@@ -20,7 +20,8 @@ def sqlrun(path):
     conn.commit()
 
 
-
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_www_bi_ads_ds_jd_data.sql')
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_www_bi_ads_ds_jd_data_compare.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_dwd_dim_cost.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_ads_addorders.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\key_inventory.sql')
