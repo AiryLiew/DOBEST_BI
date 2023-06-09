@@ -13,8 +13,8 @@ CREATE TABLE www_bi_ads.ccwl_fee_saleorders(
         round(b.仓储物流费用*c.发货费用/b.B2B发货费用,2) 预估仓储物流费用
   from(
     SELECT a.kehumc 客户,
-          a.`year` 年,
-          a.`month` 月,
+          year(a.riqi) 年,
+          month(a.riqi) 月,
           a.`xiaoshousl` 总销量,
           a.`jiashuihj` 总销售额,
           a.`profit` 毛利,
@@ -39,6 +39,7 @@ CREATE TABLE www_bi_ads.ccwl_fee_saleorders(
     and a.shouhuofdz = b.shouhuofdz
     
     where a.bumen = '渠道'
+    and a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
   ) a
 
 

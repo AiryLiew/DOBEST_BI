@@ -486,6 +486,15 @@ df_ageofreceivables['账龄区间'] = df_ageofreceivables['账龄'].map(lambda x
 # df_doi_fc  分仓库存天数表
 # ----------------------------------------------------------------------------------------------------- # 
 
+
+med = df_warehouse.groupby(['wuliaomc'],as_index=False).agg({'inventory':'sum'})
+df_warehouse = pd.merge(df_warehouse,med.rename(columns={'inventory':'med'}) ,on=['wuliaomc'],how='left')
+df_warehouse = df_warehouse[df_warehouse['med']>0].drop(['med'],axis = 1)
+med1 = df_warehouse.groupby(['wuliaomc','cangkumc'],as_index=False).agg({'inventory':'sum'})
+df_warehouse = pd.merge(df_warehouse,med1.rename(columns={'inventory':'med'}) ,on=['wuliaomc','cangkumc'],how='left')
+df_warehouse = df_warehouse[df_warehouse['med']>0].drop(['med'],axis = 1)
+
+
 # 排序计算累计各仓库存
 df_warehouse.sort_values(['wuliaomc','riqi','receiving'],ascending=[True,True,False],inplace=True)
 b = df_warehouse.groupby(['wuliaomc','cangkumc','riqi'],as_index=False).agg({'receiving':'sum','shipping':'sum'})
