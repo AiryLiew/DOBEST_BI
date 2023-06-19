@@ -73,27 +73,20 @@ def s_funcB(url,company,name):
     from datetime import datetime
         
     engine = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306', 'erp_jd_ods'))
-    # conn = create_engine("mssql+pymssql://{}:{}@{}:{}/{}".format('sa', '123456', '10.242.21.1', '1433', 'erp_jd_ods'))
+
     try:
         dfc = s_func(url,company,name)
         if dfc.empty==False:
             dfc['company'] = company
             dfc['refresh_jk'] = datetime.now()
             dfc.to_sql(name, engine, schema='erp_jd_ods', if_exists='replace', index=False)
-        # dfc.to_sql(name=name, con=conn, if_exists='replace', index=False)
+
             print(datetime.now())
-            file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-            text = str(datetime.now()) + ':' + name + ' 全量更新' + '\n'
-            file.write(text)
-            file.close()
+
    
 
     except:
         print(name + ' have no data') 
-        file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-        text = str(datetime.now()) + ':' + name + ' have no data' + '\n'
-        file.write(text)
-        file.close()
 
     engine.dispose() 
 
@@ -165,18 +158,11 @@ def a_func(url,company,name,fid):
                 data.to_sql(name, engine, schema='erp_jd_ods', if_exists='append', index=False)
                 print(datetime.now())
 
-                file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-                text = str(datetime.now()) + ':' + name + ' 更新至流水号{}'.format(xclsh) + '\n'
-                file.write(text)
-                file.close()
     
 
         except:
             print(name + ' have no data')  
-            file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-            text = str(datetime.now()) + ':' + name + ' have no data' + '\n'
-            file.write(text)
-            file.close()
+
 
         engine.dispose()
         return data
@@ -371,21 +357,57 @@ def a1_func(url,name,fid):
                 data.to_sql(name, engine, schema='erp_jd_ods', if_exists='append', index=False)
                 print(datetime.now())
 
-                file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-                text = str(datetime.now()) + ':' + name + ' 更新至流水号{}'.format(xclsh) + '\n'
-                file.write(text)
-                file.close()
     
 
         except:
             print(name + ' have no data')  
-            file = open(r"C:\Users\liujin02\Desktop\BI建设\API_BI\run_append_log.txt", 'a')
-            text = str(datetime.now()) + ':' + name + ' have no data' + '\n'
-            file.write(text)
-            file.close()
 
         engine.dispose()
         return data
         
     except:
         print(name + '  not exists')
+
+
+
+
+
+
+
+
+
+
+# 一次返回数据
+def onceback(url,company,name):
+    import sys
+    sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
+
+    import json
+    import pandas as pd
+    from api_request import api_request
+    from sqlalchemy import create_engine,text
+    from datetime import datetime
+        
+    engine = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306', 'erp_jd_ods'))
+
+
+    method = "POST"
+    headers = None
+    params = {			
+            "shujuzx":"财务数据中心", 
+            "jigoumc":company
+            }
+    result = api_request(method=method, url=url, params=params, headers=headers)
+    body = result.text
+    response = json.loads(body)
+    backdata = response['backdata']
+    df = pd.json_normalize(backdata)
+
+
+    df['company'] = company
+    df['refresh_jk'] = datetime.now()
+    df.to_sql(name, engine, schema='erp_jd_ods', if_exists='replace', index=False)
+
+    print(datetime.now())
+
+    return df

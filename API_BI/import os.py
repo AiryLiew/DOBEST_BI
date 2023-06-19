@@ -20,4 +20,4 @@ os.system(r"python C:\Users\liujin02\Desktop\邮件报表\西西弗自研加单.
 os.system(r"python C:\Users\liujin02\Desktop\邮件报表\孩子王自研加单.py") 
 os.system(r"python C:\Users\liujin02\Desktop\邮件报表\渠道活动返利计算.py")  
 os.system(r"python C:\Users\liujin02\Desktop\邮件报表\毛利比对.py")  
-os.system(r"python C:\Users\liujin02\Desktop\邮件报表\wlgzs.py")
+# os.system(r"python C:\Users\liujin02\Desktop\邮件报表\wlgzs.py")
