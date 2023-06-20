@@ -22,6 +22,8 @@ def sqlrun(path):
 
 
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_dwd.sql')
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_dwd_fact_wuliaofzid.sql')
+
 
 c.close()
 conn.close()
