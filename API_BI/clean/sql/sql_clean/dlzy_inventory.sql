@@ -63,7 +63,7 @@ CREATE TABLE www_bi_ads.dlzy_inventory(
   SELECT `riqi`,
   `wuliaomc` ,
   case when `wuliaomc` is not null then 0 end `receiving` ,
-  case when guanlianxskh is null then diaochubgzmc end `cangkumc` ,
+  cast('西西弗' as char) `cangkumc`  ,
   diaobosl `shipping` ,
   case when `wuliaomc` is not null then '退货' end `类型` ,
   `属性`,

@@ -485,8 +485,6 @@ df_ageofreceivables['账龄区间'] = df_ageofreceivables['账龄'].map(lambda x
 
 # df_doi_fc  分仓库存天数表
 # ----------------------------------------------------------------------------------------------------- # 
-
-
 med = df_warehouse.groupby(['wuliaomc'],as_index=False).agg({'inventory':'sum'})
 df_warehouse = pd.merge(df_warehouse,med.rename(columns={'inventory':'med'}) ,on=['wuliaomc'],how='left')
 df_warehouse = df_warehouse[df_warehouse['med']>0].drop(['med'],axis = 1)

@@ -18,15 +18,16 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
         
 # *****************************************取数据********************************************************#
 df_warehouse = pd.read_sql_query(text('SELECT * FROM www_bi_ads.dlzy_inventory;'), engine.connect())
-a11          = pd.read_sql_query(text('select 客户名称 cangkumc,	物料名称 wuliaomc ,结余数量 inventory from  www_bi_dwd.jishou_wuliao_sale_stat;'), engine.connect())
+# a11          = pd.read_sql_query(text('select 客户名称 cangkumc,	物料名称 wuliaomc ,结余数量 inventory from  www_bi_dwd.jishou_wuliao_sale_stat;'), engine.connect())
 
 engine.dispose()
 
 
 df_warehouse['cangkumc'].replace({'重庆西西弗文化传播有限公司':'西西弗','贵州西西弗文化传播有限公司':'西西弗','杭州迷思文化创意有限公司-西西弗':'西西弗'},inplace=True)
-a11['cangkumc'].replace({'重庆西西弗文化传播有限公司':'西西弗','贵州西西弗文化传播有限公司':'西西弗','杭州迷思文化创意有限公司-西西弗':'西西弗'},inplace=True)
+a1 = df_warehouse.groupby(['cangkumc','wuliaomc'],as_index=False)['inventory'].sum()
 
-a1 = a11.groupby(['cangkumc','wuliaomc'],as_index=False)['inventory'].sum()
+# a11['cangkumc'].replace({'重庆西西弗文化传播有限公司':'西西弗','贵州西西弗文化传播有限公司':'西西弗','杭州迷思文化创意有限公司-西西弗':'西西弗'},inplace=True)
+# a1 = a11.groupby(['cangkumc','wuliaomc'],as_index=False)['inventory'].sum()
 
 b = df_warehouse[df_warehouse['类型']=='发货'].groupby(['cangkumc','wuliaomc','riqi'],as_index=False)['inventory'].sum()
 d1 = b[b['inventory']!= 0].rename(columns={'inventory':'amount'})
@@ -49,7 +50,6 @@ for k in d1['cangkumc'].drop_duplicates():
             
     for i in d['wuliaomc'].drop_duplicates():
         b1 = d[d['wuliaomc']==i]
-        # print(b1)
         b1.sort_values(['riqi'],ascending=False,inplace=True,ignore_index=True)
         b1.reset_index(drop = True,inplace = True)
         # 累计采购及期初数量
