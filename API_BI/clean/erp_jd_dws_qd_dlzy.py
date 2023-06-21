@@ -114,29 +114,7 @@ df_saleorders_dl0 = pd.concat([df_saleorders_dl0,df_saleorders_xxf_2018[df_saleo
 
 # 寄售客户列表
 list_kh = df_saleorders_dl0[~df_saleorders_dl0['wuliaomc'].isin(['小小王国-天天富翁超大豪华版','小猪班克儿童饮水习惯培养杯'])]['kehumc'].drop_duplicates().to_list()
-# list_kh = ['四川言几又供应链管理有限公司',
-# '拉加代尔旅行零售（上海）有限公司',
-# '上海思鸣贸易商行',
-# '大连半人马商贸有限公司',
-# '台州市亮仔宝贝孕婴童用品有限公司',
-# '北京天和益兴商贸有限公司',
-# '湖南三知图书有限公司华创店',
-# '渝北区珠心算教育信息咨询中心',
-# '宁波涌东今日科技有限公司',
-# '北京润航商业发展有限公司大兴分公司',
-# '英哈玩具贸易（南京）有限公司',
-# '重庆西西弗文化传播有限公司',
-# '贵州西西弗文化传播有限公司',
-# '孩子王儿童用品股份有限公司采购中心',
-# '南京爱满家贸易有限公司',
-# '上海欢亚贸易有限公司',
-# '上海小螺蛳教育科技有限公司',
-# '北京新意乐得商贸有限公司',
-# '杭州一礼文化科技有限公司',
-# '四川达创商贸有限公司',
-# '上海木木生活贸易有限公司',
-# '青岛新华书店有限责任公司'
-# ]
+
 
 # 销售出库
 df_saleshipping_cp = df_saleshipping[(df_saleshipping['wuliaomc'].isin(df_saleorders_dl0['wuliaomc'].drop_duplicates().to_list()))]
@@ -186,10 +164,11 @@ df_shipping_zy = df_shipping_zy[~df_shipping_zy['wuliaomc'].isin(list_yy1)]
 # 其他公司
 df_salereturn_t = df_salereturn[(df_salereturn['kehumc'].isin(list_kh))&(df_salereturn['wuliaomc'].isin(list_zy))&(df_salereturn['company'] == '杭州游卡文化创意有限公司')]
 # 西西弗
-df_allocation_t1 = df_allocation[((df_allocation['diaochubgzmc'].isin(['重庆西西弗文化传播有限公司','贵州西西弗文化传播有限公司','四川言几又供应链管理有限公司']))|(df_allocation['guanlianxskh'].isin(['重庆西西弗文化传播有限公司','贵州西西弗文化传播有限公司','四川言几又供应链管理有限公司'])))]
-df_allocation_t2 = df_allocation[(df_allocation['riqi'] == datetime(2021,5,7) )&(df_allocation['diaochubgzmc']=='杭州游卡文化创意有限公司')]
-df_allocation_t3 = df_allocation[(df_allocation['riqi'] < datetime(2021,4,20) )&(df_allocation['diaochubgzmc']=='杭州迷思文化创意有限公司-西西弗')]
-df_th = pd.concat([df_allocation_t1,df_allocation_t2,df_allocation_t3])
+df_allocation_t1 = df_allocation[((df_allocation['diaochubgzmc'].str.contains('西西弗'))|(df_allocation['guanlianxskh'].str.contains('西西弗'))|(df_allocation['beizhu_mx'].str.contains('西西弗')))]
+df_allocation_t2 = df_allocation[((df_allocation['diaochubgzmc'].str.contains('孩子王'))|(df_allocation['guanlianxskh'].str.contains('孩子王'))|(df_allocation['beizhu_mx'].str.contains('孩子王')))]
+df_th = pd.concat([df_allocation_t1,df_allocation_t2])
+
+df_th = df_th[df_th['danjubh']!='ZJDB0001795']
 
 df_th_dl = df_th[df_th['wuliaomc'].isin(df_saleorders_dl0['wuliaomc'].drop_duplicates().to_list())]
 df_th_zy = df_th[df_th['wuliaomc'].isin(df_saleorders_t['wuliaomc'].drop_duplicates().to_list())]
