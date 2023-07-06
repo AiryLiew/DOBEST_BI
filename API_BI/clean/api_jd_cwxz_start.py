@@ -9,7 +9,11 @@ from api_cwzx_append import s_funcB,s1_funcB
 
 # s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",  'erp_jd_ods_dim_balance_cwzx')
 # s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD",  'erp_jd_ods_dim_prepayment_cwzx')
-
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",  'erp_jd_ods_dim_ths_inivbalance_cwzx' )
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",   'erp_jd_ods_dim_ths_stockdimension_cwzx' )
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",   'erp_jd_ods_dim_ths_balanceh_cwzx' )
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",   'erp_jd_ods_dim_ths_balance_cwzx' )
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",  'erp_jd_ods_dim_ths_inivbalanceh_cwzx' )
 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_othersreceiving_wc_cwzx'  )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetPanKuiD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_inventoryloss_wc_cwzx'    )
@@ -27,11 +31,7 @@ from api_cwzx_append import s_funcB,s1_funcB
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_voucherpayable_wc_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州游卡文化创意有限公司",'erp_jd_ods_dim_voucher_wc_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州游卡文化创意有限公司",'erp_jd_ods_dim_monthendinventory_wc_cwzx')
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_ths_inivbalance_wc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_ths_stockdimension_wc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_ths_balanceh_wc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_ths_balance_wc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_ths_inivbalanceh_wc_cwzx' )
+
 
 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_othersreceiving_yc_cwzx'  )
@@ -50,11 +50,6 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州游�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucherpayable_yc_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucher_yc_cwzx'          ) 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_monthendinventory_yc_cwzx')
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_inivbalance_yc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_ths_stockdimension_yc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_ths_balanceh_yc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_ths_balance_yc_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_ths_inivbalanceh_yc_cwzx' )
  
 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_othersreceiving_ms_cwzx'  )
@@ -73,11 +68,6 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州泳�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_voucherpayable_ms_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州迷思文化创意有限公司",'erp_jd_ods_dim_voucher_ms_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州迷思文化创意有限公司",'erp_jd_ods_dim_monthendinventory_ms_cwzx')
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_ths_inivbalance_ms_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_ths_stockdimension_ms_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_ths_balanceh_ms_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_ths_balance_ms_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州迷思文化创意有限公司",'erp_jd_ods_dim_ths_inivbalanceh_ms_cwzx' )
 
 
 
@@ -98,11 +88,6 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州迷�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_voucherpayable_kyk_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_voucher_kyk_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_monthendinventory_kyk_cwzx')
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_ths_inivbalance_kyk_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_ths_stockdimension_kyk_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_ths_balanceh_kyk_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_ths_balance_kyk_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_ths_inivbalanceh_kyk_cwzx' )
 
 
 
@@ -122,11 +107,6 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "上海卡�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_voucherpayable_kyok_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_voucher_kyok_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_monthendinventory_kyok_cwzx')
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",    "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_ths_inivbalance_kyok_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",    "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_ths_stockdimension_kyok_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",    "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_ths_balanceh_kyok_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",    "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_ths_balance_kyok_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_ths_inivbalanceh_kyok_cwzx' )
 
 
 
@@ -146,8 +126,3 @@ s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "上海卡�
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetYingFuD",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_voucherpayable_wc01_cwzx'   )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_voucher_wc01_cwzx'          )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetWuLiaoSFHZ", "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_monthendinventory_wc01_cwzx')
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_ths_inivbalance_wc01_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_ths_stockdimension_wc01_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_ths_balanceh_wc01_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_ths_balance_wc01_cwzx' )
-s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",    "杭州游卡文化创意有限公司拱墅区分公司",'erp_jd_ods_dim_ths_inivbalanceh_wc01_cwzx' )

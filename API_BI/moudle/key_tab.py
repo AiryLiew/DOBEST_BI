@@ -189,9 +189,9 @@ def getDictKey1(mydict,key,word):
 def clean(df,dfc,department,salename):
 
     # 清洗部门名称
-    df['bumen_new'] = df[department].map(lambda x :'电商平台部' if x == '电商平台部-泳淳' or x == 'Y电商平台部-泳淳' else(x[1:] if 'Y' in x or ' W' in x else x))
-    list_bm = ['零售事业组','批发流通事业组','线下渠道部']
-    df['bumen'] = df['bumen_new'].map(lambda x :'渠道' if x in list_bm else x)
+    df['bumen_new'] = df[department].map(lambda x :'电商平台部' if '电商平台部' in x else(x[1:] if 'Y' in x or ' W' in x else x))
+    # list_bm = ['零售事业组','批发流通事业组','线下渠道部']
+    df['bumen'] = df['bumen_new'].map(lambda x :'渠道' if '零售事业组' in x or '批发流通事业组' in x or '线下渠道部' in x else x)
     # 返回原表所属年度月度
     df['year'] = df['riqi'].map(lambda x: str(x)[:4])      
     df['month'] = df['riqi'].map(lambda x: str(x)[5:7])

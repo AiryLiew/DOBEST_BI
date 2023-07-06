@@ -378,7 +378,7 @@ def a1_func(url,name,fid):
 
 
 # 一次返回数据
-def onceback(url,company,name):
+def onceback(url,name):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
@@ -394,8 +394,7 @@ def onceback(url,company,name):
     method = "POST"
     headers = None
     params = {			
-            "shujuzx":"财务数据中心", 
-            "jigoumc":company
+            "shujuzx":"财务数据中心"
             }
     result = api_request(method=method, url=url, params=params, headers=headers)
     body = result.text
@@ -404,7 +403,6 @@ def onceback(url,company,name):
     df = pd.json_normalize(backdata)
 
 
-    df['company'] = company
     df['refresh_jk'] = datetime.now()
     df.to_sql(name, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
