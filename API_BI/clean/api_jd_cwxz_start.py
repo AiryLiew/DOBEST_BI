@@ -14,6 +14,8 @@ s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION",   'erp_jd_od
 s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",   'erp_jd_ods_dim_ths_balanceh_cwzx' )
 s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",   'erp_jd_ods_dim_ths_balance_cwzx' )
 s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",  'erp_jd_ods_dim_ths_inivbalanceh_cwzx' )
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSADJUSTMENTBILLENTRY",   'erp_jd_ods_dim_ths_adjustmentbillentry_cwzx' )
+s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSADJUSTMENTBILL",   'erp_jd_ods_dim_ths_adjustmentbill_cwzx' )
 
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_othersreceiving_wc_cwzx'  )
 # s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetPanKuiD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_inventoryloss_wc_cwzx'    )

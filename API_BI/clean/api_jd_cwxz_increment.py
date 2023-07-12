@@ -11,10 +11,12 @@ from api_jd import func,func_QTCK,func_wjg, func_sjzx
 # 每日增量
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE", 'erp_jd_ods_dim_acctagebalance_cwzx','fdetailid')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD",         'erp_jd_ods_dim_prepayment_cwzx',    'fid')
-a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY",   'erp_jd_ods_dim_voucherentry_cwzx',  'fentryid')
+a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY",   'erp_jd_ods_dim_voucherentry_cwzx',  'fid')
 a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION", 'erp_jd_ods_dim_ths_stockdimension_cwzx' ,'fentryid')
-a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",       'erp_jd_ods_dim_ths_balanceh_cwzx','fentryid' )
-a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",   'erp_jd_ods_dim_ths_inivbalanceh_cwzx' ,'fentryid')
+a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCEH",       'erp_jd_ods_dim_ths_balanceh_cwzx','fid' )
+a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCEH",   'erp_jd_ods_dim_ths_inivbalanceh_cwzx' ,'fid')
+a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSADJUSTMENTBILLENTRY",   'erp_jd_ods_dim_ths_adjustmentbillentry_cwzx','fid'  )
+a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTHSADJUSTMENTBILL",   'erp_jd_ods_dim_ths_adjustmentbill_cwzx' ,'fid' )
 
 
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州游卡文化创意有限公司",'erp_jd_ods_dim_othersreceiving_wc_cwzx'  ,'fid')
@@ -138,6 +140,7 @@ func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_j
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMDETAILV',"财务数据中心",'erp_jd_ods_fact_flexitemdetailv_cwzx')
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTL',"财务数据中心",'erp_jd_ods_fact_accountl_cwzx')
 func_wjg('http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTBOOKL',"财务数据中心",'erp_jd_ods_fact_accountbookl_cwzx')
+func_wjg("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVSTOCKDIMENSION","财务数据中心",'erp_jd_ods_dim_ths_inivstockdimension_cwzx')
 
 # s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY", 'erp_jd_ods_dim_voucherentry_cwzx')
 s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE",  'erp_jd_ods_dim_balance_cwzx')
@@ -157,10 +160,9 @@ s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE",        'erp_jd_ods_
 
 
 
-onceback("http://10.225.137.124:7772/ZyyxDSS/GetTBDMATERIALGROUP",   'erp_jd_ods_dim_materialgroup_wc_cwzx')
-onceback("http://10.225.137.124:7772/ZyyxDSS/GetTBDMATERIALGROUPL",  'erp_jd_ods_dim_materialgroupl_wc_cwzx')
-onceback("http://10.225.137.124:7772/ZyyxDSS/GetTHSOUTACCTG",   'erp_jd_ods_dim_outacctg_wc_cwzx')
-onceback("http://10.225.137.124:7772/ZyyxDSS/GetTHSCALDIMENSIONS",  'erp_jd_ods_dim_caldimensions_wc_cwzx')
-
-
-
+onceback("http://10.225.137.124:7772/ZyyxDSS/GetTBDMATERIALGROUP",   'erp_jd_ods_dim_materialgroup_cwzx')
+onceback("http://10.225.137.124:7772/ZyyxDSS/GetTBDMATERIALGROUPL",  'erp_jd_ods_dim_materialgroupl_cwzx')
+onceback("http://10.225.137.124:7772/ZyyxDSS/GetTHSOUTACCTG",   'erp_jd_ods_dim_outacctg_cwzx')
+onceback("http://10.225.137.124:7772/ZyyxDSS/GetTHSCALDIMENSIONS",  'erp_jd_ods_dim_caldimensions_cwzx')
+onceback("http://10.225.137.124:7772/ZyyxDSS/GetTBDSTOCK",  'erp_jd_ods_dim_tbd_stock_cwzx' )
+onceback("http://10.225.137.124:7772/ZyyxDSS/GetTBDSTOCKL",  'erp_jd_ods_dim_tbd_stockl_cwzx' )

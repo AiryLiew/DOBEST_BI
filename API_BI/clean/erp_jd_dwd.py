@@ -189,30 +189,45 @@ df_voucherpayable['riqi'] = pd.to_datetime(df_voucherpayable['riqi'],format='%Y-
 df_classify.sort_values(['wuliaofzid'],ascending=False ,inplace=True)
 df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
 
+
+df_wuliaofzid['wuliaofzid_2'].fillna(df_wuliaofzid['wuliaofzid_1'],inplace=True)
+df_wuliaofzid['wuliaofzid_3'].fillna(df_wuliaofzid['wuliaofzid_2'],inplace=True)
+
+df_wuliaofzid['wuliaofzmc_2'].fillna(df_wuliaofzid['wuliaofzmc_1'],inplace=True)
+df_wuliaofzid['wuliaofzmc_3'].fillna(df_wuliaofzid['wuliaofzmc_2'],inplace=True)
+
+# 连接用id
 df_classify = pd.merge(df_classify ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_3'],how='left')
 
-df_classify1 = df_classify[df_classify['wuliaofzid_3'].isna()].drop(['wuliaofzid_0','wuliaofzmc_0','wuliaofzid_1','wuliaofzmc_1','wuliaofzid_2','wuliaofzmc_2','wuliaofzid_3','wuliaofzmc_3'],axis=1)
-df_classify0 = df_classify[~df_classify['wuliaofzid_3'].isna()]
-df_classify1  = pd.merge(df_classify1 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_2'],how='left')
-df_classify11 = df_classify1[df_classify1['wuliaofzid_2'].isna()].drop(['wuliaofzid_0','wuliaofzmc_0','wuliaofzid_1','wuliaofzmc_1','wuliaofzid_2','wuliaofzmc_2','wuliaofzid_3','wuliaofzmc_3'],axis=1)
-df_classify10 = df_classify1[~df_classify1['wuliaofzid_2'].isna()]
-df_classify11  = pd.merge(df_classify11 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_1'],how='left')
-df_classify111 = df_classify11[df_classify11['wuliaofzid_1'].isna()].drop(['wuliaofzid_0','wuliaofzmc_0','wuliaofzid_1','wuliaofzmc_1','wuliaofzid_2','wuliaofzmc_2','wuliaofzid_3','wuliaofzmc_3'],axis=1)
-df_classify110 = df_classify11[~df_classify11['wuliaofzid_1'].isna()]
-df_classify111  = pd.merge(df_classify111 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_0'],how='left')
 
-df_classify = pd.concat([df_classify0,df_classify10,df_classify110,df_classify111])
+# 检查不合规分组连接
+try:
+    df_classify1 = df_classify[df_classify['wuliaofzid_0'].isna()].drop(['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzmc_0','wuliaofzmc_1','wuliaofzmc_2','wuliaofzmc_3'],axis=1)
+    df_classify1 = pd.merge(df_classify1 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_2'],how='left')
+except:
+    pass
+try:
+    df_classify2 = df_classify1[df_classify1['wuliaofzid_0'].isna()].drop(['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzmc_0','wuliaofzmc_1','wuliaofzmc_2','wuliaofzmc_3'],axis=1)
+    df_classify2 = pd.merge(df_classify2 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_1'],how='left')
+except:
+    pass
+try:
+    df_classify3 = df_classify2[df_classify2['wuliaofzid_0'].isna()].drop(['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzmc_0','wuliaofzmc_1','wuliaofzmc_2','wuliaofzmc_3'],axis=1)
+    df_classify3 = pd.merge(df_classify3 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_0'],how='left')
+except:
+    pass
 
-
+df_classify = pd.concat([df_classify,df_classify1,df_classify2,df_classify3])
 df_classify.rename(columns={'wuliaofzmc_1':'classify', 'wuliaofzmc_2':'classify_1','wuliaofzmc_3':'classify_2'},inplace=True)
 
 # 先降序分组再去重
-df_classify.sort_values(['wuliaofzid'],ascending=False ,inplace=True)
+df_classify.sort_values(['wuliaofzid','wuliaofzid_0'],ascending=False ,inplace=True)
 df_classify = df_classify[df_classify['wuliaobm'].duplicated()==False]
 df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
 
-df_classify.drop(['refresh_jk','fid'],axis=1,inplace = True)
-df_classify['classify_2'].fillna(df_classify['classify_1'],inplace=True)
+
+
+df_classify.drop(['refresh_jk'],axis=1,inplace = True)
 
 print('df_classify:',datetime.now())
 
@@ -601,6 +616,7 @@ savesql(df_client1,'erp_jd_dwd','erp_jd_dwd_fact_client',"""CREATE TABLE `erp_jd
 
 
 savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp_jd_dwd_fact_classify` (
+  `fid` text,
   `wuliaobm` text,
   `wuliaomc` text,
   `wuliaofzid` text,
@@ -613,17 +629,16 @@ savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp
   `tiaoma` text,
   `company` text,
   `wuliaofzid_0` text,
-  `wuliaofzmc_0` text,
   `wuliaofzid_1` text,
-  `classify` text,
   `wuliaofzid_2` text,
-  `classify_1` text,
   `wuliaofzid_3` text,
+  `wuliaofzmc_0` text,
+  `classify` text,
+  `classify_1` text,
   `classify_2` text,
   `refresh` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_fact_classify(wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,wuliaofzid_0,wuliaofzmc_0,wuliaofzid_1,classify,wuliaofzid_2,classify_1,wuliaofzid_3,classify_2,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
-
+"INSERT INTO erp_jd_dwd_fact_classify(fid,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,wuliaofzid_0, wuliaofzid_1, wuliaofzid_2, wuliaofzid_3,wuliaofzmc_0, classify, classify_1, classify_2,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
 
 
 
