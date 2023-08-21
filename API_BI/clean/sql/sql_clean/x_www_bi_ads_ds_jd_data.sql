@@ -13,6 +13,18 @@ CREATE TABLE www_bi_ads.ds_jd_data (
   month(a.`riqi`)*100+day(a.`riqi`) 月_日,
   week(a.`riqi`,1) 年周,
   weekday(a.`riqi`)+1 星期,
+  case  when weekday(current_date())>3 and ((week(a.`riqi`,1) = week(CURRENT_DATE(),1) and weekday(a.`riqi`) in (0,1,2,3)) or 
+        (week(a.`riqi`,1) = week(CURRENT_DATE(),1)-1 and weekday(a.`riqi`) in (4,5,6)))
+        then '本周' 
+        when weekday(current_date())<4 and ((week(a.`riqi`,1) = week(CURRENT_DATE(),1)-1 and weekday(a.`riqi`) in (0,1,2,3)) or 
+        (week(a.`riqi`,1) = week(CURRENT_DATE(),1)-2 and weekday(a.`riqi`) in (4,5,6)))
+        then '本周' 
+        when weekday(current_date())>3 and ((week(a.`riqi`,1) = week(CURRENT_DATE(),1)-1 and weekday(a.`riqi`) in (0,1,2,3)) or 
+        (week(a.`riqi`,1) = week(CURRENT_DATE(),1)-2 and weekday(a.`riqi`) in (4,5,6)))
+        then '上周' 
+        when weekday(current_date())<4 and ((week(a.`riqi`,1) = week(CURRENT_DATE(),1)-2 and weekday(a.`riqi`) in (0,1,2,3)) or 
+        (week(a.`riqi`,1) = week(CURRENT_DATE(),1)-3 and weekday(a.`riqi`) in (4,5,6)))
+        then '上周' end 时段,
   date_format(a.`riqi`,'%Y-%m-%d') 日期,
   a.`kehumc` 店铺,
   case when a.`kehumc` in (
@@ -28,8 +40,9 @@ CREATE TABLE www_bi_ads.ds_jd_data (
       when a.`kehumc` in (
       '游卡桌游文化店',
       '三国杀旗舰店') then '淘系'    
+      when a.`kehumc` =
+      '头条小店-游点点' then '抖音' 
       when a.`kehumc` in (
-      '头条小店-游点点',
       '三国杀快手小店',
       '三国杀得物店',
       '三国杀小店',

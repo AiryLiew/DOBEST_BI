@@ -9,7 +9,7 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost(
     union all
 
     SELECT a.wuliaomc,
-    round(sum(a.zongchengb)/sum(a.shifasl),2) cost 
+    round(sum(a.zongchengb)/sum(a.shifasl)*1.13,2) cost 
     FROM erp_jd_dwd.erp_jd_dwd_dim_saleshipping a
 
     left join(

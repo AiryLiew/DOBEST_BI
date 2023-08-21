@@ -139,7 +139,7 @@ def merge_label(df_purchases, df_sale,column_name,date_name,df_classify):
     df_purchase_02 = df_purchase[df_purchase['shifoucp'] == '半成品'].reset_index(drop=True)                                                                      
     df_purchase_01['wlmc_all'] = df_purchase_01['wuliaomc']
 
-    # df_purchase_02 = fuzzy(df_purchase_02,list_02,'wuliaomc','wlmc_all')
+
 
     a = df_purchase_02['wuliaomc'].drop_duplicates().reset_index()
     lista = []

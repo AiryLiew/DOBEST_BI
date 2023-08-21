@@ -142,6 +142,22 @@ df_warehouse1 = df_warehouse.set_index(['riqi','wuliaomc']).groupby(['wuliaomc']
 df_warehouse = pd.concat([df_warehouse,df_warehouse1['inventory_wl']],axis=1)
 
 
+df_warehouse['refresh'] = datetime.now()
+
+savesql(df_warehouse,'erp_jd_dws','erp_jd_dws_warehouse',"""CREATE TABLE `erp_jd_dws_warehouse` (
+  `riqi` datetime DEFAULT NULL,
+  `wuliaomc` text,
+  `cangkumc` text,
+  `cangkuid` text,
+  `shipping` double DEFAULT NULL,
+  `company` text,
+  `table` text,
+  `receiving` double DEFAULT NULL,
+  `inventory` double DEFAULT NULL,
+  `inventory_wl` double DEFAULT NULL,
+  `refresh` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
+"INSERT INTO erp_jd_dws_warehouse(riqi,wuliaomc,cangkumc,cangkuid,receiving,shipping,company,`table`,inventory,inventory_wl,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
 
 
 
@@ -569,28 +585,10 @@ df_doi_fc['refresh'] = datetime.now()
 df_doi_7['refresh'] = datetime.now()
 df_doi_30['refresh'] = datetime.now()
 df_doi_60['refresh'] = datetime.now()
-df_warehouse['refresh'] = datetime.now()
 df_ageofreceivables['refresh'] = datetime.now()
 
 
 # *****************************************写入mysql*****************************************************#
-
-
-savesql(df_warehouse,'erp_jd_dws','erp_jd_dws_warehouse',"""CREATE TABLE `erp_jd_dws_warehouse` (
-  `riqi` datetime DEFAULT NULL,
-  `wuliaomc` text,
-  `cangkumc` text,
-  `cangkuid` text,
-  `shipping` double DEFAULT NULL,
-  `company` text,
-  `table` text,
-  `receiving` double DEFAULT NULL,
-  `inventory` double DEFAULT NULL,
-  `inventory_wl` double DEFAULT NULL,
-  `refresh` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dws_warehouse(riqi,wuliaomc,cangkumc,cangkuid,receiving,shipping,company,`table`,inventory,inventory_wl,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
-
 
 savesql(df_warehouse_ck_dayend,'erp_jd_dws','erp_jd_dws_warehouse_ck_dayend',"""CREATE TABLE `erp_jd_dws_warehouse_ck_dayend` (
   `wuliaomc` text,
