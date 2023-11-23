@@ -1,7 +1,7 @@
 import os 
 
  
-os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\ods.py")
+# os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\ods.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\api_jd_cwxz_increment.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\dwd.py")
 os.system(r"python C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_dwd.py")

@@ -51,36 +51,36 @@ df_client = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_c
                                 select * from erp_jd_ods.erp_jd_ods_fact_client_wc01_cwzx where shenhezt = '已审核';"""), engine.connect()) 
 
 
-df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_dobest where shenhezt = '已审核'
+df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_dobest where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_cwzx where shenhezt = '已审核'
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_dobest where shenhezt = '已审核'
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_dobest where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_cwzx where shenhezt = '已审核'
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_xmgs where shenhezt = '已审核'
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_xmgs where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx where shenhezt = '已审核'
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx where shenhezt = '已审核'
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc01_cwzx where shenhezt = '已审核';"""), engine.connect()) 
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc01_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用');"""), engine.connect()) 
 
 
-df_saleOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_dobest
+df_saleOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_dobest where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_dobest
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_dobest where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_cwzx where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_xmgs
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_xmgs where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_cwzx where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_kyk_cwzx;"""), engine.connect())  
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_kyk_cwzx where xiaoshoubmmc is not null;"""), engine.connect())  
 
 
 df_saleReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_salereturn_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
@@ -189,7 +189,7 @@ df_voucherpayable['riqi'] = pd.to_datetime(df_voucherpayable['riqi'],format='%Y-
 df_classify.sort_values(['wuliaofzid'],ascending=False ,inplace=True)
 df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
 
-
+# 旧字段处理方式 ////////////////////////////////////////////////////////////////////////////
 df_wuliaofzid['wuliaofzid_2'].fillna(df_wuliaofzid['wuliaofzid_1'],inplace=True)
 df_wuliaofzid['wuliaofzid_3'].fillna(df_wuliaofzid['wuliaofzid_2'],inplace=True)
 
@@ -219,6 +219,12 @@ except:
 
 df_classify = pd.concat([df_classify,df_classify1,df_classify2,df_classify3])
 df_classify.rename(columns={'wuliaofzmc_1':'classify', 'wuliaofzmc_2':'classify_1','wuliaofzmc_3':'classify_2'},inplace=True)
+
+# 新字段沿用旧字段，新增处理 ////////////////////////////////////////////////////////////////////////////
+df_classify['classify'] = df_classify['classify'].map(lambda x :str(x).split('-')[-1])
+df_classify['classify_1'] = df_classify['classify_1'].map(lambda x :str(x).split('-')[-1])
+df_classify['classify_2'] = df_classify['classify_2'].map(lambda x :str(x).split('-')[-1])
+
 
 # 先降序分组再去重
 df_classify.sort_values(['wuliaofzid','wuliaofzid_0'],ascending=False ,inplace=True)

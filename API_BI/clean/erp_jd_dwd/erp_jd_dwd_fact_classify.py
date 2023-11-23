@@ -17,67 +17,37 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_dobest
+df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_dobest
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_xmgs where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_xmgs
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx
-                                    union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx;"""),   engine.connect())
-
-df_wuliaofzid   = pd.read_sql_query(text('select * from erp_jd_dwd.erp_jd_dwd_fact_wuliaofzid;'),   engine.connect())
-
-# engine.dispose()   
-
-# ******************************************清洗表*******************************************************#
-# df_classify   物料分类表（区分欢乐坊、三国杀、yokakids、其他）
-# ----------------------------------------------------------------------------------------------------- # 
-# 先降序分组再去重
-df_classify.sort_values(['wuliaofzid'],ascending=False ,inplace=True)
-df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
+                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_wc01_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用');"""),   engine.connect())
 
 
-df_wuliaofzid['wuliaofzid_2'].fillna(df_wuliaofzid['wuliaofzid_1'],inplace=True)
-df_wuliaofzid['wuliaofzid_3'].fillna(df_wuliaofzid['wuliaofzid_2'],inplace=True)
-
-df_wuliaofzid['wuliaofzmc_2'].fillna(df_wuliaofzid['wuliaofzmc_1'],inplace=True)
-df_wuliaofzid['wuliaofzmc_3'].fillna(df_wuliaofzid['wuliaofzmc_2'],inplace=True)
-
-# 连接用id
-df_classify = pd.merge(df_classify ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_3'],how='left')
+engine.dispose()   
 
 
-# 检查不合规分组连接
-try:
-    df_classify1 = df_classify[df_classify['wuliaofzid_0'].isna()].drop(['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzmc_0','wuliaofzmc_1','wuliaofzmc_2','wuliaofzmc_3'],axis=1)
-    df_classify1 = pd.merge(df_classify1 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_2'],how='left')
-except:
-    pass
-try:
-    df_classify2 = df_classify1[df_classify1['wuliaofzid_0'].isna()].drop(['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzmc_0','wuliaofzmc_1','wuliaofzmc_2','wuliaofzmc_3'],axis=1)
-    df_classify2 = pd.merge(df_classify2 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_1'],how='left')
-except:
-    pass
-try:
-    df_classify3 = df_classify2[df_classify2['wuliaofzid_0'].isna()].drop(['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzmc_0','wuliaofzmc_1','wuliaofzmc_2','wuliaofzmc_3'],axis=1)
-    df_classify3 = pd.merge(df_classify3 ,df_wuliaofzid,left_on=['wuliaofzid'],right_on = ['wuliaofzid_0'],how='left')
-except:
-    pass
+df_classify['name_group'] = df_classify['wuliaofzmc'].map(lambda x:x.split('-'))
+df_classify['id_group'] = df_classify['wuliaofzid'].map(lambda x:[str(x)[0:i+2] for i in range(0, len(str(x)), 2)])
 
-df_classify = pd.concat([df_classify,df_classify1,df_classify2,df_classify3])
-df_classify.rename(columns={'wuliaofzmc_1':'classify', 'wuliaofzmc_2':'classify_1','wuliaofzmc_3':'classify_2'},inplace=True)
+# 展开列为多列  
+df_classify[['wuliaofzmc_0','classify','classify_1','classify_2','wuliaofzmc_4']] = df_classify['name_group'].apply(pd.Series)  
+df_classify[['wuliaofzid_0','wuliaofzid_1','wuliaofzid_2','wuliaofzid_3','wuliaofzid_4']] = df_classify['id_group'].apply(pd.Series)  
+
+# 删除原始列  
+df_classify.drop(columns=['name_group','id_group','wuliaofzmc_4','wuliaofzid_4'], inplace=True)  
+
 
 # 先降序分组再去重
 df_classify.sort_values(['wuliaofzid','wuliaofzid_0'],ascending=False ,inplace=True)
 df_classify = df_classify[df_classify['wuliaobm'].duplicated()==False]
 df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
-
 
 
 df_classify.drop(['refresh_jk'],axis=1,inplace = True)
@@ -104,14 +74,14 @@ savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp
   `danxiangbzsl` double DEFAULT NULL,
   `tiaoma` text,
   `company` text,
-  `wuliaofzid_0` text,
-  `wuliaofzid_1` text,
-  `wuliaofzid_2` text,
-  `wuliaofzid_3` text,
   `wuliaofzmc_0` text,
   `classify` text,
   `classify_1` text,
   `classify_2` text,
+  `wuliaofzid_0` text,
+  `wuliaofzid_1` text,
+  `wuliaofzid_2` text,
+  `wuliaofzid_3` text,
   `refresh` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_fact_classify(fid,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,wuliaofzid_0, wuliaofzid_1, wuliaofzid_2, wuliaofzid_3,wuliaofzmc_0, classify, classify_1, classify_2,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+"INSERT INTO erp_jd_dwd_fact_classify(fid,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,wuliaofzmc_0, classify, classify_1, classify_2,wuliaofzid_0, wuliaofzid_1, wuliaofzid_2, wuliaofzid_3,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")

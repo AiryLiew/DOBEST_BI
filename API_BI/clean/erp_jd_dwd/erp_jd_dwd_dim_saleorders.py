@@ -20,19 +20,19 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 df_purchasecost = pd.read_sql_query(text('select * from erp_jd_dwd.erp_jd_dwd_dim_purchasecost;'),   engine.connect())  
 customer_name_change = pd.read_sql_query(text('select * from localdata.customer_name_change;'),   engine.connect())  
 
-df_saleOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_dobest
+df_saleOrders = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_dobest where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_dobest
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_dobest where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_cwzx where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_xmgs
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_xmgs where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_cwzx
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_yc_cwzx where xiaoshoubmmc is not null
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_kyk_cwzx;"""),   engine.connect())  
+                                    select * from erp_jd_ods.erp_jd_ods_dim_saleorders_kyk_cwzx where xiaoshoubmmc is not null;"""),   engine.connect())  
 
 
 df_cost = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_dim_cost`;'),   engine.connect())  

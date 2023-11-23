@@ -17,6 +17,14 @@ where fid>=(
     ) a
 );
 
+delete FROM erp_jd_ods.erp_jd_ods_dim_saleshipping_wc01_cwzx
+where fid>=(
+    select a.fid from(
+        SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_saleshipping_wc01_cwzx
+        where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
+    ) a
+);
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_saleshipping_ms_cwzx
 where fid>=(
     select a.fid from(
@@ -50,6 +58,14 @@ where fid>=(
     ) a
 );
 
+delete FROM erp_jd_ods.erp_jd_ods_dim_salereturn_wc01_cwzx
+where fid>=(
+    select a.fid from(
+        SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_salereturn_wc01_cwzx
+        where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
+    ) a
+);
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_salereturn_yc_cwzx
 where fid>=(
     select a.fid from(
@@ -79,6 +95,14 @@ delete FROM erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx
 where fid>=(
     select a.fid from(
         SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx
+        where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
+    ) a
+);
+
+delete FROM erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc01_cwzx
+where fid>=(
+    select a.fid from(
+        SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc01_cwzx
         where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
     ) a
 );

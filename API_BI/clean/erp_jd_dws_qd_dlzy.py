@@ -93,7 +93,7 @@ df_purchaseorders_ms = pd.merge(df_purchaseorders_ms,df_dj,on=['wlmc_all'],how =
 
 # 增加品牌
 dict_pp = { '杰克士':['JAKKS'],
-            '万代':['万代','游器物'],
+            '万代':['万代','游器物','Epochgame'],
             '小猪班克':['小猪班克'],
             '天天富翁':['天天富翁'],
             '乐童宝贝':['乐童'],

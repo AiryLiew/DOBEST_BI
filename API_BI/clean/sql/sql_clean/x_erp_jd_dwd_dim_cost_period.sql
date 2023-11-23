@@ -15,7 +15,9 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
     c.会计期间,
     c.会计年,
     c.年期,
-    case when m.期末金额/m.期末数量 is null then m.本期发出金额/m.本期发出数量 else m.期末金额/m.期末数量 end 成本单价,
+    ifnull(m.本期发出金额/m.本期发出数量,0) 本期发出成本单价,
+    ifnull(m.期末金额/m.期末数量,0) 期末成本单价,
+    cast(0 as char) 期初成本单价,
     case when m.fdimensionid = '4' then '杭州游卡文化创意有限公司'
         when m.fdimensionid = '1' then '杭州迷思文化创意有限公司' 
         when m.fdimensionid = '5' then '杭州泳淳网络技术有限公司' 
@@ -132,7 +134,9 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
     c.会计期间,
     c.会计年,
     c.年期,
-    m.期初金额/m.期初数量 成本单价,
+    cast(0 as char) 本期发出成本单价,
+    cast(0 as char) 期末成本单价,
+    ifnull(m.期初金额/m.期初数量,0) 期初成本单价,
     case when m.fdimensionid = '4' then '杭州游卡文化创意有限公司'
         when m.fdimensionid = '1' then '杭州迷思文化创意有限公司' 
         when m.fdimensionid = '5' then '杭州泳淳网络技术有限公司' 

@@ -17,21 +17,23 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-df_purchaseReceiving = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+df_purchaseReceiving = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
                                             select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_dobest where danjubh = 'CGRK07101' and dingdandh = ' '
                                             union all
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_dobest where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_xmgs where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_xmgs where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司')
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
                                             union all 
-                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司');"""),   engine.connect()) 
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+                                            union all 
+                                            select * from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc01_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司');"""),   engine.connect()) 
 
 
 df_saleShipping = pd.read_sql_query(text('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;'),   engine.connect()) 
@@ -46,12 +48,13 @@ engine.dispose()
 df_purchaseReceiving = cf(df_purchaseReceiving)
 
 df_purchaseReceiving['shifasl'] = df_purchaseReceiving['shifasl'].astype(float)
-df_purchaseReceiving = merge_label(df_purchaseReceiving, df_saleShipping['wuliaomc'].to_list(), 'shifasl','riqi',df_wlys)
+df_purchaseReceiving = merge_label(df_purchaseReceiving,df_saleShipping['wuliaomc'].drop_duplicates().to_list(), 'shifasl','riqi',df_wlys)
 # 空物料名称增补
 df_purchaseReceiving['wlmc_all'].fillna(df_purchaseReceiving['wuliaomc'],inplace=True)
 
 df_purchaseReceiving.reset_index(drop=True,inplace=True)
 df_purchaseReceiving.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
+
 
 
 

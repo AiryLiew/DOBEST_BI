@@ -123,14 +123,14 @@ CREATE TABLE erp_jd_dws.erp_jd_dws_saleordersqd (
       `danjulxmc` ,
       `wuliaobm` ,
       `wuliaomc` ,
-      `jiashuihj_ac` ,
+      jiashuihj `jiashuihj_ac` ,
       `bumen_new` ,
       `bumen` ,
       `cost` ,
       `hanshuidj` ,
-      `xiaoshousl_ac` ,
-      `purchases_ac` ,
-      `profit_ac` ,
+      xiaoshousl `xiaoshousl_ac` ,
+      purchases `purchases_ac` ,
+      profit `profit_ac` ,
       `company` ,
       `danjubh` 
     FROM erp_jd_dwd.erp_jd_dwd_dim_saleorders 
@@ -141,12 +141,12 @@ CREATE TABLE erp_jd_dws.erp_jd_dws_saleordersqd (
     and kehumc not in 
     ('北京诚宇动漫文化有限公司',
     '广州奇乐动漫文化有限公司',
-    '贵州宽宽商贸有限公司',
     '杭州迷思文化创意有限公司',
     '杭州泳淳网络技术有限公司',
     '临沂弘龙文化科技有限公司',
     '上海卡丫卡文化传播有限公司',
-    '义乌市齐茜玩具商行')
+    '义乌市齐茜玩具商行',
+    '杭州蓝网文化传媒有限公司')
 );
 
 

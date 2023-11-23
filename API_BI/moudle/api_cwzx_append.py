@@ -258,10 +258,6 @@ def s1_func(url):
         xclsh = response["xclsh"]
         list_1=[xclsh if i ==-1 else i for i in list_1]
 
-        # a = url[url.find("Get")+3:]
-        # path = r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle' +'\\' + a + '列表.txt'
-        # dlist = pd.DataFrame(list_1,columns=[a])
-        # dlist.to_csv(path,index=False)
         
     return data
 
