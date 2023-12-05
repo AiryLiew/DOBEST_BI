@@ -9,10 +9,12 @@ from key_tab import getDict
 
 # *****************************************连接mysql、sql server*****************************************#
 engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306'))
-sql = "select * from erp_jd_dws.erp_jd_dws_closebalance where 科目编码 = '1122.06' and 客户编码 is not null and 账簿 is not null and 审核状态 != '创建' ;"
-connection = engine.connect()
+df_closebalance = pd.read_sql_query(text("select * from erp_jd_dws.erp_jd_dws_closebalance where 科目编码 = '1122.06' and 客户编码 is not null and 账簿 is not null and 审核状态<>'创建';"), engine.connect())
 
-df_closebalance  = pd.read_sql_query(sql = text(sql), con=connection)
+engine.dispose()
+
+# df_ageofreceivables   账龄表
+# ----------------------------------------------------------------------------------------------------- # 
 df_closebalance.fillna(0,inplace=True)
 
 
@@ -43,11 +45,11 @@ df_mx['借方金额1'] = df_mx['借方金额']
 df_mx['贷方金额1'] = df_mx['贷方金额']
 for i in range(len(df_mx)):
     if df_mx['借方金额1'][i]<0:
-        df_mx['贷方金额1'][i] = df_mx['贷方金额1'][i]-df_mx['借方金额1'][i]
-        df_mx['借方金额1'][i] = 0
+        df_mx.loc[i,'贷方金额1'] = df_mx['贷方金额1'][i]-df_mx['借方金额1'][i]
+        df_mx.loc[i,'借方金额1'] = 0
     elif df_mx['贷方金额1'][i]<0:
-        df_mx['借方金额1'][i] = df_mx['借方金额1'][i]-df_mx['贷方金额1'][i]
-        df_mx['贷方金额1'][i] = 0   
+        df_mx.loc[i,'借方金额1'] = df_mx['借方金额1'][i]-df_mx['贷方金额1'][i]
+        df_mx.loc[i,'贷方金额1'] = 0   
 
 
 df_mx['余额'] = df_mx['借方金额1']-df_mx['贷方金额1']
@@ -143,5 +145,18 @@ df_ageofreceivables['refresh'] = datetime.now()
 
 
 # *****************************************写入mysql*****************************************************#
-df_ageofreceivables .to_sql('erp_jd_ads_ageofreceivables_1122_06',  engine, schema='erp_jd_ads', if_exists='replace',index=False)
-engine.dispose()
+savesql(df_ageofreceivables,'erp_jd_ads','erp_jd_ads_ageofreceivables_1122_06',"""CREATE TABLE `erp_jd_ads_ageofreceivables_1122_06` (
+  `账簿` text,
+  `客户名称` text,
+  `客户编码` text,
+  `日期` datetime DEFAULT NULL,
+  `借方金额` double DEFAULT NULL,
+  `贷方金额` double DEFAULT NULL,
+  `余额` double DEFAULT NULL,
+  `余额方向` text,
+  `结余金额` double DEFAULT NULL,
+  `账龄` bigint DEFAULT NULL,
+  `账龄区间` text,
+  `refresh` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;""",
+"INSERT INTO erp_jd_ads_ageofreceivables_1122_06(账簿,客户名称,客户编码,日期,借方金额,贷方金额,余额,余额方向,结余金额,账龄,账龄区间,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")

@@ -13,7 +13,6 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
     from datetime import datetime
     
     engine = create_engine("mysql+pymysql://{}:{}@{}:{}/{}".format('root', '123456', 'localhost', '3306', 'erp_jd_ods'))
-    # conn = create_engine("mssql+pymssql://{}:{}@{}:{}/{}".format('sa', '123456', '10.242.32.59', '1433', 'erp_jd_ods'))
 
     method = "POST"
     headers = None
@@ -61,6 +60,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         df_wc = funcA("杭州游卡文化创意有限公司")
         if df_wc.empty==False:
             df_wc['company'] = "杭州游卡文化创意有限公司"
+            df_wc['shujuzx'] = shujuzx
             df_wc['refresh_jk'] = datetime.now()
             df_wc.to_sql(name1, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -71,6 +71,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         df_yc = funcA("杭州泳淳网络技术有限公司")
         if df_yc.empty==False:
             df_yc['company'] = "杭州泳淳网络技术有限公司"
+            df_yc['shujuzx'] = shujuzx
             df_yc['refresh_jk'] = datetime.now()
             df_yc.to_sql(name2, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -81,6 +82,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         df_ms = funcA("杭州迷思文化创意有限公司")
         if df_ms.empty==False:
             df_ms['company'] = "杭州迷思文化创意有限公司"
+            df_ms['shujuzx'] = shujuzx
             df_ms['refresh_jk'] = datetime.now()
             df_ms.to_sql(name3, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -91,6 +93,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         df_kyk = funcA("上海卡丫卡文化传播有限公司")
         if df_kyk.empty==False:
             df_kyk['company'] = "上海卡丫卡文化传播有限公司"
+            df_kyk['shujuzx'] = shujuzx
             df_kyk['refresh_jk'] = datetime.now()
             df_kyk.to_sql(name4, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -103,6 +106,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         df_kyok = funcA("上海卡哟卡网络技术有限公司")
         if df_kyok.empty==False:
             df_kyok['company'] = "上海卡哟卡网络技术有限公司"
+            df_kyok['shujuzx'] = shujuzx
             df_kyok['refresh_jk'] = datetime.now()
             df_kyok.to_sql(name5, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -113,6 +117,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         df_wc01 = funcA("杭州游卡文化创意有限公司拱墅区分公司")
         if df_wc01.empty==False:
             df_wc01['company'] = "杭州游卡文化创意有限公司拱墅区分公司"
+            df_wc01['shujuzx'] = shujuzx
             df_wc01['refresh_jk'] = datetime.now()
             df_wc01.to_sql(name6, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -161,6 +166,7 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
         df_wc = funcA(shujuzx,"杭州游卡文化创意有限公司")
         if df_wc.empty==False:
             df_wc['company'] = "杭州游卡文化创意有限公司"
+            df_wc['shujuzx'] = shujuzx
             df_wc['refresh_jk'] = datetime.now()
             df_wc.to_sql(name1, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -172,6 +178,7 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
         df_yc = funcA(shujuzx,"杭州泳淳网络技术有限公司")
         if df_yc.empty==False:
             df_yc['company'] = "杭州泳淳网络技术有限公司"
+            df_yc['shujuzx'] = shujuzx
             df_yc['refresh_jk'] = datetime.now()
             df_yc.to_sql(name2, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -183,6 +190,7 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
         df_ms = funcA(shujuzx,"杭州迷思文化创意有限公司")
         if df_ms.empty==False:
             df_ms['company'] = "杭州迷思文化创意有限公司"
+            df_ms['shujuzx'] = shujuzx
             df_ms['refresh_jk'] = datetime.now()
             df_ms.to_sql(name3, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -194,6 +202,7 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
         df_kyk = funcA(shujuzx,"上海卡丫卡文化传播有限公司")
         if df_kyk.empty==False:
             df_kyk['company'] = "上海卡丫卡文化传播有限公司"
+            df_kyk['shujuzx'] = shujuzx
             df_kyk['refresh_jk'] = datetime.now()
             df_kyk.to_sql(name4, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -205,6 +214,7 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
         df_kyok = funcA(shujuzx,"上海卡哟卡网络技术有限公司")
         if df_kyok.empty==False:
             df_kyok['company'] = "上海卡哟卡网络技术有限公司"
+            df_kyok['shujuzx'] = shujuzx
             df_kyok['refresh_jk'] = datetime.now()
             df_kyok.to_sql(name5, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 
@@ -216,6 +226,7 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
         df_wc01 = funcA(shujuzx,"杭州游卡文化创意有限公司拱墅区分公司")
         if df_wc01.empty==False:
             df_wc01['company'] = "杭州游卡文化创意有限公司拱墅区分公司"
+            df_wc01['shujuzx'] = shujuzx
             df_wc01['refresh_jk'] = datetime.now()
             df_wc01.to_sql(name6, engine, schema='erp_jd_ods', if_exists='replace', index=False)
 

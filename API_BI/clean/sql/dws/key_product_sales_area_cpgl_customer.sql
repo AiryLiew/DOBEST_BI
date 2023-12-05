@@ -1,8 +1,8 @@
-drop table if exists erp_jd_ads.`key_product_sales_area_cpgl_area`;
-CREATE TABLE erp_jd_ads.`key_product_sales_area_cpgl_area` (
+drop table if exists erp_jd_ads.`key_product_sales_area_cpgl_customer`;
+CREATE TABLE erp_jd_ads.`key_product_sales_area_cpgl_customer` (
     SELECT a.产品大类,
     a.`部门`,
-    a.`业务区域`,
+    a.客户,
     sum(case when a.周分类='本周' then a.`总销量` end) 本周销量,
     sum(case when a.周分类='上周' then a.`总销量` end) 上周销量,
     round(sum(case when a.周分类='本周' then a.`总销售额` end),2) 本周销售额,
@@ -194,111 +194,25 @@ CREATE TABLE erp_jd_ads.`key_product_sales_area_cpgl_area` (
                 SELECT classify,classify_1,classify_2,wuliaomc 
                 from erp_jd_dwd.erp_jd_dwd_fact_classify 
             ) b on a.wuliaomc = b.wuliaomc 
-            where b.classify_1 not in ('海外系列','阵面对决','IP系列','自研B端剧本杀','其他','剧本杀配件','电商剧本杀道具','收藏卡') 
-            and b.classify in ('欢乐坊','推理桌游','三国杀','Yokakids','周边')
-            and a.wuliaomc not like '扑克三国杀%%'
-            and a.wuliaomc not like '贵人鸟资源卡包第一弹%%'
-
-            union all 
-
-            SELECT  b.classify 产品大类, 
-            b.classify_1 产品中类, 
-            b.classify_2 产品小类, 
-            a.wuliaomc 产品名称,
-            a.riqi,
-            a.xiaoshousl ,
-            a.danjulxmc,
-            a.kehumc 客户,
-            yearweek(a.riqi,1) 年周,
-            case when yearweek(riqi,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 7 day),1) then '本周' 
-                when yearweek(riqi,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 14 day),1) then '上周'
-                else '其他' end 周分类,
-            case when month(riqi)=month(CURRENT_DATE()) and year(riqi)=year(CURRENT_DATE())  then '本月' 
-                when month(riqi)=month(CURRENT_DATE()) and year(riqi)=year(CURRENT_DATE())-1 and day(riqi)<day(CURRENT_DATE()) then '去年同期/本月' 
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE()) and day(riqi)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and day(riqi)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
-                when (month(riqi)=month(CURRENT_DATE())-2 and year(riqi)=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (month(riqi)=11 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
-                else '其他' end 月分类,
-            case when (quarter(riqi)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and year(riqi)=year(CURRENT_DATE())) or (quarter(riqi)=4 and quarter(CURRENT_DATE())=1 and year(riqi)=year(CURRENT_DATE())-1)  then '上季度' 
-                when (quarter(riqi)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and year(riqi)=year(CURRENT_DATE())) or (quarter(riqi)=3 and quarter(CURRENT_DATE())=1 and year(riqi)=year(CURRENT_DATE())-1)  or (quarter(riqi)=4 and quarter(CURRENT_DATE())=2 and year(riqi)=year(CURRENT_DATE())-1) then '上季度环比' 
-                when quarter(riqi)=quarter(CURRENT_DATE())-1  and year(riqi)=year(CURRENT_DATE())-1 then '上季度同比'
-                else '其他' end 季分类
-            from erp_jd_dwd.erp_jd_dwd_dim_saleorders  a 
-            LEFT JOIN(
-                SELECT classify,classify_1,classify_2,wuliaomc 
-                from erp_jd_dwd.erp_jd_dwd_fact_classify 
-            ) b on a.wuliaomc = b.wuliaomc 
-            where b.classify_2 ='其他闪'
-
-
-            union all 
-
-            SELECT  b.classify 产品大类, 
-            b.classify_1 产品中类, 
-            b.classify_2 产品小类, 
-            a.wuliaomc 产品名称,
-            a.riqi,
-            a.xiaoshousl ,
-            a.danjulxmc,
-            a.kehumc 客户,
-            yearweek(a.riqi,1) 年周,
-            case when yearweek(riqi,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 7 day),1) then '本周' 
-                when yearweek(riqi,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 14 day),1) then '上周'
-                else '其他' end 周分类,
-            case when month(riqi)=month(CURRENT_DATE()) and year(riqi)=year(CURRENT_DATE())  then '本月' 
-                when month(riqi)=month(CURRENT_DATE()) and year(riqi)=year(CURRENT_DATE())-1 and day(riqi)<day(CURRENT_DATE()) then '去年同期/本月' 
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE()) and day(riqi)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and day(riqi)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
-                when (month(riqi)=month(CURRENT_DATE())-2 and year(riqi)=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (month(riqi)=11 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
-                else '其他' end 月分类,
-            case when (quarter(riqi)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and year(riqi)=year(CURRENT_DATE())) or (quarter(riqi)=4 and quarter(CURRENT_DATE())=1 and year(riqi)=year(CURRENT_DATE())-1)  then '上季度' 
-                when (quarter(riqi)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and year(riqi)=year(CURRENT_DATE())) or (quarter(riqi)=3 and quarter(CURRENT_DATE())=1 and year(riqi)=year(CURRENT_DATE())-1)  or (quarter(riqi)=4 and quarter(CURRENT_DATE())=2 and year(riqi)=year(CURRENT_DATE())-1) then '上季度环比' 
-                when quarter(riqi)=quarter(CURRENT_DATE())-1  and year(riqi)=year(CURRENT_DATE())-1 then '上季度同比'
-                else '其他' end 季分类
-            from erp_jd_dwd.erp_jd_dwd_dim_saleorders  a 
-            LEFT JOIN(
-                SELECT classify,classify_1,classify_2,wuliaomc 
-                from erp_jd_dwd.erp_jd_dwd_fact_classify 
-            ) b on a.wuliaomc = b.wuliaomc 
-            where a.wuliaomc like '扑克三国杀%%'
-            and b.classify <> 0
-            and a.jiashuihj <> 0
-
-
-            union all 
-
-            SELECT  b.classify 产品大类, 
-            b.classify_1 产品中类, 
-            b.classify_2 产品小类, 
-            a.wuliaomc 产品名称,
-            a.riqi,
-            a.xiaoshousl ,
-            a.danjulxmc,
-            a.kehumc 客户,
-            yearweek(a.riqi,1) 年周,
-            case when yearweek(riqi,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 7 day),1) then '本周' 
-                when yearweek(riqi,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 14 day),1) then '上周'
-                else '其他' end 周分类,
-            case when month(riqi)=month(CURRENT_DATE()) and year(riqi)=year(CURRENT_DATE())  then '本月' 
-                when month(riqi)=month(CURRENT_DATE()) and year(riqi)=year(CURRENT_DATE())-1 and day(riqi)<day(CURRENT_DATE()) then '去年同期/本月' 
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE()) and day(riqi)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and day(riqi)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
-                when (month(riqi)=month(CURRENT_DATE())-2 and year(riqi)=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (month(riqi)=11 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
-                when (month(riqi)=month(CURRENT_DATE())-1 and year(riqi)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (month(riqi)=12 and year(riqi)=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
-                else '其他' end 月分类,
-            case when (quarter(riqi)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and year(riqi)=year(CURRENT_DATE())) or (quarter(riqi)=4 and quarter(CURRENT_DATE())=1 and year(riqi)=year(CURRENT_DATE())-1)  then '上季度' 
-                when (quarter(riqi)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and year(riqi)=year(CURRENT_DATE())) or (quarter(riqi)=3 and quarter(CURRENT_DATE())=1 and year(riqi)=year(CURRENT_DATE())-1)  or (quarter(riqi)=4 and quarter(CURRENT_DATE())=2 and year(riqi)=year(CURRENT_DATE())-1) then '上季度环比' 
-                when quarter(riqi)=quarter(CURRENT_DATE())-1  and year(riqi)=year(CURRENT_DATE())-1 then '上季度同比'
-                else '其他' end 季分类
-            from erp_jd_dwd.erp_jd_dwd_dim_saleorders  a 
-            LEFT JOIN(
-                SELECT classify,classify_1,classify_2,wuliaomc 
-                from erp_jd_dwd.erp_jd_dwd_fact_classify 
-            ) b on a.wuliaomc = b.wuliaomc 
-            where b.classify_1 = 'IP系列'
-            and b.classify  in ('Yokakids','三国杀')
+            WHERE   
+                (  
+                    b.classify_1 not in ('海外系列','阵面对决','IP系列','自研B端剧本杀','其他','剧本杀配件','电商剧本杀道具','收藏卡') 
+                    and b.classify in ('欢乐坊','推理桌游','三国杀','Yokakids','周边')
+                    and a.wuliaomc not like '扑克三国杀%'
+                    and a.wuliaomc not like '贵人鸟资源卡包第一弹%' 
+                )  
+                OR b.classify_2 ='其他闪'   
+                OR  
+                (  
+                    b.classify IN ('三国杀', 'Yokakids')  
+                    AND b.classify_1 = 'IP系列'  
+                )  
+                OR  
+                (  
+                    a.wuliaomc LIKE '扑克三国杀%'  
+                    AND a.jiashuihj <> 0  
+                )  
+                OR a.wuliaomc LIKE '三国小百科%'  
 
 
 
@@ -342,5 +256,5 @@ CREATE TABLE erp_jd_ads.`key_product_sales_area_cpgl_area` (
     ) c on a.产品大类 = c.产品大类 and a.客户 = c.客户
 
     where a.`部门` in ('批发流通事业组','零售事业组')
-    group by a.产品大类,a.`部门`,a.业务区域
+    group by a.产品大类,a.`部门`,a.客户
 );

@@ -21,8 +21,6 @@ df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact
                                     union all 
                                     select * from erp_jd_ods.erp_jd_ods_fact_classify_ms_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
-                                    select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_xmgs where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
-                                    union all 
                                     select * from erp_jd_ods.erp_jd_ods_fact_classify_yc_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
                                     union all 
                                     select * from erp_jd_ods.erp_jd_ods_fact_classify_kyk_cwzx where shenhezt = '已审核' and wuliaomc not in ('收入调整','管易云运费','测试物料1','对接用')
@@ -31,6 +29,8 @@ df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact
 
 
 engine.dispose()   
+
+df_classify.drop(['refresh_jk'],axis=1,inplace = True)
 
 
 df_classify['name_group'] = df_classify['wuliaofzmc'].map(lambda x:x.split('-'))
@@ -50,17 +50,10 @@ df_classify = df_classify[df_classify['wuliaobm'].duplicated()==False]
 df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
 
 
-df_classify.drop(['refresh_jk'],axis=1,inplace = True)
-
-
 df_classify['refresh'] = datetime.now()
 
 
 # *****************************************写入mysql*****************************************************# 
-# df_classify.to_sql('erp_jd_dwd_fact_classify', engine, schema='erp_jd_dwd', if_exists='replace',index=False) 
-
-
-
 savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp_jd_dwd_fact_classify` (
   `fid` text,
   `wuliaobm` text,
@@ -74,6 +67,7 @@ savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp
   `danxiangbzsl` double DEFAULT NULL,
   `tiaoma` text,
   `company` text,
+  `shujuzx` text,
   `wuliaofzmc_0` text,
   `classify` text,
   `classify_1` text,
@@ -84,4 +78,4 @@ savesql(df_classify,'erp_jd_dwd','erp_jd_dwd_fact_classify',"""CREATE TABLE `erp
   `wuliaofzid_3` text,
   `refresh` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_fact_classify(fid,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,wuliaofzmc_0, classify, classify_1, classify_2,wuliaofzid_0, wuliaofzid_1, wuliaofzid_2, wuliaofzid_3,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+"INSERT INTO erp_jd_dwd_fact_classify(fid,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,shenhezt,chang,kuan,gao,danxiangbzsl,tiaoma,company,shujuzx,wuliaofzmc_0, classify, classify_1, classify_2,wuliaofzid_0, wuliaofzid_1, wuliaofzid_2, wuliaofzid_3,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")

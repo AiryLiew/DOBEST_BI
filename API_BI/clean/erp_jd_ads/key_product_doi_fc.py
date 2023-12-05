@@ -11,10 +11,9 @@ engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'l
 
 
 # *****************************************取数据********************************************************#
-doi         = pd.read_sql_query(text('select * from erp_jd_dws.erp_jd_dws_doi;'), engine.connect())
-key_cangku  = pd.read_sql_query(text('SELECT * FROM `erp_jd_ads`.`key_cangku` where 库存数量 > 0 ;'), engine.connect())
-df_classify = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_classify` ;'), engine.connect())
-assemble    = pd.read_sql_query(text("""
+doi        = pd.read_sql_query(text('select * from erp_jd_dws.erp_jd_dws_doi;'), engine.connect())
+key_cangku = pd.read_sql_query(text('SELECT 物料名称,仓库,库存数量 FROM `erp_jd_ads`.`key_cangku` where 库存数量 > 0 ;'), engine.connect())
+assemble   = pd.read_sql_query(text("""
                                     SELECT DISTINCT wuliaomc,shiwulx,fid,danjubh FROM `erp_jd_dwd`.`erp_jd_dwd_dim_assemble`
                                     where danjubh in (
                                     SELECT DISTINCT a.danjubh FROM `erp_jd_dwd`.`erp_jd_dwd_dim_assemble` a
@@ -43,21 +42,21 @@ a2 = doi[doi['wuliaomc'].isin(doi_count[doi_count.values>1].index)]
 
 # 只剩最后一批次采购入库物料的doi匹配物料收发明细计算
 # 单批次库龄表
-doi_01 = pd.merge(a1[['doi','wuliaomc']].rename(columns={'wuliaomc':'物料名称'}),key_cangku[['物料名称','仓库','库存数量']],on=['物料名称'],how='left')
+doi_01 = pd.merge(a1[['doi','wuliaomc']].rename(columns={'wuliaomc':'物料名称'}),key_cangku,on=['物料名称'],how='left')
 
 # 剩余多批次采购入库物料的doi匹配物料收发明细计算
 # 多批次库龄表
-doi_02 = pd.merge(a2[['wuliaomc','surplus','doi']].drop_duplicates().rename(columns={'wuliaomc':'物料名称','surplus':'库存数量'}),key_cangku[['物料名称','仓库','库存数量']],on=['物料名称','库存数量'],how='left')
+doi_02 = pd.merge(a2[['wuliaomc','surplus','doi']].drop_duplicates().rename(columns={'wuliaomc':'物料名称','surplus':'库存数量'}),key_cangku,on=['物料名称','库存数量'],how='left')
 # 1.
 doi_021 = doi_02[~doi_02['仓库'].isna()]
 b1 = doi_02[doi_02['仓库'].isna()]
-b2 = pd.merge(b1.groupby(['物料名称'],as_index=False).agg({'库存数量':'sum'}),key_cangku[['物料名称','仓库','库存数量']],on=['物料名称','库存数量'],how='left')
+b2 = pd.merge(b1.groupby(['物料名称'],as_index=False).agg({'库存数量':'sum'}),key_cangku,on=['物料名称','库存数量'],how='left')
 # 2.
 doi_022 = pd.merge(b2[~b2['仓库'].isna()][['物料名称','仓库']],b1[['物料名称','库存数量','doi']],on=['物料名称'],how='left')
 c1 = b1[b1['物料名称'].isin(b2[b2['仓库'].isna()]['物料名称'].to_list())]
 
 # 多批次仓库库存表
-cangku_01 = pd.merge(key_cangku[~key_cangku['物料名称'].isin(doi_01 ['物料名称'].to_list())][['物料名称','仓库','库存数量']],a2[['wuliaomc','surplus','doi']].drop_duplicates().rename(columns={'wuliaomc':'物料名称','surplus':'库存数量'}),on=['物料名称','库存数量'],how='left')
+cangku_01 = pd.merge(key_cangku[~key_cangku['物料名称'].isin(doi_01 ['物料名称'].to_list())],a2[['wuliaomc','surplus','doi']].drop_duplicates().rename(columns={'wuliaomc':'物料名称','surplus':'库存数量'}),on=['物料名称','库存数量'],how='left')
 d1 = cangku_01[cangku_01['doi'].isna()]
 
 doi_022['仓库1']=doi_022['仓库']
@@ -83,6 +82,6 @@ ck_doi = pd.concat([doi_01,doi_021,doi_022.drop(['仓库1'],axis = 1),doi_023[['
 ck_doi.rename(columns = {'doi':'库龄天数'},inplace=True)
 
 
-ck_doi.to_sql('key_product_doi_fc',          engine, schema='erp_jd_ads', if_exists='replace',index=False) 
+ck_doi.to_sql('key_product_doi_fc', engine, schema='erp_jd_ads', if_exists='replace',index=False) 
 
 engine.dispose()

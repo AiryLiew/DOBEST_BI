@@ -91,157 +91,27 @@ func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_j
 # func_sjzx('http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMPROPERTY',"财务数据中心",'erp_jd_ods_fact_flexitemproperty_cwzx')
 
 
+for k, v in company.items():
+    for n, m in dict_a_func.items():  
+        a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
 
 
-import asyncio  
-import threading  
+for n,m in dict_a1_func.items():  
+    a1_func(n,m[0],m[1])
 
-# 异步函数，用于数据获取操作
-async def fetch_data(output):  
-    # 这里简单地将输出字符串作为结果返回  
-    data = output  
-    return data  
 
-# 线程函数，用于处理数据获取 
-def process_output(semaphore):  
-    loop = asyncio.new_event_loop()  
-    asyncio.set_event_loop(loop)  
-  
-    async def get_data():  
-        async with semaphore:  
-            data = await fetch_data(output)  
-  
-    # 在新线程中运行事件循环  
-    loop.run_until_complete(get_data())  
-    loop.close()  
-  
+for n,m in dict_onceback.items():  
+    onceback(n,m)  
+
+
+for n,m in dict_s1_funcB.items():  
+    s1_funcB(n,m)
+
+
+for n,m in dict_func.items():  
+    func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-def main():  
-    # 创建信号量，控制最大并发数量  
-    semaphore = asyncio.Semaphore(2)  
-    # 创建线程列表  
-    threads = [] 
-    # 启动不同的线程处理不同的输出  
-    for k,v in company.items():
-        for n,m in dict_a_func.items():
-            output = a_func(n,k,m[0]+'_'+v+'_cwzx',m[1])
-            t = threading.Thread(target=process_output, args=(semaphore,))
-            threads.append(t)
-            t.start()  
-    # 等待所有线程完成  
-    for t in threads:  
-        t.join()
-
-
-
-
-def main1():  
-    # 创建信号量，控制最大并发数量  
-    semaphore = asyncio.Semaphore(2)  
-    # 创建线程列表  
-    threads = [] 
-    # 启动不同的线程处理不同的输出  
-    for n,m in dict_a1_func.items():
-        output = a1_func(n,m[0],m[1])
-        t = threading.Thread(target=process_output, args=(semaphore,))
-        threads.append(t)
-        t.start()  
-    # 等待所有线程完成  
-    for t in threads:  
-        t.join()
-
-
-
-
-def main2():  
-    # 创建信号量，控制最大并发数量  
-    semaphore = asyncio.Semaphore(2)  
-    # 创建线程列表  
-    threads = [] 
-    # 启动不同的线程处理不同的输出  
-    for n,m in dict_onceback.items():
-        output = onceback(n,m)
-        t = threading.Thread(target=process_output, args=(semaphore,))
-        threads.append(t)
-        t.start()  
-    # 等待所有线程完成  
-    for t in threads:  
-        t.join()
-
-
-
-
-def main3():  
-    # 创建信号量，控制最大并发数量  
-    semaphore = asyncio.Semaphore(2)  
-    # 创建线程列表  
-    threads = [] 
-    # 启动不同的线程处理不同的输出  
-    for n,m in dict_s1_funcB.items():
-        output = s1_funcB(n,m)
-        t = threading.Thread(target=process_output, args=(semaphore,))
-        threads.append(t)
-        t.start()  
-    # 等待所有线程完成  
-    for t in threads:  
-        t.join()
-
-
-
-
-def main4():  
-    # 创建信号量，控制最大并发数量  
-    semaphore = asyncio.Semaphore(2)  
-    # 创建线程列表  
-    threads = [] 
-    # 启动不同的线程处理不同的输出  
-    for n,m in dict_func.items():
-        output = func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
-        t = threading.Thread(target=process_output, args=(semaphore,))
-        threads.append(t)
-        t.start()  
-    # 等待所有线程完成  
-    for t in threads:  
-        t.join()
-
-
-
-
-def main5():  
-    # 创建信号量，控制最大并发数量  
-    semaphore = asyncio.Semaphore(2)  
-    # 创建线程列表  
-    threads = [] 
-    # 启动不同的线程处理不同的输出  
-    for n,m in dict_func_wjg.items():
-        output = func_wjg(n,"财务数据中心",m)
-        t = threading.Thread(target=process_output, args=(semaphore,))
-        threads.append(t)
-        t.start()  
-    # 等待所有线程完成  
-    for t in threads:  
-        t.join()
-
-  
-
-  
-if __name__ == '__main__':  
-    main()
-    main2()
-    main3()
-    main4()
-    main5()
-    main1()
+for n,m in dict_func_wjg.items():  
+    func_wjg(n,"财务数据中心",m)

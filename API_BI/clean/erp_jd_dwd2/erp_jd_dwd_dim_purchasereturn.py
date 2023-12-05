@@ -6,7 +6,7 @@
 import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
-from key_tab import merge_label,savesql,cf
+from key_tab import merge_label,insertsql,cf
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import create_engine,text
@@ -14,21 +14,24 @@ from sqlalchemy import create_engine,text
 
 # *****************************************连接mysql、sql server*****************************************#
 engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306')) 
-# conn = create_engine("mssql+pymssql://{}:{}@{}:{}/{}".format('sa', '123456', '10.242.21.1', '1433', 'erp_jd_dwd'))
 
 
 # *****************************************取数据********************************************************#
-df_purchaseReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest
-                                        union all 
+df_purchaseReturn = pd.read_sql_query(text("""
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_cwzx
+                                        where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_ms_cwzx
-                                        union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_xmgs
+                                        where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_cwzx
+                                        where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
                                         union all 
-                                        select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx;"""), engine.connect()) 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx
+                                        where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');"""), engine.connect()) 
 
 
 
@@ -43,39 +46,17 @@ engine.dispose()
 # ----------------------------------------------------------------------------------------------------- #
 # 修正物料名称
 df_purchaseReturn = cf(df_purchaseReturn)
+df_purchaseReturn = merge_label(df_purchaseReturn,df_saleShipping['wuliaomc'].to_list(), 'shituisl','tuiliaorq',df_wlys)
 
-df_purchaseReturn = merge_label(df_purchaseReturn,df_saleShipping['wuliaomc'].drop_duplicates().to_list(), 'shituisl','tuiliaorq',df_wlys)
 df_purchaseReturn.drop(['refresh_jk','fid','wlmc_new'],axis=1,inplace = True)
 df_purchaseReturn['refresh'] = datetime.now()
 
 print('df_purchaseReturn:',datetime.now())
 
 # *****************************************写入mysql*****************************************************#   
-# df_purchaseReturn.to_sql('erp_jd_dwd_dim_purchasereturn',engine, schema='erp_jd_dwd', if_exists='replace',index=False) 
-
-
-savesql(df_purchaseReturn,'erp_jd_dwd','erp_jd_dwd_dim_purchasereturn',"""CREATE TABLE `erp_jd_dwd_dim_purchasereturn` (
-  `tuiliaorq` datetime DEFAULT NULL,
-  `gongyingsid` text,
-  `gongyingsmc` text,
-  `wuliaobm` text,
-  `wuliaomc` text,
-  `wuliaofzid` text,
-  `wuliaofzmc` text,
-  `cangkuid` text,
-  `cangkumc` text,
-  `shituisl` double DEFAULT NULL,
-  `hanshuidj` double DEFAULT NULL,
-  `jiashuihj` double DEFAULT NULL,
-  `danjubh` text,
-  `company` text,
-  `year` text,
-  `month` text,
-  `wlmc_all` text,
-  `label` text,
-  `shituisl_new` double DEFAULT NULL,
-  `shifoucp` text,
-  `mark_cp` text,
-  `refresh` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;""",
-"INSERT INTO erp_jd_dwd_dim_purchasereturn(tuiliaorq,gongyingsid,gongyingsmc,wuliaobm,wuliaomc,wuliaofzid,wuliaofzmc,cangkuid,cangkumc,shituisl,hanshuidj,jiashuihj,danjubh,company,year,month,wlmc_all,label,shituisl_new,shifoucp,mark_cp,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)")
+insertsql(df_purchaseReturn,
+          'erp_jd_dwd',
+          'erp_jd_dwd_dim_purchasereturn',
+          """INSERT INTO erp_jd_dwd_dim_purchasereturn(tuiliaorq,gongyingsid,gongyingsmc,wuliaobm,wuliaofzid,wuliaofzmc,cangkuid,cangkumc,shituisl,hanshuidj,jiashuihj,danjubh,company,year,month,wuliaomc,wlmc_all,label,shituisl_new,shifoucp,mark_cp,refresh) 
+          VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
+		  'tuiliaorq')

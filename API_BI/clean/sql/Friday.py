@@ -2,23 +2,10 @@
 # 测试环境: python3.9.6
 
 # Friday refresh 14:33:00
-import pymysql
-import os 
+import sys
+sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
-conn  = pymysql.connect(host="localhost",port = 3306, user="root", password="123456",charset="utf8")
-c = conn.cursor()
-
-
-def sqlrun(path):
-    with open(path, 'r', True, 'UTF-8') as f:
-        sql = f.read()
-        sql = sql.replace('\n' , ' ').replace('\t' , ' ')
-        for i in sql.split(';'):
-            try:
-                c.execute(i)  
-            except:
-                pass 
-    conn.commit()
+from key_tab import sqlrun
 
 # 删部分数据
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_ods_dim_voucher_cwzx.sql')
@@ -32,6 +19,3 @@ sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_dws_voucher_merge.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_dws_acctagebalance.sql')
 sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\sql_clean\x_erp_jd_ads_closebalance.sql')
-
-c.close()
-conn.close()

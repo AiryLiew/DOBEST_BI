@@ -449,6 +449,105 @@ def savesql(df,database,table,sql_create,sql_insert):
 
 
 
+def insertsql(df,database,table,sql_insert,date):
+
+    from datetime import datetime
+    import pymysql
+
+    db = pymysql.connect(host='localhost', user='root',password='123456', database=database)
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    cursor.execute("""delete FROM {}.{}
+                        where {}>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');                   
+                        """.format(database,table,date))
+    db.commit()
+    print(cursor.rowcount, "条数据已被删除")
+
+    
+    #保留非空值，以None空值的形式替换Nan空值
+    df = df.fillna(0)
+
+    # 批量创建数据
+    userValues = [tuple(x) for x in df.values]
+
+    # 记录执行前时间
+    start_time = datetime.now()
+    print("开始时间：", start_time)
+    print("插入数据")
+    try:
+        # 执行sql语句
+        cursor.executemany(sql_insert, userValues)
+        # 执行sql语句
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
+        print(table+'插入失败')
+    # 记录执行完成时间
+    end_time = datetime.now()
+    print("结束时间：", end_time)
+    # 计算时间差
+    time_d = end_time - start_time
+    print(time_d)
+    # 关闭数据库连接
+    db.close()
+
+
+
+
+def insertsql1(df,database,table,sql_insert):
+
+    from datetime import datetime
+    import pymysql
+
+    db = pymysql.connect(host='localhost', user='root',password='123456', database=database)
+    # 使用 cursor() 方法创建一个游标对象 cursor
+    cursor = db.cursor()
+    cursor.execute("""delete FROM {}.{}
+                        where shujuzx = '财务数据中心';
+                        """.format(database,table))
+    db.commit()
+    print(cursor.rowcount, "条数据已被删除")
+
+    
+    #保留非空值，以None空值的形式替换Nan空值
+    df = df.fillna(0)
+
+    # 批量创建数据
+    userValues = [tuple(x) for x in df.values]
+
+    # 记录执行前时间
+    start_time = datetime.now()
+    print("开始时间：", start_time)
+    print("插入数据")
+    try:
+        # 执行sql语句
+        cursor.executemany(sql_insert, userValues)
+        # 执行sql语句
+        db.commit()
+    except:
+        # 发生错误时回滚
+        db.rollback()
+        print(table+'插入失败')
+    # 记录执行完成时间
+    end_time = datetime.now()
+    print("结束时间：", end_time)
+    # 计算时间差
+    time_d = end_time - start_time
+    print(time_d)
+    # 关闭数据库连接
+    db.close()
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -486,3 +585,25 @@ def ct(df):
     df['kehumc'].replace(dictb,inplace=True)
     
     return df
+
+
+
+
+# 运行sql文件
+def sqlrun(path):
+    
+    import pymysql
+    conn  = pymysql.connect(host="localhost",port = 3306, user="root", password="123456",charset="utf8")
+    c = conn.cursor()
+
+    with open(path, 'r', True, 'UTF-8') as f:
+        sql = f.read()
+        sql = sql.replace('\n' , ' ').replace('\t' , ' ')
+        for i in sql.split(';'):
+            try:
+                c.execute(i)  
+            except:
+                pass 
+    conn.commit()
+    c.close()
+    conn.close()

@@ -69,59 +69,59 @@ CREATE TABLE erp_jd_ads.key_product_sales_fc_cpgl_classify(
         `产品小类`,
         `产品名称`,
         yearweek(日期,1) 年周,
-        year(日期) 年,
-        month(日期) 月,
-        quarter(日期) 季度,
-        month(日期)*100+day(日期) 月_日,
+         年,
+         月,
+         季度,
+        月*100+day(日期) 月_日,
         case when yearweek(日期,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 7 day),1) then '本周' 
             when yearweek(日期,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 14 day),1) then '上周'
             else '其他' end 周分类,
-        case when month(日期)=month(CURRENT_DATE()) and year(日期)=year(CURRENT_DATE())  then '本月' 
-            when month(日期)=month(CURRENT_DATE()) and year(日期)=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) then '去年同期/本月' 
-            when (month(日期)=month(CURRENT_DATE())-1 and year(日期)=year(CURRENT_DATE()) and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (month(日期)=12 and year(日期)=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
-            when (month(日期)=month(CURRENT_DATE())-1 and year(日期)=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (month(日期)=12 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
-            when (month(日期)=month(CURRENT_DATE())-2 and year(日期)=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (month(日期)=11 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (month(日期)=12 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
-            when (month(日期)=month(CURRENT_DATE())-1 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (month(日期)=12 and year(日期)=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
+        case when 月=month(CURRENT_DATE()) and 年=year(CURRENT_DATE())  then '本月' 
+            when 月=month(CURRENT_DATE()) and 年=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) then '去年同期/本月' 
+            when (月=month(CURRENT_DATE())-1 and 年=year(CURRENT_DATE()) and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (月=12 and 年=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
+            when (月=month(CURRENT_DATE())-1 and 年=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (月=12 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
+            when (月=month(CURRENT_DATE())-2 and 年=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (月=11 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (月=12 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
+            when (月=month(CURRENT_DATE())-1 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (月=12 and 年=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
             else '其他' end 月分类,
-        case when (quarter(日期)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and year(日期)=year(CURRENT_DATE())) or (quarter(日期)=4 and quarter(CURRENT_DATE())=1 and year(日期)=year(CURRENT_DATE())-1)  then '上季度' 
-            when (quarter(日期)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and year(日期)=year(CURRENT_DATE())) or (quarter(日期)=3 and quarter(CURRENT_DATE())=1 and year(日期)=year(CURRENT_DATE())-1)  or (quarter(日期)=4 and quarter(CURRENT_DATE())=2 and year(日期)=year(CURRENT_DATE())-1) then '上季度环比' 
-            when quarter(日期)=quarter(CURRENT_DATE())-1  and year(日期)=year(CURRENT_DATE())-1 then '上季度同比'
+        case when (季度=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and 年=year(CURRENT_DATE())) or (季度=4 and quarter(CURRENT_DATE())=1 and 年=year(CURRENT_DATE())-1)  then '上季度' 
+            when (季度=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and 年=year(CURRENT_DATE())) or (季度=3 and quarter(CURRENT_DATE())=1 and 年=year(CURRENT_DATE())-1)  or (季度=4 and quarter(CURRENT_DATE())=2 and 年=year(CURRENT_DATE())-1) then '上季度环比' 
+            when 季度=quarter(CURRENT_DATE())-1  and 年=year(CURRENT_DATE())-1 then '上季度同比'
             else '其他' end 季分类,
         ifnull(`总销量`,0) `总销量`,
         ifnull(`总销售额`,0) `总销售额`,
         ifnull(`毛利`,0) `毛利`
-        FROM erp_jd_ads.key_product_sales_fc_cpgl
+        FROM erp_jd_ads.key_product_sales_area_cpgl
 
 
         UNION all
 
         SELECT case when `产品大类`= '推理桌游' then '推理桌游（不含自采）' else 产品大类 end 产品大类,
-            `产品中类`,
-            `产品小类`,
-            `产品名称`,
-            yearweek(日期,1) 年周,
-            year(日期) 年,
-            month(日期) 月,
-            quarter(日期) 季度,
-            month(日期)*100+day(日期) 月_日,
-            case when yearweek(日期,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 7 day),1) then '本周' 
-                when yearweek(日期,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 14 day),1) then '上周'
-                else '其他' end 周分类,
-            case when month(日期)=month(CURRENT_DATE()) and year(日期)=year(CURRENT_DATE())  then '本月' 
-                when month(日期)=month(CURRENT_DATE()) and year(日期)=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) then '去年同期/本月' 
-                when (month(日期)=month(CURRENT_DATE())-1 and year(日期)=year(CURRENT_DATE()) and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (month(日期)=12 and year(日期)=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
-                when (month(日期)=month(CURRENT_DATE())-1 and year(日期)=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (month(日期)=12 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
-                when (month(日期)=month(CURRENT_DATE())-2 and year(日期)=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (month(日期)=11 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (month(日期)=12 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
-                when (month(日期)=month(CURRENT_DATE())-1 and year(日期)=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (month(日期)=12 and year(日期)=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
-                else '其他' end 月分类,
-            case when (quarter(日期)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and year(日期)=year(CURRENT_DATE())) or (quarter(日期)=4 and quarter(CURRENT_DATE())=1 and year(日期)=year(CURRENT_DATE())-1)  then '上季度' 
-                when (quarter(日期)=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and year(日期)=year(CURRENT_DATE())) or (quarter(日期)=3 and quarter(CURRENT_DATE())=1 and year(日期)=year(CURRENT_DATE())-1)  or (quarter(日期)=4 and quarter(CURRENT_DATE())=2 and year(日期)=year(CURRENT_DATE())-1) then '上季度环比' 
-                when quarter(日期)=quarter(CURRENT_DATE())-1  and year(日期)=year(CURRENT_DATE())-1 then '上季度同比'
-                else '其他' end 季分类,
-            ifnull(`总销量`,0) `总销量`,
-            ifnull(`总销售额`,0) `总销售额`,
-            ifnull(`毛利`,0) `毛利`
-        FROM erp_jd_ads.key_product_sales_fc_cpgl
+        `产品中类`,
+        `产品小类`,
+        `产品名称`,
+        yearweek(日期,1) 年周,
+         年,
+         月,
+         季度,
+        月*100+day(日期) 月_日,
+        case when yearweek(日期,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 7 day),1) then '本周' 
+            when yearweek(日期,1)=yearweek(DATE_SUB(CURRENT_DATE(),INTERVAL 14 day),1) then '上周'
+            else '其他' end 周分类,
+        case when 月=month(CURRENT_DATE()) and 年=year(CURRENT_DATE())  then '本月' 
+            when 月=month(CURRENT_DATE()) and 年=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) then '去年同期/本月' 
+            when (月=month(CURRENT_DATE())-1 and 年=year(CURRENT_DATE()) and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or (月=12 and 年=year(CURRENT_DATE())-1 and day(日期)<day(CURRENT_DATE()) and month(CURRENT_DATE())=1) then '上月同期'
+            when (月=month(CURRENT_DATE())-1 and 年=year(CURRENT_DATE()) and month(CURRENT_DATE())<>1) or  (月=12 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  then '上月'
+            when (月=month(CURRENT_DATE())-2 and 年=year(CURRENT_DATE()) and month(CURRENT_DATE())>2) or  (月=11 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=1)  or  (月=12 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())=2) then '上月环比'
+            when (月=month(CURRENT_DATE())-1 and 年=year(CURRENT_DATE())-1 and month(CURRENT_DATE())<>1) or  (月=12 and 年=year(CURRENT_DATE())-2 and month(CURRENT_DATE())=1)  then '去年同期/上月'
+            else '其他' end 月分类,
+        case when (季度=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE())<>1 and 年=year(CURRENT_DATE())) or (季度=4 and quarter(CURRENT_DATE())=1 and 年=year(CURRENT_DATE())-1)  then '上季度' 
+            when (季度=quarter(CURRENT_DATE())-1 and quarter(CURRENT_DATE()) >2 and 年=year(CURRENT_DATE())) or (季度=3 and quarter(CURRENT_DATE())=1 and 年=year(CURRENT_DATE())-1)  or (季度=4 and quarter(CURRENT_DATE())=2 and 年=year(CURRENT_DATE())-1) then '上季度环比' 
+            when 季度=quarter(CURRENT_DATE())-1  and 年=year(CURRENT_DATE())-1 then '上季度同比'
+            else '其他' end 季分类,
+        ifnull(`总销量`,0) `总销量`,
+        ifnull(`总销售额`,0) `总销售额`,
+        ifnull(`毛利`,0) `毛利`
+        FROM erp_jd_ads.key_product_sales_area_cpgl
         where `产品大类` = '推理桌游'
         and `产品中类` not in ('电商B端剧本杀','电商C端剧本杀') 
 

@@ -94,7 +94,7 @@ def s_funcB(url,company,name):
 
 
 
-
+# 增量
 def a_func(url,company,name,fid):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
@@ -291,7 +291,7 @@ def s1_funcB(url,name):
 
 
 
-
+# 增量
 def a1_func(url,name,fid):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
@@ -401,7 +401,8 @@ def onceback(url,name):
 
     df['refresh_jk'] = datetime.now()
     df.to_sql(name, engine, schema='erp_jd_ods', if_exists='replace', index=False)
-
+    
+    engine.dispose()
     print(datetime.now())
 
     return df
