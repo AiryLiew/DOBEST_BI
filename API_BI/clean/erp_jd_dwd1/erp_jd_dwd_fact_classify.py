@@ -31,6 +31,8 @@ df_classify = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_fact
 engine.dispose()   
 
 df_classify.drop(['refresh_jk'],axis=1,inplace = True)
+# 规范空格
+df_classify['wuliaomc'] = df_classify['wuliaomc'].map(lambda x :x.replace('\xa0', ' ') )
 
 
 df_classify['name_group'] = df_classify['wuliaofzmc'].map(lambda x:x.split('-'))
@@ -47,7 +49,7 @@ df_classify.drop(columns=['name_group','id_group','wuliaofzmc_4','wuliaofzid_4']
 # 先降序分组再去重
 df_classify.sort_values(['wuliaofzid','wuliaofzid_0'],ascending=False ,inplace=True)
 df_classify = df_classify[df_classify['wuliaobm'].duplicated()==False]
-df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False]
+df_classify = df_classify[df_classify['wuliaomc'].duplicated()==False].reset_index(drop=True)
 
 
 df_classify['refresh'] = datetime.now()
