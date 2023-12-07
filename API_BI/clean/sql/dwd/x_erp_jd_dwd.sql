@@ -9,6 +9,10 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_acctagebalance(
 
 
 
+
+
+
+
 delete FROM erp_jd_dwd.erp_jd_dwd_dim_allocation
 where riqi>=(
     SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
@@ -42,9 +46,21 @@ union all
 select `fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
 `guigexh` ,`danwei` ,`diaobosl`,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`diaorubgzlx` ,`diaorubgz` , `diaorubgzmc` ,`diaochubgzlx` ,
 `diaochubgz` ,`diaochubgzmc` ,`guanlianxskh` ,`beizhu_bt` ,`beizhu_mx` ,`company` ,`refresh_jk`  
+from erp_jd_ods.erp_jd_ods_dim_allocation_wc01_cwzx
+where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+union all 
+select `fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
+`guigexh` ,`danwei` ,`diaobosl`,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`diaorubgzlx` ,`diaorubgz` , `diaorubgzmc` ,`diaochubgzlx` ,
+`diaochubgz` ,`diaochubgzmc` ,`guanlianxskh` ,`beizhu_bt` ,`beizhu_mx` ,`company` ,`refresh_jk`  
 from erp_jd_ods.erp_jd_ods_dim_allocation_yc_cwzx
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01') 
 ;
+
+
+
+
+
 
 
 
@@ -68,9 +84,18 @@ where rukurq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 union all 
 select `fid`,`rukurq`,`shiwulx`,`wuliaobm`,`wuliaomc`,`wuliaolbdm`,
 `wuliaolbmc`,`shuliang`,`cangkuid`,`cangkumc`,`danjubh`,`fdetailid`,`company`,`refresh_jk` 
+from erp_jd_ods.erp_jd_ods_dim_assemble_wc01_cwzx
+where rukurq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+union all 
+select `fid`,`rukurq`,`shiwulx`,`wuliaobm`,`wuliaomc`,`wuliaolbdm`,
+`wuliaolbmc`,`shuliang`,`cangkuid`,`cangkumc`,`danjubh`,`fdetailid`,`company`,`refresh_jk` 
 from erp_jd_ods.erp_jd_ods_dim_assemble_yc_cwzx
 where rukurq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 ;
+
+
+
 
 
 
@@ -82,6 +107,10 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_balance(
     union all 
     select * from erp_jd_ods.erp_jd_ods_dim_balance_dobest
 );
+
+
+
+
 
 
 
@@ -103,6 +132,11 @@ WHERE riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
 
 
+
+
+
+
+
 delete FROM erp_jd_dwd.erp_jd_dwd_dim_distributedout
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
 
@@ -113,6 +147,12 @@ select `fid` ,`riqi` ,`danjubh` ,`danjuzt` ,`wuliaobm` ,`wuliaomc` ,`guigexh` ,
 `danwei` ,`diaochusl` ,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`company` ,`refresh_jk` 
 from erp_jd_ods.erp_jd_ods_dim_distributedout_wc_cwzx
 where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
+
+
+
+
+
+
 
 
 
@@ -132,7 +172,19 @@ select `fid` ,`riqi` ,`bumendm` ,`bumenmc` ,`wuliaobm` ,
 `wuliaomc` ,`cangkuid` ,`cangkumc` ,`pankuisl` ,`danjubh` ,`company` ,`refresh_jk` 
 from erp_jd_ods.erp_jd_ods_dim_inventoryloss_yc_cwzx
 where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+union all 
+select `fid` ,`riqi` ,`bumendm` ,`bumenmc` ,`wuliaobm` ,
+`wuliaomc` ,`cangkuid` ,`cangkumc` ,`pankuisl` ,`danjubh` ,`company` ,`refresh_jk` 
+from erp_jd_ods.erp_jd_ods_dim_inventoryloss_wc01_cwzx
+where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 ;
+
+
+
+
+
+
 
 
 
@@ -156,6 +208,11 @@ where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
 
 
+
+
+
+
+
 delete FROM erp_jd_dwd.erp_jd_dwd_dim_othersreceiving
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
 
@@ -173,9 +230,19 @@ where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
 union all 
 select `fid` ,`riqi` ,`bumendm` ,`bumenmc` ,`wuliaobm` ,`wuliaomc` ,`wuliaofzid` ,
+`wuliaofzmc` ,`cangkuid` ,`cangkumc` ,`shishousl`,`danjubh` ,`company` ,`refresh_jk`,year(riqi) `year`,month(riqi) `month` from erp_jd_ods.erp_jd_ods_dim_othersreceiving_wc01_cwzx
+where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+union all 
+select `fid` ,`riqi` ,`bumendm` ,`bumenmc` ,`wuliaobm` ,`wuliaomc` ,`wuliaofzid` ,
 `wuliaofzmc` ,`cangkuid` ,`cangkumc` ,`shishousl`,`danjubh` ,`company` ,`refresh_jk`,year(riqi) `year`,month(riqi) `month` from erp_jd_ods.erp_jd_ods_dim_othersreceiving_yc_cwzx
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 ;
+
+
+
+
+
 
 
 
@@ -213,6 +280,11 @@ where shenhezt = '已审核' ;
 
 
 
+
+
+
+
+
 drop table if exists erp_jd_dwd.erp_jd_dwd_dim_prepayment;
 CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_prepayment( 
     select * from erp_jd_ods.erp_jd_ods_dim_prepayment_cwzx
@@ -221,6 +293,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_prepayment(
     union all 
     select * from erp_jd_ods.erp_jd_ods_dim_prepayment_xmgs
 );
+
+
+
+
+
 
 
 
@@ -249,6 +326,11 @@ union all
 select `fid` ,`riqi` ,`danjulxmc` ,`danjulxdm` ,`danjubh` ,`bizhongid` ,`bizhongmc` ,
 `yingshouje` ,`shishouje` ,`wanglaidwid` ,`wanglaidwmc` ,`shoukuanytbm` ,`shoukuanytmc` ,`company` ,`shujuzx` ,`refresh_jk` from erp_jd_ods.erp_jd_ods_dim_proceeds_wc01_cwzx ;
    
+
+
+
+
+
 
 
 delete FROM erp_jd_dwd.erp_jd_dwd_dim_voucher_cwzx
@@ -292,9 +374,23 @@ select `fVoucherID`,`faccountbookid` ,`facctorgid` ,`fdate` ,`fyear` ,
 `fsettleno` ,`fbasecurrencyid` ,`fdebittotal`,`fcredittotal`,`fcreatedate` ,`fmodifydate` ,
 `fdocumentstatus` ,`fchecked` ,`fcheckerid` ,`fauditdate` ,`fposted` ,`fposterid` ,`fpostdate` ,
 `fAdjustPeriod` ,`fInvalid` ,`fmapvchid` ,`fSourceBillKey` ,`fisadjustvoucher` ,`company` ,`refresh_jk` 
+from erp_jd_ods.erp_jd_ods_dim_voucher_wc01_cwzx
+where fdate>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+union all 
+select `fVoucherID`,`faccountbookid` ,`facctorgid` ,`fdate` ,`fyear` ,
+`fperiod` ,`fbillno` ,`fvouchergroupid` ,`fvouchergroupno` ,`fattachments`, `freference` ,`fsettletypeid` ,
+`fsettleno` ,`fbasecurrencyid` ,`fdebittotal`,`fcredittotal`,`fcreatedate` ,`fmodifydate` ,
+`fdocumentstatus` ,`fchecked` ,`fcheckerid` ,`fauditdate` ,`fposted` ,`fposterid` ,`fpostdate` ,
+`fAdjustPeriod` ,`fInvalid` ,`fmapvchid` ,`fSourceBillKey` ,`fisadjustvoucher` ,`company` ,`refresh_jk` 
 from erp_jd_ods.erp_jd_ods_dim_voucher_yc_cwzx
 where fdate>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 ;
+
+
+
+
+
 
 
 
@@ -306,6 +402,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_voucherentry(
     union all 
     select * from erp_jd_ods.erp_jd_ods_dim_voucherentry_xmgs
 );
+
+
+
+
+
 
 
 
@@ -354,6 +455,11 @@ from erp_jd_ods.erp_jd_ods_dim_voucherpayable_wc01_cwzx;
 
 
 
+
+
+
+
+
 delete FROM erp_jd_dwd.erp_jd_dwd_fact_account
 where shujuzx = '财务数据中心';
 
@@ -396,6 +502,11 @@ INSERT INTO erp_jd_dwd.erp_jd_dwd_fact_account( `facctid` ,
 
 
 
+
+
+
+
+
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_accountbookl;
 CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_accountbookl( 
     select * from erp_jd_ods.erp_jd_ods_fact_accountbookl_cwzx
@@ -404,6 +515,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_accountbookl(
     union all 
     select * from erp_jd_ods.erp_jd_ods_fact_accountbookl_xmgs
 );
+
+
+
+
+
 
 
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_accountl;
@@ -416,6 +532,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_accountl(
 );
 
 
+
+
+
+
+
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_assistantdataentry;
 CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_assistantdataentry( 
     select * from erp_jd_ods.erp_jd_ods_fact_assistantdataentry_cwzx
@@ -424,6 +545,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_assistantdataentry(
     union all 
     select * from erp_jd_ods.erp_jd_ods_fact_assistantdataentry_xmgs
 );
+
+
+
+
+
 
 
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_customer;
@@ -440,6 +566,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_customer(
 );
 
 
+
+
+
+
+
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_flexitemdetailv;
 CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_flexitemdetailv( 
     select * from erp_jd_ods.erp_jd_ods_fact_flexitemdetailv_cwzx
@@ -448,6 +579,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_flexitemdetailv(
     union all 
     select * from erp_jd_ods.erp_jd_ods_fact_flexitemdetailv_xmgs
 );
+
+
+
+
+
 
 
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_flexitemproperty;
@@ -460,6 +596,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_flexitemproperty(
 );
 
 
+
+
+
+
+
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_lookupclass;
 CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_lookupclass( 
     select * from erp_jd_ods.erp_jd_ods_fact_lookupclass_cwzx
@@ -468,6 +609,11 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_fact_lookupclass(
     union all 
     select * from erp_jd_ods.erp_jd_ods_fact_lookupclass_xmgs
 );
+
+
+
+
+
 
 
 drop table if exists erp_jd_dwd.erp_jd_dwd_fact_vouchergroupl;

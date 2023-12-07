@@ -26,6 +26,10 @@ df_purchaseReturn = pd.read_sql_query(text("""
                                         where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
                                         union all 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc01_cwzx
+                                        where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')                                       
+
+                                        union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_cwzx
                                         where tuiliaorq>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 

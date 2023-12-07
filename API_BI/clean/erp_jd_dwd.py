@@ -19,6 +19,15 @@ def run(folder_path):
 run(folder_path)
 run(folder_path1)
 
+
+
+
+
+
+
+
+
+
 # *****************************************自定义函数路径*************************************************#
 # import sys
 # sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
@@ -35,8 +44,7 @@ run(folder_path1)
 
 # # *****************************************连接mysql、sql server*****************************************#
 # engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306')) 
-
-
+ 
 # # *****************************************取数据********************************************************#
 # finish_order                = pd.read_sql_query(text('select * from localdata.finish_order;'),                             engine.connect())
 # customer_name_change        = pd.read_sql_query(text('select * from localdata.customer_name_change;'),                     engine.connect())
@@ -88,6 +96,8 @@ run(folder_path1)
 #                                     union all 
 #                                     select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx where xiaoshoubmmc is not null
 #                                     union all 
+#                                     select * from erp_jd_ods.erp_jd_ods_dim_saleorders_wc01_cwzx where xiaoshoubmmc is not null
+#                                     union all 
 #                                     select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_dobest where xiaoshoubmmc is not null
 #                                     union all 
 #                                     select * from erp_jd_ods.erp_jd_ods_dim_saleorders_ms_cwzx where xiaoshoubmmc is not null
@@ -99,7 +109,7 @@ run(folder_path1)
 #                                     select * from erp_jd_ods.erp_jd_ods_dim_saleorders_kyk_cwzx where xiaoshoubmmc is not null;"""), engine.connect())  
 
 
-# df_saleReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_salereturn_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
+# df_saleReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_salereturn_wc_dobest where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中') and danjubh not IN ('RGO181699289732','RGO181642840393','RGO181593893049')
 #                                     union all 
 #                                     select * from erp_jd_ods.erp_jd_ods_dim_salereturn_wc_cwzx where wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
 #                                     union all 
@@ -143,6 +153,8 @@ run(folder_path1)
 # df_purchaseReturn = pd.read_sql_query(text("""select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_dobest
 #                                         union all 
 #                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc_cwzx
+#                                         union all 
+#                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc01_cwzx
 #                                         union all 
 #                                         select * from erp_jd_ods.erp_jd_ods_dim_purchasereturn_ms_cwzx
 #                                         union all 

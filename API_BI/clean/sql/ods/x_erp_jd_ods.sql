@@ -42,6 +42,11 @@ where fid>=(
 );
 
 
+
+
+
+
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_salereturn_kyk_cwzx
 where fid>=(
     select a.fid from(
@@ -73,6 +78,11 @@ where fid>=(
         where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
     ) a
 );
+
+
+
+
+
 
 
 delete FROM erp_jd_ods.erp_jd_ods_dim_purchasereceiving_kyk_cwzx
@@ -116,6 +126,11 @@ where fid>=(
 );
 
 
+
+
+
+
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_purchasereturn_kyk_cwzx
 where fid>=(
     select a.fid from(
@@ -140,6 +155,14 @@ where fid>=(
     ) a
 );
 
+delete FROM erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc01_cwzx
+where fid>=(
+    select a.fid from(
+        SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_purchasereturn_wc01_cwzx
+        where year(tuiliaorq) = year(date_sub(current_date(),interval 32 day)) and month(tuiliaorq) = month(date_sub(current_date(),interval 32 day))
+    ) a
+);
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_purchasereturn_yc_cwzx
 where fid>=(
     select a.fid from(
@@ -147,6 +170,11 @@ where fid>=(
         where year(tuiliaorq) = year(date_sub(current_date(),interval 32 day)) and month(tuiliaorq) = month(date_sub(current_date(),interval 32 day))
     ) a
 );
+
+
+
+
+
 
 
 delete FROM erp_jd_ods.erp_jd_ods_dim_othersreceiving_kyk_cwzx
@@ -165,6 +193,14 @@ where fid>=(
     ) a
 );
 
+delete FROM erp_jd_ods.erp_jd_ods_dim_othersreceiving_wc01_cwzx
+where fid>=(
+    select a.fid from(
+        SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_othersreceiving_wc01_cwzx
+        where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
+    ) a
+);
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_othersreceiving_yc_cwzx
 where fid>=(
     select a.fid from(
@@ -172,6 +208,11 @@ where fid>=(
         where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
     ) a
 );
+
+
+
+
+
 
 
 delete FROM erp_jd_ods.erp_jd_ods_dim_distributedout_wc_cwzx
@@ -183,6 +224,11 @@ where fid>=(
 );
 
 
+
+
+
+
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_distributedin_wc_cwzx
 where fid>=(
 select a.fid from(
@@ -190,6 +236,11 @@ SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_distributedin_wc_cwzx
 where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
 ) a
 );
+
+
+
+
+
 
 
 delete FROM erp_jd_ods.erp_jd_ods_dim_allocation_ms_cwzx
@@ -208,6 +259,14 @@ where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi
 ) a
 );
 
+delete FROM erp_jd_ods.erp_jd_ods_dim_allocation_wc01_cwzx
+where fid>=(
+select a.fid from(
+SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_allocation_wc01_cwzx
+where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi) = month(date_sub(current_date(),interval 32 day))
+) a
+);
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_allocation_yc_cwzx
 where fid>=(
 select a.fid from(
@@ -217,10 +276,15 @@ where year(riqi) = year(date_sub(current_date(),interval 32 day)) and month(riqi
 );
 
 
+
+
+
+
+
 delete FROM erp_jd_ods.erp_jd_ods_dim_assemble_kyk_cwzx
 where fid>=(
 select a.fid from(
-SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_assemble_wc_cwzx
+SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_assemble_kyk_cwzx
 where year(rukurq) = year(date_sub(current_date(),interval 32 day)) and month(rukurq) = month(date_sub(current_date(),interval 32 day))
 ) a
 );
@@ -233,12 +297,41 @@ where year(rukurq) = year(date_sub(current_date(),interval 32 day)) and month(ru
 ) a
 );
 
+delete FROM erp_jd_ods.erp_jd_ods_dim_assemble_wc_cwzx
+where fid>=(
+select a.fid from(
+SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_assemble_wc_cwzx
+where year(rukurq) = year(date_sub(current_date(),interval 32 day)) and month(rukurq) = month(date_sub(current_date(),interval 32 day))
+) a
+);
+
+delete FROM erp_jd_ods.erp_jd_ods_dim_assemble_wc01_cwzx
+where fid>=(
+select a.fid from(
+SELECT min(fid) fid FROM erp_jd_ods.erp_jd_ods_dim_assemble_wc01_cwzx
+where year(rukurq) = year(date_sub(current_date(),interval 32 day)) and month(rukurq) = month(date_sub(current_date(),interval 32 day))
+) a
+);
+
+
+
+
+
+
 
 
 delete FROM erp_jd_ods.erp_jd_ods_dim_voucher_wc_cwzx
 where fVoucherID>=(
 select a.fVoucherID from(
 SELECT min(fVoucherID) fVoucherID FROM erp_jd_ods.erp_jd_ods_dim_voucher_wc_cwzx
+where year(fdate) = year(date_sub(current_date(),interval 32 day)) and month(fdate) = month(date_sub(current_date(),interval 32 day))
+) a
+);
+
+delete FROM erp_jd_ods.erp_jd_ods_dim_voucher_wc01_cwzx
+where fVoucherID>=(
+select a.fVoucherID from(
+SELECT min(fVoucherID) fVoucherID FROM erp_jd_ods.erp_jd_ods_dim_voucher_wc01_cwzx
 where year(fdate) = year(date_sub(current_date(),interval 32 day)) and month(fdate) = month(date_sub(current_date(),interval 32 day))
 ) a
 );

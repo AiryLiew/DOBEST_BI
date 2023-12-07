@@ -23,15 +23,15 @@ df_voucherpayable = pd.read_sql_query(text('select caigouddh_1 from erp_jd_dwd.e
 df_saleShipping   = pd.read_sql_query(text('SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_saleshipping`;'), engine.connect())
 df_wlys           = pd.read_sql_query(text('SELECT * FROM `erp_jd_dwd`.`erp_jd_dwd_fact_wuliaomc_ys`;'), engine.connect())
 
-df_purchaseOrders = pd.read_sql_query(text(  """select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953') and shenhezt = '已审核'
+df_purchaseOrders = pd.read_sql_query(text(  """select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh not in ('CGDD002945','CGDD002946','CGDD002947','CGDD002948','CGDD002949','CGDD002950','CGDD002951','CGDD002952','CGDD002953') and shenhezt = '已审核'
                                                 union all 
-                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh <> 'CGDD0005762' and shenhezt = '已审核'
+                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_ms_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and danjubh <> 'CGDD0005762' and shenhezt = '已审核'
                                                 union all 
-                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and shenhezt = '已审核'
+                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_yc_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and shenhezt = '已审核'
                                                 union all 
-                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and shenhezt = '已审核'
+                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_kyk_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and shenhezt = '已审核'
                                                 union all 
-                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc01_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and shenhezt = '已审核';"""),   engine.connect()) 
+                                                select * from erp_jd_ods.erp_jd_ods_dim_purchaseorders_wc01_cwzx where gongyingsmc not in ('杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司') and shenhezt = '已审核';"""),   engine.connect()) 
 
 
 engine.dispose()   
@@ -84,7 +84,7 @@ df_purchaseOrders['danjubh_1'] = df_purchaseOrders['danjubh'].map(lambda x:x if 
 for i in range(len(df_purchaseOrders)):
     if df_purchaseOrders['chuangjianrmc'][i] not in ['聂挺','张则璐']  and df_purchaseOrders[(df_purchaseOrders['danjubh_1'] == df_purchaseOrders['danjubh_1'][i])&(df_purchaseOrders['wuliaomc'] == df_purchaseOrders['wuliaomc'][i])]['danjubh_1'].count()>1 and df_purchaseOrders['riqi'][i]<datetime(2023,1,1):
         df_purchaseOrders.loc[i,'shengyurksl_new'] = 0
-    elif df_purchaseOrders['gongyingsmc'][i] in ['杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海飞之火电竞信息科技有限公司']:
+    elif df_purchaseOrders['gongyingsmc'][i] in ['杭州游卡文化创意有限公司','杭州泳淳网络技术有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','上海飞之火电竞信息科技有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司']:
         df_purchaseOrders.loc[i,'shengyurksl_new'] = 0
 
 
