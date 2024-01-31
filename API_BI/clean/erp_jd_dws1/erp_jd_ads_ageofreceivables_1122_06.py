@@ -4,7 +4,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 import pandas as pd
 from sqlalchemy import create_engine,text
 from datetime import datetime 
-from key_tab import getDict
+from key_tab import getDict,savesql
 
 
 # *****************************************连接mysql、sql server*****************************************#

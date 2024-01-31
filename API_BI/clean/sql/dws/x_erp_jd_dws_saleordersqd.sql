@@ -1,7 +1,5 @@
 delete from erp_jd_dws.erp_jd_dws_saleordersqd
-where riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-); 
+where riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01'); 
 
 
 INSERT INTO erp_jd_dws.erp_jd_dws_saleordersqd (`riqi`,`kehuid` ,`kehumc` ,`xiaoshoubmdm` ,`xiaoshoubmmc` ,`danjulxmc` ,`wuliaobm` ,`wuliaomc` ,`jiashuihj_ac` ,`bumen_new` ,`bumen` ,`cost` ,`hanshuidj` ,`xiaoshousl_ac` ,`purchases_ac` ,`profit_ac` ,`company` ,`danjubh` )
@@ -41,9 +39,7 @@ and kehumc not in
 '上海卡卡丫文化传播有限公司',
 '沈阳市沈河区尚品商业零售门市部'
 ) 
-and riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-)
+and riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
 
 union all
 
@@ -71,9 +67,7 @@ and company = '杭州游卡文化创意有限公司'
 and kehumc = 'YOKAKIDS快团团店'
 and danjubh like 'SDO%'
 and wuliaomc not like '%三国杀英雄传%'
-and riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-)
+and riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
 
 union all
 
@@ -99,9 +93,7 @@ FROM erp_jd_dwd.erp_jd_dwd_dim_salereturn
 where bumen = '渠道'
 and company = '杭州游卡文化创意有限公司'
 and wuliaomc not like '%三国杀英雄传%'
-and riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-)
+and riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
 
 union all
 
@@ -127,9 +119,7 @@ FROM erp_jd_dwd.erp_jd_dwd_dim_consignment
 where bumen = '渠道'
 and company in ('杭州游卡文化创意有限公司','杭州迷思文化创意有限公司')
 and wuliaomc not like '%三国杀英雄传%'
-and riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-)
+and riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
 
 union all
 
@@ -166,17 +156,5 @@ and kehumc not in
 '上海卡卡丫文化传播有限公司',
 '义乌市齐茜玩具商行',
 '杭州蓝网文化传媒有限公司')
-and riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-);
-
-
-
-
-
-
-
-
-
-
-
+and riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
+;

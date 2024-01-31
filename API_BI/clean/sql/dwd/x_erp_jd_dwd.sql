@@ -14,9 +14,7 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_acctagebalance(
 
 
 delete FROM erp_jd_dwd.erp_jd_dwd_dim_allocation
-where riqi>=(
-    SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-) ;
+where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01') ;
 
 INSERT INTO erp_jd_dwd.erp_jd_dwd_dim_allocation(`fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
   `guigexh` ,`danwei` ,`diaobosl`,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`diaorubgzlx` ,`diaorubgz` , `diaorubgzmc` ,`diaochubgzlx` ,

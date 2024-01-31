@@ -228,6 +228,7 @@ b['inventory_add'] = b.groupby(['wuliaomc','cangkumc'])['inventory'].cumsum()
 
 # 去除库存为0数据，匹配当前库存列
 c = b[b['inventory_add']>0]
+c['riqi'] = pd.to_datetime(c['riqi'],format='%Y-%m-%d')
 list_index = c.groupby(['wuliaomc','cangkumc'])['riqi'].idxmax().to_list()
 d = c.loc[list_index][['wuliaomc','cangkumc','inventory_add']].rename(columns={'inventory_add':'inventory'})
 c = pd.merge(c[['wuliaomc','cangkumc','riqi','receiving']],d,on=['wuliaomc','cangkumc'],how='left')

@@ -4,8 +4,17 @@
 import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
+import time
+import numpy as np  
 from api_cwzx_append import a_func,a1_func,s1_funcB,onceback
 from api_jd import func,func_QTCK,func_wjg, func_sjzx
+from sqlalchemy import create_engine,text
+from datetime import datetime,timedelta
+
+
+
+
+
 
 
 company = { "杭州游卡文化创意有限公司":'wc',
@@ -33,6 +42,20 @@ dict_a_func = { "http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD":    ['erp_jd_ods
 }
 
 
+for k, v in company.items():
+    for n, m in dict_a_func.items():  
+        print(m[1]) 
+        a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
+
+
+
+
+
+
+
+
+
+
 dict_a1_func = {"http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE":     ['erp_jd_ods_dim_acctagebalance_cwzx',         'fdetailid'],
                 "http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD":             ['erp_jd_ods_dim_prepayment_cwzx',             'fid'],
                 "http://10.225.137.124:7772/ZyyxDSS/GetTHSSTOCKDIMENSION":     ['erp_jd_ods_dim_ths_stockdimension_cwzx',     'fentryid'],
@@ -41,6 +64,11 @@ dict_a1_func = {"http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE":     [
                 "http://10.225.137.124:7772/ZyyxDSS/GetTHSADJUSTMENTBILLENTRY":['erp_jd_ods_dim_ths_adjustmentbillentry_cwzx','fid'] ,
                 "http://10.225.137.124:7772/ZyyxDSS/GetTHSADJUSTMENTBILL":     ['erp_jd_ods_dim_ths_adjustmentbill_cwzx',     'fid'] 
 }
+
+for n,m in dict_a1_func.items(): 
+    print(m[1]) 
+    a1_func(n,m[0],m[1])
+
 
 
 
@@ -55,6 +83,15 @@ dict_onceback = {"http://10.225.137.124:7772/ZyyxDSS/GetTBDMATERIALGROUP": 'erp_
                 "http://10.225.137.124:7772/ZyyxDSS/GetTBDSTOCKL":        'erp_jd_ods_dim_tbd_stockl_cwzx' 
 }
 
+for n,m in dict_onceback.items():  
+    print(m) 
+    onceback(n,m)  
+
+
+
+
+
+
 
 dict_s1_funcB = {"http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY":      'erp_jd_ods_dim_voucherentry_cwzx',
                  "http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE":           'erp_jd_ods_dim_balance_cwzx',
@@ -62,6 +99,19 @@ dict_s1_funcB = {"http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY":      '
                  "http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE":           'erp_jd_ods_dim_ths_balance_cwzx',
                  "http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVSTOCKDIMENSION":'erp_jd_ods_dim_ths_inivstockdimension_cwzx'
 }
+
+
+for n,m in dict_s1_funcB.items():  
+    print(m)
+    s1_funcB(n,m)
+
+
+
+
+
+
+
+
 
 
 dict_func = {   "http://10.225.137.124:7772/ZyyxDSS/GetKeHu":      'erp_jd_ods_fact_client',
@@ -74,11 +124,27 @@ dict_func = {   "http://10.225.137.124:7772/ZyyxDSS/GetKeHu":      'erp_jd_ods_f
 }
 
 
+for n,m in dict_func.items():  
+    print(m) 
+    func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
+
+
+
+
+
+
+
+
+
+
 dict_func_wjg = {   "http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMDETAILV":'erp_jd_ods_fact_flexitemdetailv_cwzx',
                     "http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTL":       'erp_jd_ods_fact_accountl_cwzx',
                     "http://10.225.137.124:7772/ZyyxDSS/GetTBDACCOUNTBOOKL":   'erp_jd_ods_fact_accountbookl_cwzx'
 }
 
+for n,m in dict_func_wjg.items():  
+    print(m) 
+    func_wjg(n,"财务数据中心",m)
 
 
 
@@ -91,27 +157,28 @@ func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_j
 # func_sjzx('http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMPROPERTY',"财务数据中心",'erp_jd_ods_fact_flexitemproperty_cwzx')
 
 
-for k, v in company.items():
-    for n, m in dict_a_func.items():  
-        a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
+
+# check
+engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306')) 
+maxdate  = pd.read_sql_query(text('SELECT max(riqi) maxdate FROM erp_jd_ods.erp_jd_ods_dim_saleshipping_wc_cwzx;'), engine.connect())  
+while maxdate['maxdate'].values[0]<datetime.now().date() -timedelta(days=3) :
+    for k, v in company.items():
+        for n, m in dict_a_func.items():  
+            print(m[1]) 
+            a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
 
 
-for n,m in dict_a1_func.items():  
-    a1_func(n,m[0],m[1])
-
-
-for n,m in dict_onceback.items():  
-    onceback(n,m)  
-
-
-for n,m in dict_s1_funcB.items():  
-    s1_funcB(n,m)
-
-
-for n,m in dict_func.items():  
-    func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
+maxdate2  = pd.read_sql_query(text('SELECT max(refresh_jk) maxdate FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalance_cwzx;'), engine.connect())  
+while maxdate2['maxdate'].values[0]<np.datetime64('today') :
+    s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",'erp_jd_ods_dim_ths_inivbalance_cwzx')
 
 
 
-for n,m in dict_func_wjg.items():  
-    func_wjg(n,"财务数据中心",m)
+maxdate1  = pd.read_sql_query(text('SELECT max(refresh_jk) maxdate FROM erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx;'), engine.connect())  
+while maxdate1['maxdate'].values[0]<np.datetime64('today') :
+    for n,m in dict_func.items():  
+        print(m) 
+        func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
+
+
+engine.dispose()

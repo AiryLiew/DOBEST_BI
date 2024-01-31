@@ -4,7 +4,7 @@ CREATE TABLE erp_jd_ads.`key_product` (
     a.`classify_1` `产品中类`  ,
     a.`classify_2` `产品小类`  ,
     a.`wuliaomc` `物料名称` ,
-    date_format(b.`riqi`,'%Y-%m-%d') `上市日期`,
+    case when b.`riqi` is null then date_format(c.`第一次出库时间`  ,'%Y-%m-%d') else date_format(b.`riqi`,'%Y-%m-%d') end `上市日期`,
     date_format(c.`第一次出库时间`  ,'%Y-%m-%d') `第一次出库时间`,
     date_format(c.`最近一次出库时间`  ,'%Y-%m-%d') `最近一次出库时间`,
     round(d.`cost`,2) `采购成本`  ,

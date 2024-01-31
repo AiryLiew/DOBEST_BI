@@ -1,7 +1,5 @@
 delete from erp_jd_dws.erp_jd_dws_saleship_return
-where riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-);
+where riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01');
 
 INSERT INTO erp_jd_dws.erp_jd_dws_saleship_return(`company` ,`year` ,`month` ,`riqi`,`bumen` ,`bumenmc` ,`bumenbm` ,`kehuid` ,`kehumc` ,`danjubh` ,`shifouzp` ,`cangkumc` ,`cangkuid` ,`wuliaofzid` ,`wuliaofzmc` ,`wuliaobm` ,`wuliaomc` ,shifasl,`hanshuidj` ,jiashuihj,profit,`cost`,purchases) 
 SELECT  `company` ,
@@ -28,9 +26,7 @@ SELECT  `company` ,
 `cost`,
 -`purchases` purchases
 FROM erp_jd_dwd.erp_jd_dwd_dim_salereturn 
-where riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-)
+where riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
 
 union all
 
@@ -58,9 +54,8 @@ SELECT  `company` ,
 `cost` ,
 `purchases`
 FROM erp_jd_dwd.erp_jd_dwd_dim_saleshipping 
-where riqi>=(
-	SELECT DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01') AS start_of_month
-);
+where riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
+;
                                         
                                         
                          
