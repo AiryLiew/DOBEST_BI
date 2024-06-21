@@ -39,6 +39,7 @@ select `fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
 `diaochubgz` ,`diaochubgzmc` ,`guanlianxskh` ,`beizhu_bt` ,`beizhu_mx` ,`company` ,`refresh_jk`  
 from erp_jd_ods.erp_jd_ods_dim_allocation_wc_cwzx
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+-- and danjubh not in ('ZJDB0007224','ZJDB0007258')
 
 union all 
 select `fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
@@ -53,6 +54,13 @@ select `fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
 `diaochubgz` ,`diaochubgzmc` ,`guanlianxskh` ,`beizhu_bt` ,`beizhu_mx` ,`company` ,`refresh_jk`  
 from erp_jd_ods.erp_jd_ods_dim_allocation_yc_cwzx
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01') 
+
+union all 
+select `fid`,`riqi` ,`danjubh` ,`danjuzt` ,`diaobofx` ,`wuliaobm` ,`wuliaomc` ,
+`guigexh` ,`danwei` ,`diaobosl`,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`diaorubgzlx` ,`diaorubgz` , `diaorubgzmc` ,`diaochubgzlx` ,
+`diaochubgz` ,`diaochubgzmc` ,`guanlianxskh` ,`beizhu_bt` ,`beizhu_mx` ,`company` ,`refresh_jk`  
+from erp_jd_ods.erp_jd_ods_dim_allocation_fzh_cwzx
+where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 ;
 
 
@@ -112,39 +120,40 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_balance(
 
 
 
-delete FROM erp_jd_dwd.erp_jd_dwd_dim_distributedin
-where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
+-- delete FROM erp_jd_dwd.erp_jd_dwd_dim_distributedin
+-- where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
 
-INSERT INTO erp_jd_dwd.erp_jd_dwd_dim_distributedin (  
-`fid`, `riqi`, `danjubh`, `danjuzt`, `wuliaobm`, `wuliaomc`, `guigexh`,  
-`danwei`, `diaorusl`, `diaochuckid`, `diaochuck`, `diaoruckid`, `diaoruck`,  
-`company`, `refresh_jk`  
-)  
-SELECT   
-`fid`, `riqi`, `danjubh`, `danjuzt`, `wuliaobm`, `wuliaomc`, `guigexh`,  
-`danwei`, `diaorusl`, `diaochuckid`, `diaochuck`, `diaoruckid`, `diaoruck`,  
-`company`, `refresh_jk`  
-FROM erp_jd_ods.erp_jd_ods_dim_distributedin_wc_cwzx  
-WHERE riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
-;
-
-
+-- INSERT INTO erp_jd_dwd.erp_jd_dwd_dim_distributedin (  
+-- `fid`, `riqi`, `danjubh`, `danjuzt`, `wuliaobm`, `wuliaomc`, `guigexh`,  
+-- `danwei`, `diaorusl`, `diaochuckid`, `diaochuck`, `diaoruckid`, `diaoruck`,  
+-- `company`, `refresh_jk`  
+-- )  
+-- SELECT   
+-- `fid`, `riqi`, `danjubh`, `danjuzt`, `wuliaobm`, `wuliaomc`, `guigexh`,  
+-- `danwei`, `diaorusl`, `diaochuckid`, `diaochuck`, `diaoruckid`, `diaoruck`,  
+-- `company`, `refresh_jk`  
+-- FROM erp_jd_ods.erp_jd_ods_dim_distributedin_wc_cwzx  
+-- WHERE riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+-- ;
 
 
 
 
 
 
-delete FROM erp_jd_dwd.erp_jd_dwd_dim_distributedout
-where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
 
-INSERT INTO erp_jd_dwd.erp_jd_dwd_dim_distributedout(`fid` ,`riqi` ,`danjubh` ,`danjuzt` ,`wuliaobm` ,`wuliaomc` ,`guigexh` ,
-`danwei` ,`diaochusl` ,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`company` ,`refresh_jk`
-) 
-select `fid` ,`riqi` ,`danjubh` ,`danjuzt` ,`wuliaobm` ,`wuliaomc` ,`guigexh` ,
-`danwei` ,`diaochusl` ,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`company` ,`refresh_jk` 
-from erp_jd_ods.erp_jd_ods_dim_distributedout_wc_cwzx
-where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
+
+-- delete FROM erp_jd_dwd.erp_jd_dwd_dim_distributedout
+-- where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01');
+
+-- INSERT INTO erp_jd_dwd.erp_jd_dwd_dim_distributedout(`fid` ,`riqi` ,`danjubh` ,`danjuzt` ,`wuliaobm` ,`wuliaomc` ,`guigexh` ,
+-- `danwei` ,`diaochusl` ,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`company` ,`refresh_jk`
+-- ) 
+-- select `fid` ,`riqi` ,`danjubh` ,`danjuzt` ,`wuliaobm` ,`wuliaomc` ,`guigexh` ,
+-- `danwei` ,`diaochusl` ,`diaochuckid` ,`diaochuck` ,`diaoruckid` ,`diaoruck` ,`company` ,`refresh_jk` 
+-- from erp_jd_ods.erp_jd_ods_dim_distributedout_wc_cwzx
+-- where riqi >= DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+-- and danjubh <> 'FBDC00000884';
 
 
 
@@ -225,6 +234,7 @@ union all
 select `fid` ,`riqi` ,`bumendm` ,`bumenmc` ,`wuliaobm` ,`wuliaomc` ,`wuliaofzid` ,
 `wuliaofzmc` ,`cangkuid` ,`cangkumc` ,`shishousl`,`danjubh` ,`company` ,`refresh_jk`,year(riqi) `year`,month(riqi) `month` from erp_jd_ods.erp_jd_ods_dim_othersreceiving_wc_cwzx
 where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+and `danjubh`<>'QTRK0001244'
 
 union all 
 select `fid` ,`riqi` ,`bumendm` ,`bumenmc` ,`wuliaobm` ,`wuliaomc` ,`wuliaofzid` ,

@@ -22,7 +22,7 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
         when m.fdimensionid = '1' then '杭州迷思文化创意有限公司' 
         when m.fdimensionid = '5' then '杭州泳淳网络技术有限公司' 
         when m.fdimensionid = '14' then '杭州游卡文化创意有限公司拱墅区分公司' 
-        when m.fdimensionid = '9' then '上海卡丫卡文化传播有限公司' 
+        when m.fdimensionid = '9' then '上海卡卡丫文化传播有限公司' 
         else null end 账簿
 
     from (
@@ -141,7 +141,7 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
         when m.fdimensionid = '1' then '杭州迷思文化创意有限公司' 
         when m.fdimensionid = '5' then '杭州泳淳网络技术有限公司' 
         when m.fdimensionid = '14' then '杭州游卡文化创意有限公司拱墅区分公司' 
-        when m.fdimensionid = '9' then '上海卡丫卡文化传播有限公司' 
+        when m.fdimensionid = '9' then '上海卡卡丫文化传播有限公司' 
         else null end 账簿
 
     from (

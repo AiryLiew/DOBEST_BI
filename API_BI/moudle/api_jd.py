@@ -31,12 +31,14 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         xclsh0 = response["xclsh"]
         status_code = response["backdata"] # 返回数据
         df = pd.json_normalize(status_code) 
+
         try:
             list_ = []
-            for i in range(len(df)):
-                for j in df['zijianmxs'][i]:
-                    j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-                list_.append(pd.json_normalize(df['zijianmxs'][i]))
+            for i in df['fid'].drop_duplicates():
+                df_fid = df[df['fid']==i].reset_index(drop = True)
+                for j in df_fid['zijianmxs'][0]:
+                    j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
+                list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
             df1 = pd.concat(list_,ignore_index=True)  
             df.drop(['zijianmxs'],axis=1,inplace=True) 
             df = pd.concat([df,df1],ignore_index=True) 
@@ -90,9 +92,9 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
         print(name3 + ' have no data')
     
     try:
-        df_kyk = funcA("上海卡丫卡文化传播有限公司")
+        df_kyk = funcA("上海卡卡丫文化传播有限公司")
         if df_kyk.empty==False:
-            df_kyk['company'] = "上海卡丫卡文化传播有限公司"
+            df_kyk['company'] = "上海卡卡丫文化传播有限公司"
             df_kyk['shujuzx'] = shujuzx
             df_kyk['refresh_jk'] = datetime.now()
             df_kyk.to_sql(name4, engine, schema='erp_jd_ods', if_exists='replace', index=False)
@@ -199,9 +201,9 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
 
    
     try:
-        df_kyk = funcA(shujuzx,"上海卡丫卡文化传播有限公司")
+        df_kyk = funcA(shujuzx,"上海卡卡丫文化传播有限公司")
         if df_kyk.empty==False:
-            df_kyk['company'] = "上海卡丫卡文化传播有限公司"
+            df_kyk['company'] = "上海卡卡丫文化传播有限公司"
             df_kyk['shujuzx'] = shujuzx
             df_kyk['refresh_jk'] = datetime.now()
             df_kyk.to_sql(name4, engine, schema='erp_jd_ods', if_exists='replace', index=False)
@@ -269,10 +271,11 @@ def func_wjg(url,shujuzx,name):
         df = pd.json_normalize(status_code) 
         try:
             list_ = []
-            for i in range(len(df)):
-                for j in df['zijianmxs'][i]:
-                    j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-                list_.append(pd.json_normalize(df['zijianmxs'][i]))
+            for i in df['fid'].drop_duplicates():
+                df_fid = df[df['fid']==i].reset_index(drop = True)
+                for j in df_fid['zijianmxs'][0]:
+                    j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
+                list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
             df1 = pd.concat(list_,ignore_index=True)  
             df.drop(['zijianmxs'],axis=1,inplace=True) 
             df = pd.concat([df,df1],ignore_index=True) 

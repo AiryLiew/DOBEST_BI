@@ -6,7 +6,7 @@
 import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
-from key_tab import clean,getDictKey,cf,insertsql1
+from key_tab import clean,getDictKey,cf,insertsql1,sqlrun
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import create_engine,text
@@ -63,4 +63,14 @@ insertsql1( df_saleOrders,
 			'erp_jd_dwd_dim_saleorders',
 			"""INSERT INTO erp_jd_dwd_dim_saleorders(riqi,kehuid,kehumc,xiaoshoubmdm,xiaoshoubmmc,danjulxdm,danjulxmc,wuliaobm,wuliaomc,wuliaolbdm,wuliaolbmc,wuliaofzid,wuliaofzmc,jiashuihj,hanshuidj,xiaoshousl,leijicksl,leijithslxs,shouhuofdz,cangkuid,cangkumc,shifouzp,danjubh,beizhu,sheng,shi,qu,company,shujuzx,return_am,jiashuihj_ac,xiaoshousl_ac,bumen_new,bumen,year,month,cost,purchases,profit,purchases_ac,profit_ac,refresh) 
 			VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""")
+
+
+
+
+
+
+
+
+#  
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\dws\x_erp_jd_dws_saleordersqd.sql') 
 

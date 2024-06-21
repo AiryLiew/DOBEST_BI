@@ -50,6 +50,7 @@ def merge_label(df_purchases, df_sale,column_name,date_name,df_classify):
     column_names = column_name+'_new'
 
     # 返回原表所属年度
+    df_purchases[date_name] = df_purchases[date_name].map(lambda x:str(x)[:10])
     df_purchases[date_name] = pd.to_datetime(df_purchases[date_name],format='%Y-%m-%d')
     df_purchases['year'] = df_purchases[date_name].map(lambda x: x.year)  
     df_purchases['month'] = df_purchases[date_name].map(lambda x: x.month)  

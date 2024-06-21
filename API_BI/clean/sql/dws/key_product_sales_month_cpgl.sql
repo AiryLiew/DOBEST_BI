@@ -30,7 +30,7 @@ CREATE TABLE erp_jd_ads.`key_product_sales_month_cpgl` (
 
     where a.year >= year(date_sub(current_date(),interval 1 day))-1
     and a.month = month(date_sub(current_date(),interval 1 day))
-    and a.kehumc not in ( '杭州迷思文化创意有限公司', '杭州泳淳网络技术有限公司',  '杭州游卡文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司' )
+    and a.kehumc not in ( '杭州迷思文化创意有限公司', '杭州泳淳网络技术有限公司',  '杭州游卡文化创意有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司' )
     and(   
         (  
             b.classify_1 not in ('海外系列','阵面对决','IP系列','自研B端剧本杀','其他','剧本杀配件','电商剧本杀道具','收藏卡') 

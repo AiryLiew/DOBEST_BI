@@ -1,5 +1,8 @@
-drop table if exists erp_jd_ads.key_product_sales_fc;
-CREATE TABLE erp_jd_ads.key_product_sales_fc(
+delete from erp_jd_ads.`key_product_sales_fc`
+where 日期>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01');
+
+INSERT INTO erp_jd_ads.`key_product_sales_fc`(产品大类, 产品中类, 产品小类, 产品名称, 年, 季度, 月, 周,  日,星期,月_日,日期, 
+    渠道仓销量, 渠道仓销售额 , 电商仓销量 , 电商仓销售额, 泳淳电商仓销量, 泳淳电商仓销售额, 总销量 , 总销售额,赠品数量, 毛利)
     SELECT b.`产品大类` ,
     b.`产品中类` ,
     b.`产品小类` ,
@@ -32,7 +35,8 @@ CREATE TABLE erp_jd_ads.key_product_sales_fc(
         FROM erp_jd_dwd.erp_jd_dwd_fact_classify
     ) b on b.`物料名称` = a.wuliaomc
 
-    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+    and a.riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
     group by a.wuliaomc ,a.riqi
 
 
@@ -71,6 +75,7 @@ CREATE TABLE erp_jd_ads.key_product_sales_fc(
         FROM erp_jd_dwd.erp_jd_dwd_fact_classify
     ) b on b.`物料名称` = a.wuliaomc
 
-    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+    where a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+    and a.riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
     group by a.wuliaomc ,a.riqi
 );

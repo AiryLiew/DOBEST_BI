@@ -39,7 +39,7 @@ CREATE TABLE www_bi_ads.ccwl_fee_saleorders(
     and a.shouhuofdz = b.shouhuofdz
     
     where a.bumen = '渠道'
-    and a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡丫卡文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
+    and a.kehumc not in ('杭州泳淳网络技术有限公司','杭州游卡文化创意有限公司','杭州迷思文化创意有限公司','上海卡卡丫文化传播有限公司','杭州游卡文化创意有限公司拱墅区分公司')
   ) a
 
 

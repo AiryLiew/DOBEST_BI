@@ -1,6 +1,7 @@
 drop table if exists erp_jd_ads.key_cangku;
 CREATE TABLE erp_jd_ads.key_cangku (
     SELECT 
+    x.`company`,
     a.`产品大类`  ,
     a.`产品中类`  ,
     a.`产品小类`  ,
@@ -19,6 +20,6 @@ CREATE TABLE erp_jd_ads.key_cangku (
         FROM erp_jd_dwd.erp_jd_dwd_fact_classify
     ) a on a.`物料名称` = x.wuliaomc
     
-    group by x.`wuliaomc` ,
+    group by x.`company`,x.`wuliaomc` ,
     x.`cangkumc`
 );

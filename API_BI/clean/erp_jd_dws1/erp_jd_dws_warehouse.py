@@ -9,7 +9,7 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 import pandas as pd
 from sqlalchemy import create_engine,text
 from datetime import datetime
-from key_tab import insertsql
+from key_tab import insertsql,sqlrun
 
 print("\n","START DWS", datetime.now(),"\n")
 
@@ -68,41 +68,39 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,wuliaobm,cangkumc,c
 
 
                                     union all
-                                    select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation 
+                                    select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,
+                                    case when diaorubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaorubgzmc end company,
+                                    case when wuliaomc is not null then '直接调拨单' end `table` 
+                                    from erp_jd_dwd.erp_jd_dwd_dim_allocation
 									where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
                                     union all 
-                                    select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-diaobosl,SIGNED) shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation 
+                                    select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-diaobosl,SIGNED) shipping,
+                                    case when diaorubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaorubgzmc end company,
+                                    case when wuliaomc is not null then '直接调拨单' end `table` 
+                                    from erp_jd_dwd.erp_jd_dwd_dim_allocation 
 									where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
                                     union all 
-                                    select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(diaobosl,SIGNED) shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation 
+                                    select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(diaobosl,SIGNED) shipping,
+                                    case when diaochubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaochubgzmc end company,
+                                    case when wuliaomc is not null then '直接调拨单' end `table` 
+                                    from erp_jd_dwd.erp_jd_dwd_dim_allocation
 									where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
                                     union all 
-                                    select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '直接调拨单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_allocation 
+                                    select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,
+                                    case when diaochubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaochubgzmc end company,
+                                    case when wuliaomc is not null then '直接调拨单' end `table` 
+                                    from erp_jd_dwd.erp_jd_dwd_dim_allocation
 									where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
                                     and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
 
-                                    union all
-                                    select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin 
-									where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
-                                    and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
-                                    union all 
-                                    select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin 
-									where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
-                                    and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
-
-
-                                    union all
-                                    select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(diaochusl,SIGNED) receiving,CONVERT(diaochusl,SIGNED) shipping,company,case when wuliaomc is not null then '分布式调出单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedout 
-									where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
-                                    and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
 
 
                                     union all
@@ -166,6 +164,25 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,wuliaobm,cangkumc,c
                                     ) b on a.wuliaobm = b.wuliaobm                                
                                     ;"""), engine.connect())
 
+                                    # union all
+                                    # select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin 
+									# where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
+                                    # and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+                                    # union all 
+                                    # select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaorusl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,company,case when wuliaomc is not null then '分布式调入单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedin 
+									# where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
+                                    # and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+
+                                    # union all
+                                    # select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(diaochusl,SIGNED) receiving,CONVERT(diaochusl,SIGNED) shipping,company,case when wuliaomc is not null then '分布式调出单' end `table` from erp_jd_dwd.erp_jd_dwd_dim_distributedout 
+									# where wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
+                                    # and riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01')
+
+
+
+
 
 df_warehouse_s = pd.read_sql_query(text("""SELECT a.riqi,	a.wuliaomc,a.wuliaobm,a.cangkumc,a.cangkuid	,a.receiving,a.shipping	,a.company,a.table,	a.inventory_wl inventory
                                             FROM (  
@@ -203,3 +220,6 @@ df_warehouse['refresh'] = datetime.now()
 insertsql(df_warehouse,'erp_jd_dws','erp_jd_dws_warehouse',
 "INSERT INTO erp_jd_dws_warehouse(riqi,wuliaomc,wuliaobm ,cangkumc,cangkuid,receiving,shipping,company,`table`,inventory,inventory_wl,refresh) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)",
 'riqi')
+
+
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\ads\key_product.sql') 

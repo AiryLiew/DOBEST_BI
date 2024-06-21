@@ -6,21 +6,21 @@ sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
 import time
 import numpy as np  
-from api_cwzx_append import a_func,a1_func,s1_funcB,onceback
+from api_cwzx_append import a_func,a1_func,s1_funcB,onceback,s_funcB
 from api_jd import func,func_QTCK,func_wjg, func_sjzx
 from sqlalchemy import create_engine,text
 from datetime import datetime,timedelta
 
 
 
-
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD",  "上海飞之火电竞信息科技有限公司",'erp_jd_ods_dim_allocation_fzh_cwzx'   )
 
 
 
 company = { "杭州游卡文化创意有限公司":'wc',
             "杭州泳淳网络技术有限公司":'yc',
             "杭州迷思文化创意有限公司":'ms',
-            "上海卡丫卡文化传播有限公司":'kyk',
+            "上海卡卡丫文化传播有限公司":'kyk',
             "上海卡哟卡网络技术有限公司":'kyok',
             "杭州游卡文化创意有限公司拱墅区分公司":'wc01'
 }
@@ -35,8 +35,8 @@ dict_a_func = { "http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD":    ['erp_jd_ods
                 "http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouTHD":['erp_jd_ods_dim_salereturn'       ,'fid'],
                 "http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouCKD":['erp_jd_ods_dim_saleshipping'     ,'fid'],
                 "http://10.225.137.124:7772/ZyyxDSS/GetZuZhuangCX": ['erp_jd_ods_dim_assemble'         ,'fid'],
-                "http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDRD":  ['erp_jd_ods_dim_distributedin'    ,'fid'],
-                "http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDCD":  ['erp_jd_ods_dim_distributedout'   ,'fid'],
+                # "http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDRD":  ['erp_jd_ods_dim_distributedin'    ,'fid'],
+                # "http://10.225.137.124:7772/ZyyxDSS/GetFenBuSDCD":  ['erp_jd_ods_dim_distributedout'   ,'fid'],
                 "http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD":  ['erp_jd_ods_dim_allocation'       ,'fid'],
                 "http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER": ['erp_jd_ods_dim_voucher'          ,'fVoucherID']                   
 }
@@ -44,13 +44,22 @@ dict_a_func = { "http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD":    ['erp_jd_ods
 
 for k, v in company.items():
     for n, m in dict_a_func.items():  
-        print(m[1]) 
+        print(m[0]) 
         a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
 
 
 
+# 增量接口
+dict_a_funcs = { 
+                "http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouCKD":['erp_jd_ods_dim_saleshipping'     ,'fid']                
+}
 
-
+for i in range(5):
+    for k, v in company.items():
+        for n, m in dict_a_funcs.items():  
+            print(m[0]) 
+            a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
+    time.sleep(3)
 
 
 
@@ -66,7 +75,7 @@ dict_a1_func = {"http://10.225.137.124:7772/ZyyxDSS/GetTGLACCTAGEBALANCE":     [
 }
 
 for n,m in dict_a1_func.items(): 
-    print(m[1]) 
+    print(m[0]) 
     a1_func(n,m[0],m[1])
 
 

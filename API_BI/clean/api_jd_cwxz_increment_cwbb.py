@@ -17,7 +17,7 @@ a1_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY", 'erp_jd_ods_dim
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州游卡文化创意有限公司",'erp_jd_ods_dim_voucher_wc_cwzx'          ,'fVoucherID')
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州泳淳网络技术有限公司",'erp_jd_ods_dim_voucher_yc_cwzx'          ,'fVoucherID') 
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "杭州迷思文化创意有限公司",'erp_jd_ods_dim_voucher_ms_cwzx'          ,'fVoucherID')
-a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡丫卡文化传播有限公司",'erp_jd_ods_dim_voucher_kyk_cwzx'          ,'fVoucherID')
+a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡卡丫文化传播有限公司",'erp_jd_ods_dim_voucher_kyk_cwzx'          ,'fVoucherID')
 a_func("http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHER", "上海卡哟卡网络技术有限公司",'erp_jd_ods_dim_voucher_kyok_cwzx'          ,'fVoucherID')
 
 

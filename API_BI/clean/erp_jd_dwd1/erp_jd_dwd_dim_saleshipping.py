@@ -4,7 +4,7 @@
 import sys
 sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
-from key_tab import clean,getDictKey,cf,ct,insertsql
+from key_tab import clean,getDictKey,cf,ct,insertsql,sqlrun
 import pandas as pd
 from datetime import datetime
 from sqlalchemy import create_engine,text
@@ -67,3 +67,11 @@ insertsql(  df_saleShipping,
             """INSERT INTO erp_jd_dwd_dim_saleshipping(riqi,wuliaobm,wuliaomc,shifasl,jiashuihj,hanshuidj,bumenbm,bumenmc,kehuid,kehumc,shifouzp,shenhezt,wuliaofzid,wuliaofzmc,cangkuid,cangkumc,shouhuofdz,wuliaolbdm,wuliaolbmc,beizhu,xiaoshoucbj,zongchengb,danjubh,company,bumen_new,bumen,year,month,cost,purchases,profit,refresh) 
             VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)""",
             'riqi')
+
+
+
+
+
+#  
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\x_erp_jd_dws_saleship_return.sql') 
+

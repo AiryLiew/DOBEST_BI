@@ -34,7 +34,7 @@ df_classify.drop(['refresh_jk'],axis=1,inplace = True)
 # 规范空格
 df_classify['wuliaomc'] = df_classify['wuliaomc'].map(lambda x :x.replace('\xa0', ' ') )
 
-
+df_classify['wuliaofzmc'].fillna('-',inplace = True)
 df_classify['name_group'] = df_classify['wuliaofzmc'].map(lambda x:x.split('-'))
 df_classify['id_group'] = df_classify['wuliaofzid'].map(lambda x:[str(x)[0:i+2] for i in range(0, len(str(x)), 2)])
 

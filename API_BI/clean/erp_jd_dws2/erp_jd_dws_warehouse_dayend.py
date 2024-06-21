@@ -57,7 +57,7 @@ def dayend(df_warehouse):
     # 插入日期
     dateMax = df_warehouse_dayend['riqi'].max()
     
-    df_warehouse_dayend = df_warehouse_dayend.join(df_warehouse_dayend.groupby(['wuliaomc'],as_index=False)['riqi'].rank(ascending=False).rename(columns={'riqi':'rank'}))
+    df_warehouse_dayend = df_warehouse_dayend.join(pd.DataFrame(df_warehouse_dayend.groupby(['wuliaomc'],as_index=False)['riqi'].rank(ascending=False)).rename(columns={'riqi':'rank'}))
     a = df_warehouse_dayend[(df_warehouse_dayend['rank']==1)&(df_warehouse_dayend['inventory_wl']>0)&(df_warehouse_dayend['riqi']!=dateMax)]
     a.loc[:,'riqi'] = dateMax
     df_warehouse_dayend = pd.concat([df_warehouse_dayend,a],ignore_index=True)
@@ -99,7 +99,7 @@ def dayend_ck(df_warehouse):
     # 插入日期
     dateMax = df_warehouse_dayend['riqi'].max()
 
-    df_warehouse_dayend = df_warehouse_dayend.join(df_warehouse_dayend.groupby(['wuliaomc','cangkumc'],as_index=False)['riqi'].rank(ascending=False).rename(columns={'riqi':'rank'}))
+    df_warehouse_dayend = df_warehouse_dayend.join(pd.DataFrame(df_warehouse_dayend.groupby(['wuliaomc','cangkumc'],as_index=False)['riqi'].rank(ascending=False)).rename(columns={'riqi':'rank'}))
     a = df_warehouse_dayend[(df_warehouse_dayend['rank']==1)&(df_warehouse_dayend['inventory_wl']>0)&(df_warehouse_dayend['riqi']!=dateMax)]
     a.loc[:,'riqi'] = dateMax
     df_warehouse_dayend = pd.concat([df_warehouse_dayend,a],ignore_index=True)

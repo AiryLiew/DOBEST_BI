@@ -46,10 +46,11 @@ def s_func(url,company,name):
 
             try:
                 list_ = []
-                for i in range(len_):
-                    for j in df['zijianmxs'][i]:
-                        j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-                    list_.append(pd.json_normalize(df['zijianmxs'][i]))
+                for i in df['fid'].drop_duplicates():
+                    df_fid = df[df['fid']==i].reset_index(drop = True)
+                    for j in df_fid['zijianmxs'][0]:
+                        j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
+                    list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
                 df1 = pd.concat(list_,ignore_index=True)  
                 df.drop(['zijianmxs'],axis=1,inplace=True) 
                 df = pd.concat([df,df1],ignore_index=True) 
@@ -138,10 +139,11 @@ def a_func(url,company,name,fid):
             len_ = len(df)
             try:
                 list_ = []
-                for i in range(len_):
-                    for j in df['zijianmxs'][i]:
-                        j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-                    list_.append(pd.json_normalize(df['zijianmxs'][i]))
+                for i in df['fid'].drop_duplicates():
+                    df_fid = df[df['fid']==i].reset_index(drop = True)
+                    for j in df_fid['zijianmxs'][0]:
+                        j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
+                    list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
                 df1 = pd.concat(list_,ignore_index=True)  
                 df.drop(['zijianmxs'],axis=1,inplace=True) 
                 df = pd.concat([df,df1],ignore_index=True) 
@@ -231,10 +233,11 @@ def s1_func(url):
 
             try:
                 list_ = []
-                for i in range(len_):
-                    for j in df['zijianmxs'][i]:
-                        j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-                    list_.append(pd.json_normalize(df['zijianmxs'][i]))
+                for i in df['fid'].drop_duplicates():
+                    df_fid = df[df['fid']==i].reset_index(drop = True)
+                    for j in df_fid['zijianmxs'][0]:
+                        j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
+                    list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
                 df1 = pd.concat(list_,ignore_index=True)  
                 df.drop(['zijianmxs'],axis=1,inplace=True) 
                 df = pd.concat([df,df1],ignore_index=True) 
@@ -334,10 +337,11 @@ def a1_func(url,name,fid):
             len_ = len(df)
             try:
                 list_ = []
-                for i in range(len_):
-                    for j in df['zijianmxs'][i]:
-                        j.update({'rukurq':df['rukurq'][i],'shiwulx':df['shiwulx'][i]+'子件','danjubh':df['danjubh'][i]})
-                    list_.append(pd.json_normalize(df['zijianmxs'][i]))
+                for i in df['fid'].drop_duplicates():
+                    df_fid = df[df['fid']==i].reset_index(drop = True)
+                    for j in df_fid['zijianmxs'][0]:
+                        j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
+                    list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
                 df1 = pd.concat(list_,ignore_index=True)  
                 df.drop(['zijianmxs'],axis=1,inplace=True) 
                 df = pd.concat([df,df1],ignore_index=True) 
