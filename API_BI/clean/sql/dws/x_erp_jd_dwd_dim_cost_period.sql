@@ -1,5 +1,5 @@
-drop table if exists erp_jd_dwd.erp_jd_dwd_dim_cost_period;
-CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period( 
+drop table if exists erp_jd_dwd.erp_jd_dwd_dim_cost_month;
+CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_month( 
     SELECT distinct
     cast(0 as char) 期初金额,
     cast(0 as char) 期初数量,
@@ -61,7 +61,7 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
         `fcurrentoutamount` 本期发出金额,
         `foutstockqty` 本期发出数量,
         `fqty` 期末数量
-        FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalanceh_cwzx 
+        FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalance_cwzx 
         where `fendinitkey` = 1
         and fdimensionid in ('1','4','5','9','14')
         and not (`famount` = 0 and 
@@ -71,28 +71,6 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
         `foutstockqty` = 0 and 
         `fqty` = 0)
 
-        union all
-
-        SELECT  
-        fdimeentryid,
-        `fendinitkey`,
-        fdimensionid,
-        fid,
-        `famount` 期末金额,
-        `fcurrentinamount` 本期收入金额,
-        `fcurrentinqty` 本期收入数量,
-        `fcurrentoutamount` 本期发出金额,
-        `foutstockqty` 本期发出数量,
-        `fqty` 期末数量
-        FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalance_cwzx
-        where `fendinitkey` = 1
-        and fdimensionid in ('1','4','5','9','14')
-        and not (`famount` = 0 and 
-        `fcurrentinamount` = 0 and 
-        `fcurrentinqty` = 0 and 
-        `fcurrentoutamount` = 0 and 
-        `foutstockqty` = 0 and 
-        `fqty` = 0)
     ) m on m.fdimeentryid = b.fentryid 
 
 
@@ -176,26 +154,7 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
         fid,
         `famount` 期初金额,
         `fqty` 期初数量
-        FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalanceh_cwzx 
-        where `fendinitkey` = 0
-        and fdimensionid in ('1','4','5','9','14')
-        and not (`famount` = 0 and 
-        `fcurrentinamount` = 0 and 
-        `fcurrentinqty` = 0 and 
-        `fcurrentoutamount` = 0 and 
-        `foutstockqty` = 0 and 
-        `fqty` = 0)
-
-        union all
-
-        SELECT  
-        fdimeentryid,
-        `fendinitkey`,
-        fdimensionid,
-        fid,
-        `famount` 期初金额,
-        `fqty` 期初数量
-        FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalance_cwzx
+        FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalance_cwzx 
         where `fendinitkey` = 0
         and fdimensionid in ('1','4','5','9','14')
         and not (`famount` = 0 and 
@@ -226,3 +185,13 @@ CREATE TABLE erp_jd_dwd.erp_jd_dwd_dim_cost_period(
     ) c on m.fid = c.fid 
 
 );
+
+
+delete from erp_jd_dwd.erp_jd_dwd_dim_cost_period 
+where `年期` = date_format(now(),'%Y%m');
+INSERT INTO erp_jd_dwd.erp_jd_dwd_dim_cost_period(`期初金额`,`期初数量`,`期末金额`,`本期收入金额`,`本期收入数量`,`本期发出金额`,`本期发出数量`,`期末数量`,
+`仓库`,`物料编码`,`物料名称`,`会计期间`,`会计年`,`年期`,`本期发出成本单价`,`期末成本单价`,`期初成本单价`,`账簿`)    
+select `期初金额`,`期初数量`,`期末金额`,`本期收入金额`,`本期收入数量`,`本期发出金额`,`本期发出数量`,`期末数量`,
+`仓库`,`物料编码`,`物料名称`,`会计期间`,`会计年`,`年期`,`本期发出成本单价`,`期末成本单价`,`期初成本单价`,`账簿`
+from erp_jd_dwd.erp_jd_dwd_dim_cost_month
+where `年期` = date_format(now(),'%Y%m');

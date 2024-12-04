@@ -2,7 +2,7 @@
 # 测试环境: python3.9
 
 
-def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
+def func(url,shujuzx,name1,name2,name3,name4,name5,name6,name7):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
@@ -126,6 +126,17 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
     except:
         print(name6 + ' have no data')
 
+    try:
+        df_kky_hz = funcA("杭州卡卡丫文化创意有限公司")
+        if df_kky_hz.empty==False:
+            df_kky_hz['company'] = "杭州卡卡丫文化创意有限公司"
+            df_kky_hz['shujuzx'] = shujuzx
+            df_kky_hz['refresh_jk'] = datetime.now()
+            df_kky_hz.to_sql(name7, engine, schema='erp_jd_ods', if_exists='replace', index=False)
+
+    except:
+        print(name7 + ' have no data')
+
 
 
     engine.dispose()
@@ -134,7 +145,7 @@ def func(url,shujuzx,name1,name2,name3,name4,name5,name6):
 
 
 # 其他出库
-def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
+def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6,name7):
     import sys
     sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
@@ -234,6 +245,17 @@ def func_QTCK(shujuzx,name1,name2,name3,name4,name5,name6):
 
     except:
         print(name6 + ' have no data')
+
+    try:
+        df_kky_hz = funcA(shujuzx,"杭州卡卡丫文化创意有限公司")
+        if df_kky_hz.empty==False:
+            df_kky_hz['company'] = "杭州卡卡丫文化创意有限公司"
+            df_kky_hz['shujuzx'] = shujuzx
+            df_kky_hz['refresh_jk'] = datetime.now()
+            df_kky_hz.to_sql(name7, engine, schema='erp_jd_ods', if_exists='replace', index=False)
+
+    except:
+        print(name7 + ' have no data')
 
 
     engine.dispose() 

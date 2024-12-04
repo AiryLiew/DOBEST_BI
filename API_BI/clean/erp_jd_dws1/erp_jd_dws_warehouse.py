@@ -69,7 +69,7 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,wuliaobm,cangkumc,c
 
                                     union all
                                     select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,CONVERT(diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,
-                                    case when diaorubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaorubgzmc end company,
+                                    case when diaorubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司',"杭州卡卡丫文化创意有限公司") then company else diaorubgzmc end company,
                                     case when wuliaomc is not null then '直接调拨单' end `table` 
                                     from erp_jd_dwd.erp_jd_dwd_dim_allocation
 									where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
@@ -77,7 +77,7 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,wuliaobm,cangkumc,c
 
                                     union all 
                                     select riqi,wuliaomc,wuliaobm,diaoruck cangkumc,diaoruckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(-diaobosl,SIGNED) shipping,
-                                    case when diaorubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaorubgzmc end company,
+                                    case when diaorubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司',"杭州卡卡丫文化创意有限公司") then company else diaorubgzmc end company,
                                     case when wuliaomc is not null then '直接调拨单' end `table` 
                                     from erp_jd_dwd.erp_jd_dwd_dim_allocation 
 									where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
@@ -85,7 +85,7 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,wuliaobm,cangkumc,c
 
                                     union all 
                                     select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,case when wuliaomc is not null then 0 end receiving,CONVERT(diaobosl,SIGNED) shipping,
-                                    case when diaochubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaochubgzmc end company,
+                                    case when diaochubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司',"杭州卡卡丫文化创意有限公司") then company else diaochubgzmc end company,
                                     case when wuliaomc is not null then '直接调拨单' end `table` 
                                     from erp_jd_dwd.erp_jd_dwd_dim_allocation
 									where diaobofx <> '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'
@@ -93,7 +93,7 @@ df_warehouse= pd.read_sql_query(text("""select riqi,wuliaomc,wuliaobm,cangkumc,c
 
                                     union all 
                                     select riqi,wuliaomc,wuliaobm,diaochuck cangkumc,diaochuckid cangkuid,CONVERT(-diaobosl,SIGNED) receiving,case when wuliaomc is not null then 0 end shipping,
-                                    case when diaochubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司') then company else diaochubgzmc end company,
+                                    case when diaochubgzmc not in ("杭州游卡文化创意有限公司","杭州泳淳网络技术有限公司","杭州迷思文化创意有限公司","上海卡卡丫文化传播有限公司","杭州游卡文化创意有限公司拱墅区分公司",'上海飞之火电竞信息科技有限公司',"杭州卡卡丫文化创意有限公司") then company else diaochubgzmc end company,
                                     case when wuliaomc is not null then '直接调拨单' end `table` 
                                     from erp_jd_dwd.erp_jd_dwd_dim_allocation
 									where diaobofx = '退货' and wuliaomc not in ('代收运费','测试物料1','管易云运费','激光标签-icon版','防伪贴','塑封膜','盲盒方形防伪标签','盲盒圆形防伪标签') and danjuzt = '已审核'

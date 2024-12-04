@@ -10,6 +10,9 @@ from datetime import datetime
 from sqlalchemy import create_engine,text
 
 
+
+sqlrun(r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\sql\x_erp_jd_dwd_dim_cost.sql')
+
 # *****************************************连接mysql、sql server*****************************************#
 engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306'))  
 
@@ -31,6 +34,10 @@ df_saleShipping = pd.read_sql_query(text("""
 
                                         union all 
                                         select * from erp_jd_ods.erp_jd_ods_dim_saleshipping_kyk_cwzx 
+                                        where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01') and wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
+
+                                        union all 
+                                        select * from erp_jd_ods.erp_jd_ods_dim_saleshipping_kky_hz_cwzx 
                                         where riqi>=DATE_FORMAT(DATE_SUB(CURDATE(), INTERVAL 63 DAY), '%Y-%m-01') and wuliaomc not in ('代收运费','测试物料1','管易云运费') and shenhezt in ('已审核','其他','审核中')
 
                                         union all 

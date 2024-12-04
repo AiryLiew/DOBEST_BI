@@ -46,15 +46,19 @@ def s_func(url,company,name):
 
             try:
                 list_ = []
-                for i in df['fid'].drop_duplicates():
-                    df_fid = df[df['fid']==i].reset_index(drop = True)
-                    for j in df_fid['zijianmxs'][0]:
-                        j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
-                    list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
+                for i in df['danjubh'].drop_duplicates():
+                    df_fid = df[df['danjubh']==i].reset_index(drop = True)
+                    for j in df_fid['zijianmxs']:
+                        a = pd.json_normalize(j)
+                        a['rukurq'] = df_fid['rukurq'][0]
+                        a['shiwulx'] = df_fid['shiwulx'][0]+'子件'
+                        a['danjubh'] = df_fid['danjubh'][0]
+                        list_.append(a)
                 df1 = pd.concat(list_,ignore_index=True)  
                 df.drop(['zijianmxs'],axis=1,inplace=True) 
-                df = pd.concat([df,df1],ignore_index=True) 
-                list_2.append(df)
+                df = df.drop_duplicates()
+                df_t = pd.concat([df,df1],ignore_index=True) 
+                list_2.append(df_t)
             except:
                 list_2.append(df)
             
@@ -137,17 +141,22 @@ def a_func(url,company,name,fid):
             status_code = response["backdata"] # 返回数据
             df = pd.json_normalize(status_code)
             len_ = len(df)
+
             try:
                 list_ = []
-                for i in df['fid'].drop_duplicates():
-                    df_fid = df[df['fid']==i].reset_index(drop = True)
-                    for j in df_fid['zijianmxs'][0]:
-                        j.update({'rukurq':df_fid ['rukurq'][0],'shiwulx':df_fid ['shiwulx'][0]+'子件','danjubh':df_fid ['danjubh'][0]})
-                    list_.append(pd.json_normalize(df_fid ['zijianmxs'][0]))
+                for i in df['danjubh'].drop_duplicates():
+                    df_fid = df[df['danjubh']==i].reset_index(drop = True)
+                    for j in df_fid['zijianmxs']:
+                        a = pd.json_normalize(j)
+                        a['rukurq'] = df_fid['rukurq'][0]
+                        a['shiwulx'] = df_fid['shiwulx'][0]+'子件'
+                        a['danjubh'] = df_fid['danjubh'][0]
+                        list_.append(a)
                 df1 = pd.concat(list_,ignore_index=True)  
                 df.drop(['zijianmxs'],axis=1,inplace=True) 
-                df = pd.concat([df,df1],ignore_index=True) 
-                list_2.append(df)
+                df = df.drop_duplicates()
+                df_t = pd.concat([df,df1],ignore_index=True) 
+                list_2.append(df_t)
             except:
                 list_2.append(df)
                 

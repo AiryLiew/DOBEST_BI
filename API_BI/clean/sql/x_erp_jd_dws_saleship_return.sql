@@ -1,7 +1,8 @@
 delete from erp_jd_dws.erp_jd_dws_saleship_return
 where riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01');
 
-INSERT INTO erp_jd_dws.erp_jd_dws_saleship_return(`company` ,`year` ,`month` ,`riqi`,`bumen` ,`bumenmc` ,`bumenbm` ,`kehuid` ,`kehumc` ,`danjubh` ,`shifouzp` ,`cangkumc` ,`cangkuid` ,`wuliaofzid` ,`wuliaofzmc` ,`wuliaobm` ,`wuliaomc` ,shifasl,`hanshuidj` ,jiashuihj,profit,`cost`,purchases) 
+INSERT INTO erp_jd_dws.erp_jd_dws_saleship_return(`company` ,`year` ,`month` ,`riqi`,`bumen` ,`bumenmc` ,`bumenbm` ,`kehuid` ,`kehumc` ,`danjubh` ,`shifouzp` ,`cangkumc` ,`cangkuid` ,`wuliaofzid` ,`wuliaofzmc` ,`wuliaobm` ,`wuliaomc` ,shifasl,`hanshuidj` ,jiashuihj,`xiaoshoucbj`,
+`zongchengb`,profit,`cost`,purchases) 
 SELECT  `company` ,
 `year` ,
 `month` ,
@@ -22,6 +23,8 @@ SELECT  `company` ,
 -`shifasl` shifasl,
 `hanshuidj` ,
 -`jiashuihj` jiashuihj,
+`xiaoshoucbj`,
+-`zongchengb`,
 -`profit` profit,
 `cost`,
 -`purchases` purchases
@@ -50,6 +53,8 @@ SELECT  `company` ,
 `shifasl` ,
 `hanshuidj` ,
 `jiashuihj` ,
+`xiaoshoucbj`,
+`zongchengb`,
 `profit` ,
 `cost` ,
 `purchases`
@@ -58,4 +63,3 @@ where riqi>=DATE_FORMAT(DATE_SUB(NOW(), INTERVAL 63 DAY), '%Y-%m-01')
 ;
                                         
                                         
-                         

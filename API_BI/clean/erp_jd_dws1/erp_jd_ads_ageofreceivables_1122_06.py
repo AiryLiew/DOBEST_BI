@@ -123,7 +123,7 @@ def surplus(df_mx):
 
 df_mx1 = surplus(df_mx)
 
-
+df_mx1['日期'] = df_mx1['日期'].map(lambda x :x.split(' ')[0])
 df_mx1['日期'] = pd.to_datetime(df_mx1['日期'],format='%Y-%m-%d')
 df_mx1['账龄'] = datetime.now()-df_mx1['日期']
 df_mx1['账龄'] = df_mx1['账龄'].map(lambda x:int(str(x).split(' ')[0]) if str(x) != 'NaT' else x)

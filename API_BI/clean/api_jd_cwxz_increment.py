@@ -22,7 +22,8 @@ company = { "杭州游卡文化创意有限公司":'wc',
             "杭州迷思文化创意有限公司":'ms',
             "上海卡卡丫文化传播有限公司":'kyk',
             "上海卡哟卡网络技术有限公司":'kyok',
-            "杭州游卡文化创意有限公司拱墅区分公司":'wc01'
+            "杭州游卡文化创意有限公司拱墅区分公司":'wc01',
+            "杭州卡卡丫文化创意有限公司":'kky_hz'
 }
 
 # 增量接口
@@ -104,7 +105,7 @@ for n,m in dict_onceback.items():
 
 dict_s1_funcB = {"http://10.225.137.124:7772/ZyyxDSS/GetTGLVOUCHERENTRY":      'erp_jd_ods_dim_voucherentry_cwzx',
                  "http://10.225.137.124:7772/ZyyxDSS/GetTGLBALANCE":           'erp_jd_ods_dim_balance_cwzx',
-                 "http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE":       'erp_jd_ods_dim_ths_inivbalance_cwzx',
+                #  "http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE":       'erp_jd_ods_dim_ths_inivbalance_cwzx',
                  "http://10.225.137.124:7772/ZyyxDSS/GetTHSBALANCE":           'erp_jd_ods_dim_ths_balance_cwzx',
                  "http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVSTOCKDIMENSION":'erp_jd_ods_dim_ths_inivstockdimension_cwzx'
 }
@@ -135,7 +136,7 @@ dict_func = {   "http://10.225.137.124:7772/ZyyxDSS/GetKeHu":      'erp_jd_ods_f
 
 for n,m in dict_func.items():  
     print(m) 
-    func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
+    func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx',m+'_kky_hz_cwzx')
 
 
 
@@ -157,7 +158,7 @@ for n,m in dict_func_wjg.items():
 
 
 
-func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_jd_ods_dim_othersshipping_yc_cwzx',   'erp_jd_ods_dim_othersshipping_ms_cwzx'  ,'erp_jd_ods_dim_othersshipping_kyk_cwzx','erp_jd_ods_dim_othersshipping_kyok_cwzx' ,'erp_jd_ods_dim_othersshipping_wc01_cwzx')
+func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_jd_ods_dim_othersshipping_yc_cwzx',   'erp_jd_ods_dim_othersshipping_ms_cwzx'  ,'erp_jd_ods_dim_othersshipping_kyk_cwzx','erp_jd_ods_dim_othersshipping_kyok_cwzx' ,'erp_jd_ods_dim_othersshipping_wc01_cwzx' ,'erp_jd_ods_dim_othersshipping_kky_hz_cwzx')
 
 # s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetFuKuanSQD",  'erp_jd_ods_dim_prepayment_cwzx')
 
@@ -166,28 +167,15 @@ func_QTCK("财务数据中心",'erp_jd_ods_dim_othersshipping_wc_cwzx',   'erp_j
 # func_sjzx('http://10.225.137.124:7772/ZyyxDSS/GetTBDFLEXITEMPROPERTY',"财务数据中心",'erp_jd_ods_fact_flexitemproperty_cwzx')
 
 
-
-# check
-engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306')) 
-maxdate  = pd.read_sql_query(text('SELECT max(riqi) maxdate FROM erp_jd_ods.erp_jd_ods_dim_saleshipping_wc_cwzx;'), engine.connect())  
-while maxdate['maxdate'].values[0]<datetime.now().date() -timedelta(days=3) :
-    for k, v in company.items():
-        for n, m in dict_a_func.items():  
-            print(m[1]) 
-            a_func(n, k, m[0] + '_' + v + '_cwzx', m[1])
-
-
-maxdate2  = pd.read_sql_query(text('SELECT max(refresh_jk) maxdate FROM erp_jd_ods.erp_jd_ods_dim_ths_inivbalance_cwzx;'), engine.connect())  
-while maxdate2['maxdate'].values[0]<np.datetime64('today') :
-    s1_funcB("http://10.225.137.124:7772/ZyyxDSS/GetTHSINIVBALANCE",'erp_jd_ods_dim_ths_inivbalance_cwzx')
-
-
-
-maxdate1  = pd.read_sql_query(text('SELECT max(refresh_jk) maxdate FROM erp_jd_ods.erp_jd_ods_dim_saleorders_wc_cwzx;'), engine.connect())  
-while maxdate1['maxdate'].values[0]<np.datetime64('today') :
-    for n,m in dict_func.items():  
-        print(m) 
-        func(n,"财务数据中心",m+'_wc_cwzx', m+'_yc_cwzx',m+'_ms_cwzx',m+'_kyk_cwzx' ,m+'_kyok_cwzx',m+'_wc01_cwzx')
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetQiTaRKD",    "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_othersreceiving_kky_hz_cwzx'  )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetPanKuiD",    "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_inventoryloss_kky_hz_cwzx'    )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetPanYingD",   "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_inventoryprofit_kky_hz_cwzx'  )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouRKD",  "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_purchasereceiving_kky_hz_cwzx')
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetCaiGouTLD",  "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_purchasereturn_kky_hz_cwzx'   )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouTHD","杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_salereturn_kky_hz_cwzx'       )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetXiaoShouCKD","杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_saleshipping_kky_hz_cwzx'     )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetZuZhuangCX", "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_assemble_kky_hz_cwzx'         )
+s_funcB("http://10.225.137.124:7772/ZyyxDSS/GetZhiJieDBD",  "杭州卡卡丫文化创意有限公司",'erp_jd_ods_dim_allocation_kky_hz_cwzx'       )
 
 
 engine.dispose()

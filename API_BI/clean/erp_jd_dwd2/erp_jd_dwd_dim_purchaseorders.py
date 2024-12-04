@@ -54,9 +54,14 @@ for i in range(len(df_purchaseOrders)):
     if df_purchaseOrders['chuangjianrmc'][i]!='聂挺' and df_purchaseOrders['danjubh'][i] in list_dj and df_purchaseOrders['wuliaobm'][i] in list_bm:
         df_purchaseOrders.loc[i,'caigousl'] = df_purchaseOrders['leijirksl'][i]
         df_purchaseOrders.loc[i,'jiashuihj'] = df_purchaseOrders['leijirksl'][i]*df_purchaseOrders['hanshuidj'][i]
-    elif df_purchaseOrders['chuangjianrmc'][i] in ['聂挺','张则璐']  and df_purchaseOrders[df_purchaseOrders['danjubh'] == df_purchaseOrders['danjubh'][i]]['danjubh'].count()>1 and df_purchaseOrders[df_purchaseOrders['wuliaobm'] == df_purchaseOrders['wuliaobm'][i]]['wuliaobm'].count()>1 and df_purchaseOrders[df_purchaseOrders['wuliaomc'] == df_purchaseOrders['wuliaomc'][i]]['wuliaomc'].count()>1 and df_purchaseOrders['danjubh'][i] not in list_dj and df_purchaseOrders['wuliaobm'][i] not in list_bm:
+    # elif df_purchaseOrders['chuangjianrmc'][i] in ['聂挺','张则璐']  and df_purchaseOrders[df_purchaseOrders['danjubh'] == df_purchaseOrders['danjubh'][i]]['danjubh'].count()>1 and df_purchaseOrders[df_purchaseOrders['wuliaobm'] == df_purchaseOrders['wuliaobm'][i]]['wuliaobm'].count()>1 and df_purchaseOrders[df_purchaseOrders['wuliaomc'] == df_purchaseOrders['wuliaomc'][i]]['wuliaomc'].count()>1 and df_purchaseOrders['danjubh'][i] not in list_dj and df_purchaseOrders['wuliaobm'][i] not in list_bm:
+    #     df_purchaseOrders.loc[i,'caigousl'] = 0
+    #     df_purchaseOrders.loc[i,'jiashuihj'] = 0
+    elif df_purchaseOrders[(df_purchaseOrders['danjubh'] == df_purchaseOrders['danjubh'][i])&(df_purchaseOrders['wuliaobm'] == df_purchaseOrders['wuliaobm'][i])]['caigousl'].mean()>df_purchaseOrders['caigousl'][i] and df_purchaseOrders['danjubh'][i] not in list_dj and df_purchaseOrders['wuliaobm'][i] not in list_bm:
         df_purchaseOrders.loc[i,'caigousl'] = 0
         df_purchaseOrders.loc[i,'jiashuihj'] = 0
+
+
         
 
 # 自定义函数，增加可与销售匹配的物料名称                                                                             

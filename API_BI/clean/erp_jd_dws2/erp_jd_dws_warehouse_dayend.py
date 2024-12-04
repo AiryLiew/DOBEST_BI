@@ -15,10 +15,22 @@ from key_tab import savesql,getDictKey1,getDict
 engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306')) 
         
 # *****************************************取数据********************************************************#
-df_warehouse  = pd.read_sql_query(text('select * from erp_jd_dws.erp_jd_dws_warehouse;'), engine.connect())  
+df_warehouse  = pd.read_sql_query(text("select * from erp_jd_dws.erp_jd_dws_warehouse where company <> '上海飞之火电竞信息科技有限公司';"), engine.connect())  
 dlzy_inventory = pd.read_sql_query(text('select * from www_bi_ads.dlzy_inventory;'), engine.connect())  
 
-b = pd.read_sql_query(text('select wlmc_all wuliaomc,riqi , sum(shifasl_new) amount from erp_jd_dwd.erp_jd_dwd_dim_purchasereceiving group by wlmc_all,riqi having sum(shifasl_new)<>0;'), engine.connect())
+b = pd.read_sql_query(text("""select wuliaomc,riqi , sum(shifasl_new) amount 
+                                from (
+                                select wlmc_all wuliaomc,riqi , shifasl_new  from 
+                                erp_jd_dwd.erp_jd_dwd_dim_purchasereceiving 
+
+                                union all 
+                                select  wuliaomc,riqi , shifasl shifasl_new 
+                                from erp_jd_ods.erp_jd_ods_dim_purchasereceiving_wc01_cwzx 
+                                where gongyingsmc in ('杭州游卡文化创意有限公司')
+                                ) a
+                                group by wuliaomc,riqi 
+                                having sum(shifasl_new)<>0;"""), engine.connect())
+
 c = pd.read_sql_query(text("select wuliaomc,riqi,receiving amount from erp_jd_dwd.erp_jd_dwd_dim_beginninginventory;"), engine.connect())
 # 其他入库路径的采购
 df_d = pd.read_sql_query(text("""SELECT  a.wuliaomc,a.riqi,sum(a.shishousl) amount FROM `erp_jd_dwd`.`erp_jd_dwd_dim_othersreceiving` a
@@ -30,7 +42,16 @@ df_d = pd.read_sql_query(text("""SELECT  a.wuliaomc,a.riqi,sum(a.shishousl) amou
                                 SELECT DISTINCT wuliaomc FROM `erp_jd_dwd`.`erp_jd_dwd_dim_beginninginventory`
                                 ) b on a.wuliaomc = b.wuliaomc
                                 where b.wuliaomc is null
-                                GROUP BY a.wuliaomc,a.riqi;"""), engine.connect())
+                                GROUP BY a.wuliaomc,a.riqi
+                                
+                                union all
+
+                                SELECT wuliaomc,rukurq	riqi,	
+                                ifnull(sum(case when shiwulx = '组装' then shuliang end),0)-ifnull(sum(case when shiwulx = '拆卸' then shuliang end),0) amount 
+                                FROM erp_jd_dwd.erp_jd_dwd_dim_assemble
+                                group by wuliaomc
+                                having ifnull(sum(case when shiwulx = '组装' then shuliang end),0)-ifnull(sum(case when shiwulx = '拆卸' then shuliang end),0)>0
+                                ;"""), engine.connect())
 
 
 engine.dispose()

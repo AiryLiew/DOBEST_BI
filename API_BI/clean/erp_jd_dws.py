@@ -4,7 +4,7 @@
 
 import os
 from datetime import datetime
-print("\n","START DWD", datetime.now(),"\n")
+print("\n","START DWS", datetime.now(),"\n")
 
   
 folder_path = r'C:\Users\liujin02\Desktop\BI建设\API_BI\clean\erp_jd_dws1' 
@@ -23,18 +23,18 @@ run(folder_path1)
 
 
 # *****************************************自定义函数路径*************************************************#
-import sys
-sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
+# import sys
+# sys.path.append(r'C:\Users\liujin02\Desktop\BI建设\API_BI\moudle')
 
-import pandas as pd
-from sqlalchemy import create_engine,text
-from datetime import datetime , timedelta
-from key_tab import savesql,getDictKey1,getDict
+# import pandas as pd
+# from sqlalchemy import create_engine,text
+# from datetime import datetime , timedelta
+# from key_tab import savesql,getDictKey1,getDict
 
-print("\n","START DWS", datetime.now(),"\n")
+# print("\n","START DWS", datetime.now(),"\n")
 
-# *****************************************连接mysql、sql server*****************************************#
-engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306'))
+# # *****************************************连接mysql、sql server*****************************************#
+# engine = create_engine("mysql+pymysql://{}:{}@{}:{}".format('root', '123456', 'localhost', '3306'))
 
         
 # *****************************************取数据********************************************************#
